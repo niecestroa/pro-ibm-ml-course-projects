@@ -143,23 +143,5 @@ print(df.info())
 print(df['work_year'].unique())
 print(df['work_year'].isna().sum())
 
-# ---------------------------------------------------------
-# 8. No NaN, NA, or blank Data (EDA not completed yet)
-# ---------------------------------------------------------
-df = df.dropna(subset=['work_year'])
-# View first 10 rows
-print(df.head(10))
-
-# View dataset shape (rows, columns)
-print("\nDataset shape:", df.shape)
-
-# View column names
-print("\nColumns:")
-print(df.columns.tolist())
-
-# View summary of each column
-print("\nInfo:")
-print(df.info())
-
 print(df['work_year'].unique())
 print(df['work_year'].isna().sum())
