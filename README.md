@@ -56,14 +56,12 @@ pro-ibm-ml-course1-3-projects/
 │   └── reports/
 │
 ├── 02_regression/
-│   ├── data/
 │   ├── feature_engineering/
 │   ├── models/
 │   ├── evaluation/
 │   └── pipeline/
 │
 ├── 03_classification/
-│   ├── data/
 │   ├── preprocessing/
 │   ├── models/
 │   ├── evaluation/
