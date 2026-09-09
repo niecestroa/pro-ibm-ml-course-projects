@@ -1,6 +1,11 @@
 # Data Science Job Salaries ML Pipeline (EDA, Regression, Classification)
 Professional machine learning pipelines derived from IBM/Coursera Machine Learning Courses 1–3, rebuilt into modular, reproducible, production‑aligned workflows using Python and R.
 
+## Timeline
+- Started on:     September 10, 2026
+- Last Edited on: September 2026
+- Progress:        On-Going
+
 ---
 
 # **Overview**
