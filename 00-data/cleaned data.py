@@ -119,6 +119,7 @@ print(f"Merged dataset size AFTER deduplication: {df_master.shape}")
 df_master.to_csv("master_data_science_salaries.csv", index=False)
 print("\nSaved merged dataset as master_data_science_salaries.csv")
 
+
 # ---------------------------------------------------------
 # 8. View the completed master dataset
 # ---------------------------------------------------------
@@ -137,9 +138,28 @@ print(df.columns.tolist())
 
 # View summary of each column
 print("\nInfo:")
-print(df.info())import kagglehub
+print(df.info())
 
-# Download latest version
-path = kagglehub.dataset_download("saurabhbadole/latest-data-science-job-salaries-2024")
+print(df['work_year'].unique())
+print(df['work_year'].isna().sum())
 
-print("Path to dataset files:", path)
+# ---------------------------------------------------------
+# 8. No NaN, NA, or blank Data (EDA not completed yet)
+# ---------------------------------------------------------
+df = df.dropna(subset=['work_year'])
+# View first 10 rows
+print(df.head(10))
+
+# View dataset shape (rows, columns)
+print("\nDataset shape:", df.shape)
+
+# View column names
+print("\nColumns:")
+print(df.columns.tolist())
+
+# View summary of each column
+print("\nInfo:")
+print(df.info())
+
+print(df['work_year'].unique())
+print(df['work_year'].isna().sum())
