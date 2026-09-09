@@ -32,7 +32,7 @@ The repo includes multiple datasets, including the **Latest Data Science Job Sal
 # **Dataset: Data Science Job Salaries 2024**
 
 Source: Kaggle  
-[https://www.kaggle.com/datasets/saurabhbadole/latest-data-science-job-salaries-2024/data](https://www.kaggle.com/datasets/saurabhbadole/latest-data-science-job-salaries-2024/data)
+[Latest Data Science Job Salaries 2020 - 2025](https://www.kaggle.com/datasets/saurabhbadole/latest-data-science-job-salaries-2024/data)
 
 This dataset contains **global data science job roles**, salaries, experience levels, employment types, company sizes, and locations. It is used across EDA, regression, and classification pipelines to demonstrate:
 
