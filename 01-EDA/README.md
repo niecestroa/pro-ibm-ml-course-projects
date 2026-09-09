@@ -3,8 +3,7 @@
 This repository contains a structured and reproducible data analysis project built around the **Data Science Salaries 2023** dataset from Kaggle. The goal is to explore compensation trends across the data science profession, uncover meaningful patterns, and visualize how factors such as experience level, job role, company size, location, and remote work influence salary outcomes.
 
 **Dataset Source:**  
-Kaggle — *Data Science Salaries 2023*  
-[https://www.kaggle.com/datasets/arnabchaki/data-science-salaries-2023](https://www.kaggle.com/datasets/arnabchaki/data-science-salaries-2023)
+[Kaggle — Data Science Salaries 2020 to 2025](https://www.kaggle.com/datasets/arnabchaki/data-science-salaries-2023)
 
 # Project Progress
 
