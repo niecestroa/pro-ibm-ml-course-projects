@@ -62,12 +62,12 @@ Duplicate rows across datasets are removed.
 
 ## Final Output
 
-### **File:** `master_data_science_salaries.csv`
+### **File:** 'dss2025_final'
 
-- **Rows:** 53,566  
-- **Columns:** 11  
+- **Rows:** 52941
+- **Columns:** 13  
 - **Years Covered:** **2020, 2021, 2022, 2023, 2024, 2025**  
-- **Missing work_year values:** present (NaN)
+- **Missing values:** None
 
 ### Example unique values for `work_year`:
 
@@ -82,7 +82,7 @@ Duplicate rows across datasets are removed.
 Run:
 
 ```bash
-python cleaned-data.py
+python final_data.py
 ```
 
 Dependencies:
