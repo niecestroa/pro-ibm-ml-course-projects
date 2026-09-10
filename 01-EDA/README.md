@@ -7,8 +7,8 @@ This repository contains a structured and reproducible data analysis project bui
 
 # Project Progress
 
-Created: 2026‑06-29  
-Last Edited: 2026‑07‑20  
+Created: September 9, 2026
+Last Edited: September 2026
 Author: Aaron Niecestro  
 
 ## **Project Objectives**
