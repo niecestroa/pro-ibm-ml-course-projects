@@ -1,26 +1,54 @@
 # Data Science Job Salaries ML Pipeline (EDA, Regression, Classification)
 Professional machine learning pipelines derived from IBM/Coursera Machine Learning Courses 1–3, rebuilt into modular, reproducible, production‑aligned workflows using Python and R.
 
-## Timeline
-- 00 Cleaning Data
-- Started on:     September 9, 2026
-- Last Edited on: September 10, 2026
-- Progress:       Completed
+Here’s a clean, professional **README timeline section** based on your progress so far. It keeps everything structured, clear, and easy for anyone reading your repo to understand where each stage stands.
 
-- 01 Exploratory Data Analysis (EDA) for Regression & Classification
-- Started on:     September 9, 2026
-- Last Edited on: September 10, 2026
-- Progress:       On-Going
+---
 
-- 02 Regression
-- Started on:     September 9, 2026
-- Last Edited on: September 10, 2026
-- Progress:       Not started yet
+## **Project Timeline**
 
-- 03 Classification
-- Started on:     September , 2026
-- Last Edited on: September , 2026
-- Progress:       Not started yet
+### **00 — Cleaning Data**  
+- **Started:** September 9, 2026  
+- **Last Edited:** September 10, 2026  
+- **Progress:** **Completed**  
+- **Notes:** All datasets merged, normalized, deduplicated, and exported.
+
+---
+
+### **01 — Exploratory Data Analysis (EDA)**  
+*(Regression & Classification)*  
+- **Started:** September 9, 2026  
+- **Last Edited:** September 10, 2026  
+- **Progress:** **On‑Going**  
+- **Notes:**  
+  - Numeric + categorical summaries  
+  - Regression Outcome: Salary in USD
+  - Classification Outcome: Salary in USD category creation (mean, median, 3‑band)  
+  - Class imbalance checks  
+  - Leakage detection  
+  - Feature importance & histograms in progress
+
+---
+
+### **02 — Regression Modeling**  
+- **Started:** September 9, 2026  
+- **Last Edited:** September 10, 2026  
+- **Progress:** **Not Started Yet**  
+- **Notes:**  
+  - Planned models: Linear Regression, Random Forest, Gradient Boosting  
+  - Target: `salary_in_usd`  
+  - Numeric predictors: `data_age`, `remote_ratio`, `experience_level_num`, etc.
+
+---
+
+### **03 — Classification Modeling**  
+- **Started:** September __, 2026  
+- **Last Edited:** September __, 2026  
+- **Progress:** **Not Started Yet**  
+- **Notes:**  
+  - Targets: `salary_mean_cat`, `salary_median_cat`, `salary_3cat`  
+  - Will include imbalance handling (SMOTE / class weights)
+
 ---
 
 # **Overview**
