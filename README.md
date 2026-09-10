@@ -2,10 +2,25 @@
 Professional machine learning pipelines derived from IBM/Coursera Machine Learning Courses 1–3, rebuilt into modular, reproducible, production‑aligned workflows using Python and R.
 
 ## Timeline
+- 00 Cleaning Data
 - Started on:     September 9, 2026
-- Last Edited on: September 2026
-- Progress:        On-Going
+- Last Edited on: September 10, 2026
+- Progress:       Completed
 
+- 01 Exploratory Data Analysis (EDA) for Regression & Classification
+- Started on:     September 9, 2026
+- Last Edited on: September 10, 2026
+- Progress:       On-Going
+
+- 02 Regression
+- Started on:     September 9, 2026
+- Last Edited on: September 10, 2026
+- Progress:       Not started yet
+
+- 03 Classification
+- Started on:     September , 2026
+- Last Edited on: September , 2026
+- Progress:       Not started yet
 ---
 
 # **Overview**
