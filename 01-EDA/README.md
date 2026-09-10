@@ -24,12 +24,6 @@ The following datasets were downloaded using `kagglehub`:
 
 ---
 
-# Project Progress
-
-- Created: September 9, 2026
-- Last Edited: September 2026
-- Author: Aaron Niecestro  
-
 ## **Project Objectives**
 
 - Analyze salary distributions across roles and seniority levels  
