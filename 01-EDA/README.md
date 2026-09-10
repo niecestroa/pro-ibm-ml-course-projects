@@ -26,9 +26,9 @@ The following datasets were downloaded using `kagglehub`:
 
 # Project Progress
 
-Created: September 9, 2026
-Last Edited: September 2026
-Author: Aaron Niecestro  
+- Created: September 9, 2026
+- Last Edited: September 2026
+- Author: Aaron Niecestro  
 
 ## **Project Objectives**
 
