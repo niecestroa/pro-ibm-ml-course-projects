@@ -31,8 +31,8 @@ Here’s a clean, professional **README timeline section** based on your progres
 ---
 
 ### **02 — Regression Modeling**  
-- **Started:** September 9, 2026  
-- **Last Edited:** September 10, 2026  
+- **Started:** September __, 2026  
+- **Last Edited:** September __, 2026  
 - **Progress:** **Not Started Yet**  
 - **Notes:**  
   - Planned models: Linear Regression, Random Forest, Gradient Boosting  
