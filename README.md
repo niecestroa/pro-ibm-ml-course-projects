@@ -9,7 +9,7 @@ Here’s a clean, professional **README timeline section** based on your progres
 
 ### **00 — Cleaning Data**  
 - **Started:** September 9, 2026  
-- **Last Edited:** September 10, 2026  
+- **Last Edited:** September 14, 2026  
 - **Progress:** **Completed**  
 - **Notes:** All datasets merged, normalized, deduplicated, and exported.
 
@@ -18,8 +18,8 @@ Here’s a clean, professional **README timeline section** based on your progres
 ### **01 — Exploratory Data Analysis (EDA)**  
 *(Regression & Classification)*  
 - **Started:** September 9, 2026  
-- **Last Edited:** September 10, 2026  
-- **Progress:** **On‑Going**  
+- **Last Edited:** September 14, 2026  
+- **Progress:** **Completed**  
 - **Notes:**  
   - Numeric + categorical summaries  
   - Regression Outcome: Salary in USD
