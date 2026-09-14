@@ -58,8 +58,8 @@ These themes summarize the overarching goals of the regression phase:
 
 # **Supervised Machine Learning Regression Models (Numeric‑Only)**
 
-Since this phase uses **only numeric predictors**, all models below operate without categorical encoding.  
-Categorical variables will be introduced later for classification tasks.
+Since this phase uses **only one numeric predictors**, all models below operate without categorical encoding.  
+Categorical variables will be introduced later for classification tasks in classification folder.
 
 ---
 
@@ -99,15 +99,8 @@ Kernel‑based nonlinear modeling.
 
 ---
 
-## **5. Neural Network Model**
-Deep learning for tabular numeric data.
-
-- **Multi‑Layer Perceptron (MLPRegressor)**
-
----
-
-# 🚀 **Next Steps**
-This repository represents **Phase 1: Numeric‑Only Regression**.  
+# **Next Steps**
+This repository represents **Phase 1: Numeric‑Only Regression Models**.  
 Future phases will include:
 
 - **Categorical feature encoding**  
