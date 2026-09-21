@@ -63,17 +63,23 @@ Categorical variables will be introduced later for classification tasks in class
 
 ---
 
-## **1. Linear & Regularized Models**
+## **1. Linear Models**
 These provide interpretability and establish baseline performance.
 
 - **Linear Regression (OLS)**  
+  
+---
+
+## **2. Regularized Models**
+These provide interpretability and establish baseline performance.
+
 - **Ridge Regression**  
 - **Lasso Regression**  
 - **Elastic Net Regression**
 
 ---
 
-## **2. Polynomial & Interaction Models**
+## **3. Polynomial & Interaction Models**
 Capture nonlinear salary patterns using numeric transformations.
 
 - **Polynomial Regression (degree 2 or 3)**  
@@ -81,7 +87,7 @@ Capture nonlinear salary patterns using numeric transformations.
 
 ---
 
-## **3. Tree‑Based Ensemble Models**
+## **4. Tree‑Based Ensemble Models**
 Model nonlinearities and interactions automatically.
 
 - **Decision Tree Regressor**  
@@ -92,10 +98,15 @@ Model nonlinearities and interactions automatically.
 
 ---
 
-## **4. Support Vector Regression**
+## **5. Support Vector Regression**
 Kernel‑based nonlinear modeling.
 
 - **SVR with RBF kernel**
+
+---
+
+## **6. Model Comparison**
+Comparison of all the "Best" Models from Methods 1-5
 
 ---
 
