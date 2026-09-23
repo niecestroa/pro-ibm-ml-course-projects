@@ -727,6 +727,12 @@ final_model = fit_ols(X_train_final, y_train)
 # =========================================================
 
 X_test_final = final_preprocessor.transform(X_test)
+
+# Convert sparse → dense BEFORE add_constant
+if hasattr(X_test_final, "toarray"):
+    X_test_final = X_test_final.toarray()
+
+# Add intercept
 X_test_final = sm.add_constant(X_test_final)
 
 # =========================================================
@@ -776,7 +782,14 @@ pre_poly = ColumnTransformer(
      ("cat", OneHotEncoder(drop="first", handle_unknown="ignore"), categorical_features)]
 )
 
+# Build matrix
 X_poly = pre_poly.fit_transform(X_train)
+
+# Convert sparse → dense BEFORE add_constant
+if hasattr(X_poly, "toarray"):
+    X_poly = X_poly.toarray()
+
+# Add intercept
 X_poly = sm.add_constant(X_poly)
 
 # =========================================================
@@ -802,6 +815,12 @@ print(final_model.summary())
 # =========================================================
 
 X_test_final = final_preprocessor.transform(X_test)
+
+# Convert sparse → dense BEFORE add_constant
+if hasattr(X_test_final, "toarray"):
+    X_test_final = X_test_final.toarray()
+
+# Add intercept
 X_test_final = sm.add_constant(X_test_final)
 
 # =========================================================
@@ -893,17 +912,8 @@ print("\n===== FINAL MODEL SUMMARY =====")
 print(final_model.summary())
 
 # =========================================================
-# EXPORTS FOR LEADERBOARD (FROM PART 4 ONLY)
+# EXPORTS FOR LEADERBOARD (FROM PART 4 + RMSE/MAE COMPUTED HERE)
 # =========================================================
-
-inter_pred = best_inter_model.predict(df)
-inter_rmse = np.sqrt(np.mean((df["log_salary"] - inter_pred)**2))
-inter_mae = np.mean(np.abs(df["log_salary"] - inter_pred))
-
-pi_pred = best_poly_inter_model.predict(df)
-pi_rmse = np.sqrt(np.mean((df["log_salary"] - pi_pred)**2))
-pi_mae = np.mean(np.abs(df["log_salary"] - pi_pred))
-
 
 # ---------- Polynomial-only ----------
 poly_pred = best_poly_model.predict(df)

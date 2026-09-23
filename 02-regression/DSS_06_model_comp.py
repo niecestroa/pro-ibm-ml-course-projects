@@ -38,21 +38,21 @@ from DSS_01a_linear_reg_log_trans import (
 )
 
 # Polynomial / Interaction Models
-from DSS_02_poly_reg import (
+from DSS_03_poly_reg import (
     best_poly_rmse,
     best_poly_mae,
     best_poly_r2,
     best_poly_adj_r2
 )
 
-from DSS_02_poly_reg import (
+from DSS_03_poly_reg import (
     best_inter_rmse,
     best_inter_mae,
     best_inter_r2,
     best_inter_adj_r2
 )
 
-from DSS_02_poly_reg import (
+from DSS_03_poly_reg import (
     best_poly_inter_rmse,
     best_poly_inter_mae,
     best_poly_inter_r2,
@@ -60,21 +60,21 @@ from DSS_02_poly_reg import (
 )
 
 # Regularization Models
-from DSS_03_ridge_lasso_net import (
+from DSS_02_ridge_lasso_net import (
     best_ridge_rmse,
     best_ridge_mae,
     best_ridge_r2,
     best_ridge_adj_r2
 )
 
-from DSS_03_ridge_lasso_net import (
+from DSS_02_ridge_lasso_net import (
     best_lasso_rmse,
     best_lasso_mae,
     best_lasso_r2,
     best_lasso_adj_r2
 )
 
-from DSS_03_ridge_lasso_net import (
+from DSS_02_ridge_lasso_net import (
     best_elastic_rmse,
     best_elastic_mae,
     best_elastic_r2,
