@@ -4,9 +4,8 @@ Author:     Aaron Niecestro
 Project:    DS Salaries – OLS, Ridge, Lasso, Elastic Net
 
 # Created:    September 17 ,2026
-# Last Edit:  September 21, 2026
-Progress:     Ongoing
-# Author:     Aaron Niecestro
+# Last Edit:  September 23, 2026
+Progress:     Completed
 
 Purpose:
     This script evaluates multiple linear regression models 
@@ -58,7 +57,7 @@ from sklearn.pipeline import Pipeline                                           
 sns.set(style="whitegrid", context="talk")          # set seaborn style
 
 # =========================================================
-# 1. Load Data and Define X, y (same structure as main script)
+# 1. Load Data (USA-only)
 # =========================================================
 
 file_path = r"C:\Users\aniec\Desktop\ibm-ml-project\00-data\kaggle-data\dss2025_final.csv"
@@ -66,242 +65,258 @@ dss2025 = pd.read_csv(file_path)                    # load full dataset
 
 dss2025 = dss2025.query("company_location == 'United States'").copy()  # filter to USA only
 
-# Define response and predictors (same as main script)
-y_resp = dss2025["salary_in_usd"]                   # response variable: salary in USD
+# =========================================================
+# 2. PIPELINE A — FULL PREDICTOR SET (LOG RESPONSE)
+# =========================================================
 
-x_pred = dss2025[                                  # predictor variables
+print("\n=========================================================")
+print("PIPELINE A — FULL PREDICTOR SET (LOG RESPONSE)")
+print("=========================================================\n")
+
+# LOG RESPONSE (updated from raw salary)
+y_full = np.log(dss2025["salary_in_usd"])           # log-transformed salary
+
+# Full predictor set (same as original file)
+X_full = dss2025[
     ['experience_level', 'employment_type', 'job_title',
      'employee_residence', 'remote_ratio',
      'company_location', 'company_size', 'data_age',
      'work_year_cat', 'remote_work_cat', 'job_title_group']
 ]
 
-X = x_pred.copy()                                   # predictor matrix
-y = y_resp.copy()                                   # response vector
-
 # Identify numeric and categorical predictors
-numeric_features = X.select_dtypes(
-    include=["int64", "float64"]
-).columns.tolist()                                  # numeric predictors
+numeric_features_full = X_full.select_dtypes(include=["int64", "float64"]).columns.tolist()
+categorical_features_full = X_full.select_dtypes(include=["object", "category"]).columns.tolist()
 
-categorical_features = X.select_dtypes(
-    include=["object", "category"]
-).columns.tolist()                                  # categorical predictors
-
-# =========================================================
-# 2. Preprocessing (Scaling + One-Hot Encoding)
-# =========================================================
-
-preprocessor = ColumnTransformer(
+# Preprocessing (scaling + encoding)
+preprocessor_full = ColumnTransformer(
     transformers=[
-        ("numeric", StandardScaler(), numeric_features),    # scale numeric predictors
-        ("categorical",
-         OneHotEncoder(handle_unknown="ignore", drop="first"),
-         categorical_features)                              # encode categorical predictors
+        ("numeric", StandardScaler(), numeric_features_full),
+        ("categorical", OneHotEncoder(handle_unknown="ignore", drop="first"),
+         categorical_features_full)
     ]
 )
 
-# Fit preprocessor on full X and transform
-X_transformed = preprocessor.fit_transform(X)       # scaled + encoded predictors
+# Transform full predictor matrix
+X_full_transformed = preprocessor_full.fit_transform(X_full)
 
-# Convert sparse matrix to dense if needed
-if hasattr(X_transformed, "toarray"):               # check if sparse
-    X_transformed = X_transformed.toarray()         # convert to dense
-
-y_array = np.array(y)                               # convert response to numpy array
+# Convert sparse to dense if needed
+if hasattr(X_full_transformed, "toarray"):
+    X_full_transformed = X_full_transformed.toarray()
 
 # Add intercept for OLS
-X_ols = sm.add_constant(X_transformed)              # add intercept column
+X_full_ols = sm.add_constant(X_full_transformed)
 
 # =========================================================
-# 3. Utility: Metrics
+# A.1 Utility: Metrics (LOG SCALE)
 # =========================================================
 
-def compute_metrics(y_true, y_pred):                # computes RMSE, MAE, R²
-    rmse = np.sqrt(mean_squared_error(y_true, y_pred))
-    mae = mean_absolute_error(y_true, y_pred)
-    r2 = r2_score(y_true, y_pred)
+def compute_metrics_log(y_true, y_pred):
+    rmse = np.sqrt(mean_squared_error(y_true, y_pred))   # RMSE in log scale
+    mae = mean_absolute_error(y_true, y_pred)            # MAE in log scale
+    r2 = r2_score(y_true, y_pred)                        # R² in log scale
     return rmse, mae, r2
 
 # =========================================================
-# 4. Fit OLS
+# A.2 Fit OLS (LOG RESPONSE)
 # =========================================================
 
-ols_model = sm.OLS(y_array, X_ols).fit()            # fits OLS model
-ols_pred = ols_model.predict(X_ols)                 # OLS predictions
-ols_rmse, ols_mae, ols_r2 = compute_metrics(y_array, ols_pred)  # OLS metrics
+ols_full = sm.OLS(y_full, X_full_ols).fit()
+ols_full_pred = ols_full.predict(X_full_ols)
+ols_full_rmse, ols_full_mae, ols_full_r2 = compute_metrics_log(y_full, ols_full_pred)
 
 # =========================================================
-# 5. Ridge Regression (CV)
+# A.3 Ridge Regression (LOG RESPONSE)
 # =========================================================
 
-ridge_model = RidgeCV(
-    alphas=np.logspace(-4, 4, 200),                 # grid of alphas
-    cv=10                                           # 10-fold CV
-).fit(X_transformed, y_array)                       # fits Ridge with CV
-
-ridge_pred = ridge_model.predict(X_transformed)     # Ridge predictions
-ridge_rmse, ridge_mae, ridge_r2 = compute_metrics(y_array, ridge_pred)  # Ridge metrics
+ridge_full = RidgeCV(alphas=np.logspace(-4, 4, 200), cv=10).fit(X_full_transformed, y_full)
+ridge_full_pred = ridge_full.predict(X_full_transformed)
+ridge_full_rmse, ridge_full_mae, ridge_full_r2 = compute_metrics_log(y_full, ridge_full_pred)
 
 # =========================================================
-# 6. Lasso Regression (CV)
+# A.4 Lasso Regression (LOG RESPONSE)
 # =========================================================
 
-lasso_model = LassoCV(
-    alphas=np.logspace(-4, 4, 200),                 # grid of alphas
-    cv=10,                                          # 10-fold CV
-    max_iter=5000                                   # max iterations
-).fit(X_transformed, y_array)                       # fits Lasso with CV
-
-lasso_pred = lasso_model.predict(X_transformed)     # Lasso predictions
-lasso_rmse, lasso_mae, lasso_r2 = compute_metrics(y_array, lasso_pred)  # Lasso metrics
-lasso_nonzero = np.sum(lasso_model.coef_ != 0)      # number of non-zero coefficients
+lasso_full = LassoCV(alphas=np.logspace(-4, 4, 200), cv=10, max_iter=5000).fit(X_full_transformed, y_full)
+lasso_full_pred = lasso_full.predict(X_full_transformed)
+lasso_full_rmse, lasso_full_mae, lasso_full_r2 = compute_metrics_log(y_full, lasso_full_pred)
+lasso_full_nonzero = np.sum(lasso_full.coef_ != 0)
 
 # =========================================================
-# 7. Elastic Net (CV)
+# A.5 Elastic Net (LOG RESPONSE)
 # =========================================================
 
-elastic_model = ElasticNetCV(
-    l1_ratio=[0.1, 0.3, 0.5, 0.7, 0.9],             # mix of L1/L2 ratios
-    alphas=np.logspace(-4, 4, 200),                 # grid of alphas
-    cv=10,                                          # 10-fold CV
-    max_iter=5000                                   # max iterations
-).fit(X_transformed, y_array)                       # fits Elastic Net with CV
+elastic_full = ElasticNetCV(
+    l1_ratio=[0.1, 0.3, 0.5, 0.7, 0.9],
+    alphas=np.logspace(-4, 4, 200),
+    cv=10,
+    max_iter=5000
+).fit(X_full_transformed, y_full)
 
-elastic_pred = elastic_model.predict(X_transformed) # Elastic Net predictions
-elastic_rmse, elastic_mae, elastic_r2 = compute_metrics(y_array, elastic_pred)  # Elastic metrics
-elastic_nonzero = np.sum(elastic_model.coef_ != 0)  # number of non-zero coefficients
+elastic_full_pred = elastic_full.predict(X_full_transformed)
+elastic_full_rmse, elastic_full_mae, elastic_full_r2 = compute_metrics_log(y_full, elastic_full_pred)
+elastic_full_nonzero = np.sum(elastic_full.coef_ != 0)
 
 # =========================================================
-# 8. Comparison Table
+# A.6 Comparison Table (FULL PREDICTORS)
 # =========================================================
 
-comparison_df = pd.DataFrame({                      # builds comparison table
+comparison_full = pd.DataFrame({
     "Model": ["OLS", "Ridge", "Lasso", "Elastic Net"],
-    "RMSE": [ols_rmse, ridge_rmse, lasso_rmse, elastic_rmse],
-    "MAE": [ols_mae, ridge_mae, lasso_mae, elastic_mae],
-    "R²": [ols_r2, ridge_r2, lasso_r2, elastic_r2],
+    "RMSE (log)": [ols_full_rmse, ridge_full_rmse, lasso_full_rmse, elastic_full_rmse],
+    "MAE (log)": [ols_full_mae, ridge_full_mae, lasso_full_mae, elastic_full_mae],
+    "R² (log)": [ols_full_r2, ridge_full_r2, lasso_full_r2, elastic_full_r2],
     "Non-zero Coefficients": [
-        np.sum(ols_model.params != 0),              # OLS non-zero params
-        np.sum(ridge_model.coef_ != 0),             # Ridge non-zero coefficients
-        lasso_nonzero,                              # Lasso non-zero coefficients
-        elastic_nonzero                             # Elastic Net non-zero coefficients
+        np.sum(ols_full.params != 0),
+        np.sum(ridge_full.coef_ != 0),
+        lasso_full_nonzero,
+        elastic_full_nonzero
     ]
 })
 
-print("\n===== MODEL COMPARISON TABLE =====")
-print(comparison_df)                                # prints comparison table
+print("\n===== FULL PREDICTOR MODEL COMPARISON (LOG SCALE) =====")
+print(comparison_full)
 
 # =========================================================
-# 9. Visualization Suite
+# 3. PIPELINE B — AIC-SELECTED PREDICTOR SET (LOG RESPONSE)
+# =========================================================
+
+print("\n=========================================================")
+print("PIPELINE B — AIC-SELECTED PREDICTOR SET (LOG RESPONSE)")
+print("=========================================================\n")
+
+# LOG RESPONSE (same as Pipeline A)
+y_aic = np.log(dss2025["salary_in_usd"])
+
+# AIC-selected predictors
+X_aic = dss2025[
+    ['experience_level', 'employment_type', 'job_title',
+     'remote_ratio', 'work_year_cat']
+]
+
+# Identify numeric and categorical predictors
+numeric_features_aic = X_aic.select_dtypes(include=["int64", "float64"]).columns.tolist()
+categorical_features_aic = X_aic.select_dtypes(include=["object", "category"]).columns.tolist()
+
+# Preprocessing (scaling + encoding)
+preprocessor_aic = ColumnTransformer(
+    transformers=[
+        ("numeric", StandardScaler(), numeric_features_aic),
+        ("categorical", OneHotEncoder(handle_unknown="ignore", drop="first"),
+         categorical_features_aic)
+    ]
+)
+
+# Transform AIC predictor matrix
+X_aic_transformed = preprocessor_aic.fit_transform(X_aic)
+
+# Convert sparse to dense if needed
+if hasattr(X_aic_transformed, "toarray"):
+    X_aic_transformed = X_aic_transformed.toarray()
+
+# Add intercept for OLS
+X_aic_ols = sm.add_constant(X_aic_transformed)
+
+# =========================================================
+# B.1 Fit OLS (LOG RESPONSE)
+# =========================================================
+
+ols_aic = sm.OLS(y_aic, X_aic_ols).fit()
+ols_aic_pred = ols_aic.predict(X_aic_ols)
+ols_aic_rmse, ols_aic_mae, ols_aic_r2 = compute_metrics_log(y_aic, ols_aic_pred)
+
+# =========================================================
+# B.2 Ridge Regression (LOG RESPONSE)
+# =========================================================
+
+ridge_aic = RidgeCV(alphas=np.logspace(-4, 4, 200), cv=10).fit(X_aic_transformed, y_aic)
+ridge_aic_pred = ridge_aic.predict(X_aic_transformed)
+ridge_aic_rmse, ridge_aic_mae, ridge_aic_r2 = compute_metrics_log(y_aic, ridge_aic_pred)
+
+# =========================================================
+# B.3 Lasso Regression (LOG RESPONSE)
+# =========================================================
+
+lasso_aic = LassoCV(alphas=np.logspace(-4, 4, 200), cv=10, max_iter=5000).fit(X_aic_transformed, y_aic)
+lasso_aic_pred = lasso_aic.predict(X_aic_transformed)
+lasso_aic_rmse, lasso_aic_mae, lasso_aic_r2 = compute_metrics_log(y_aic, lasso_aic_pred)
+lasso_aic_nonzero = np.sum(lasso_aic.coef_ != 0)
+
+# =========================================================
+# B.4 Elastic Net (LOG RESPONSE)
+# =========================================================
+
+elastic_aic = ElasticNetCV(
+    l1_ratio=[0.1, 0.3, 0.5, 0.7, 0.9],
+    alphas=np.logspace(-4, 4, 200),
+    cv=10,
+    max_iter=5000
+).fit(X_aic_transformed, y_aic)
+
+elastic_aic_pred = elastic_aic.predict(X_aic_transformed)
+elastic_aic_rmse, elastic_aic_mae, elastic_aic_r2 = compute_metrics_log(y_aic, elastic_aic_pred)
+elastic_aic_nonzero = np.sum(elastic_aic.coef_ != 0)
+
+# =========================================================
+# B.5 Comparison Table (AIC PREDICTORS)
+# =========================================================
+
+comparison_aic = pd.DataFrame({
+    "Model": ["OLS", "Ridge", "Lasso", "Elastic Net"],
+    "RMSE (log)": [ols_aic_rmse, ridge_aic_rmse, lasso_aic_rmse, elastic_aic_rmse],
+    "MAE (log)": [ols_aic_mae, ridge_aic_mae, lasso_aic_mae, elastic_aic_mae],
+    "R² (log)": [ols_aic_r2, ridge_aic_r2, lasso_aic_r2, elastic_aic_r2],
+    "Non-zero Coefficients": [
+        np.sum(ols_aic.params != 0),
+        np.sum(ridge_aic.coef_ != 0),
+        lasso_aic_nonzero,
+        elastic_aic_nonzero
+    ]
+})
+
+print("\n===== AIC PREDICTOR MODEL COMPARISON (LOG SCALE) =====")
+print(comparison_aic)
+
+# =========================================================
+# 4. Visualization Suite (FULL + AIC)
 # =========================================================
 
 # ---------------------------------------------------------
-# A. Performance Bar Chart (RMSE)
+# A. RMSE Comparison (Full vs AIC)
 # ---------------------------------------------------------
 
-plt.figure(figsize=(12, 6))                         # figure size
-sns.barplot(
-    data=comparison_df,
-    x="Model",
-    y="RMSE",
-    palette="viridis"
-)                                                   # barplot of RMSE by model
-plt.title("RMSE Comparison Across Models")          # title
-plt.ylabel("RMSE")                                  # y-axis label
-plt.xlabel("Model")                                 # x-axis label
-plt.show()                                          # show plot
+plt.figure(figsize=(12, 6))
+combined_rmse = pd.concat([
+    comparison_full.assign(Predictor_Set="Full"),
+    comparison_aic.assign(Predictor_Set="AIC")
+])
+sns.barplot(data=combined_rmse, x="Model", y="RMSE (log)", hue="Predictor_Set")
+plt.title("RMSE Comparison: Full vs AIC Predictor Sets (Log Scale)")
+plt.show()
 
 # ---------------------------------------------------------
-# B. Coefficient Shrinkage Plot
+# B. Coefficient Shrinkage (Full vs AIC)
 # ---------------------------------------------------------
 
-plt.figure(figsize=(14, 6))                         # figure size
-plt.plot(ridge_model.coef_, label="Ridge", linewidth=2)        # Ridge coefficients
-plt.plot(lasso_model.coef_, label="Lasso", linewidth=2)        # Lasso coefficients
-plt.plot(elastic_model.coef_, label="Elastic Net", linewidth=2)# Elastic Net coefficients
-plt.title("Coefficient Shrinkage: Ridge vs Lasso vs Elastic Net")  # title
-plt.xlabel("Coefficient Index")                     # x-axis label
-plt.ylabel("Coefficient Value")                     # y-axis label
-plt.legend()                                        # legend
-plt.show()                                          # show plot
+plt.figure(figsize=(14, 6))
+plt.plot(ridge_full.coef_, label="Ridge (Full)", linewidth=2)
+plt.plot(ridge_aic.coef_, label="Ridge (AIC)", linewidth=2)
+plt.title("Ridge Coefficient Shrinkage: Full vs AIC Predictors")
+plt.legend()
+plt.show()
 
 # ---------------------------------------------------------
-# C. Regularization Paths (Ridge & Lasso)
+# C. Predicted vs Actual (Full vs AIC)
 # ---------------------------------------------------------
 
-alphas = np.logspace(-4, 4, 50)                     # smaller grid for paths
-
-# Ridge path
-ridge_coefs = []                                    # list to store Ridge coefficients
-for a in alphas:
-    ridge = Ridge(alpha=a).fit(X_transformed, y_array)  # fit Ridge for given alpha
-    ridge_coefs.append(ridge.coef_)                 # store coefficients
-
-ridge_coefs = np.array(ridge_coefs)                 # convert to array
-
-plt.figure(figsize=(14, 6))                         # figure size
-plt.plot(alphas, ridge_coefs)                       # plot coefficients vs alpha
-plt.xscale("log")                                   # log scale for alpha
-plt.title("Ridge Regularization Path")              # title
-plt.xlabel("Alpha")                                 # x-axis label
-plt.ylabel("Coefficient Value")                     # y-axis label
-plt.show()                                          # show plot
-
-# Lasso path
-lasso_coefs = []                                    # list to store Lasso coefficients
-for a in alphas:
-    lasso = Lasso(alpha=a, max_iter=5000).fit(X_transformed, y_array)  # fit Lasso
-    lasso_coefs.append(lasso.coef_)                 # store coefficients
-
-lasso_coefs = np.array(lasso_coefs)                 # convert to array
-
-plt.figure(figsize=(14, 6))                         # figure size
-plt.plot(alphas, lasso_coefs)                       # plot coefficients vs alpha
-plt.xscale("log")                                   # log scale for alpha
-plt.title("Lasso Regularization Path")              # title
-plt.xlabel("Alpha")                                 # x-axis label
-plt.ylabel("Coefficient Value")                     # y-axis label
-plt.show()                                          # show plot
-
-# ---------------------------------------------------------
-# D. Predicted vs Actual (All Models)
-# ---------------------------------------------------------
-
-plt.figure(figsize=(10, 6))                         # figure size
-plt.scatter(y_array, ridge_pred, alpha=0.5, label="Ridge")       # Ridge predicted vs actual
-plt.scatter(y_array, lasso_pred, alpha=0.5, label="Lasso")       # Lasso predicted vs actual
-plt.scatter(y_array, elastic_pred, alpha=0.5, label="Elastic Net")  # Elastic Net predicted vs actual
-plt.scatter(y_array, ols_pred, alpha=0.5, label="OLS")           # OLS predicted vs actual
-plt.plot([y_array.min(), y_array.max()],
-         [y_array.min(), y_array.max()],
-         "k--", linewidth=2)                       # 45-degree perfect line
-plt.title("Predicted vs Actual (All Models)")      # title
-plt.xlabel("Actual")                               # x-axis label
-plt.ylabel("Predicted")                            # y-axis label
-plt.legend()                                       # legend
-plt.show()                                          # show plot
-
-# ---------------------------------------------------------
-# E. Residual Plots (All Models)
-# ---------------------------------------------------------
-
-models = {
-    "OLS": ols_pred,
-    "Ridge": ridge_pred,
-    "Lasso": lasso_pred,
-    "Elastic Net": elastic_pred
-}                                                  # dictionary of model predictions
-
-plt.figure(figsize=(14, 8))                        # figure size
-for i, (name, pred) in enumerate(models.items(), 1):
-    residuals = y_array - pred                     # residuals for model
-    plt.subplot(2, 2, i)                           # subplot grid
-    sns.scatterplot(x=pred, y=residuals, alpha=0.5)  # residuals vs predicted
-    plt.axhline(0, color="red", linestyle="--")    # zero line
-    plt.title(f"{name} Residual Plot")             # subplot title
-    plt.xlabel("Predicted")                        # x-axis label
-    plt.ylabel("Residuals")                        # y-axis label
-
-plt.tight_layout()                                 # adjust layout
-plt.show()                                         # show all residual plots
+plt.figure(figsize=(10, 6))
+plt.scatter(y_full, ridge_full_pred, alpha=0.5, label="Ridge (Full)")
+plt.scatter(y_aic, ridge_aic_pred, alpha=0.5, label="Ridge (AIC)")
+plt.plot([y_full.min(), y_full.max()],
+         [y_full.min(), y_full.max()],
+         "k--", linewidth=2)
+plt.title("Predicted vs Actual (Log Salary): Full vs AIC")
+plt.xlabel("Actual log(salary)")
+plt.ylabel("Predicted log(salary)")
+plt.legend()
+plt.show()

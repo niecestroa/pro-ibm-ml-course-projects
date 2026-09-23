@@ -5,7 +5,7 @@
 Author:     Aaron Niecestro
 Project:    DS Salaries – Production-Ready EDA for Regression Models
 
-Created:    September 17 ,2026
+Created:    September 22 ,2026
 Last Edit:  September 23, 2026
 Progress:   Completed
 
@@ -133,23 +133,21 @@ print("\n----- CATEGORICAL SUMMARY -----")
 print(dss2025.describe(include=["category", "object"]))    # categorical-only summary
 
 # =========================================================
-# 6. Define Response and Predictor Variables
+# 6. Define Response and Predictor Variables (LOG RESPONSE)
 # =========================================================
 
-y_resp = dss2025["salary_in_usd"]                          # selects salary as response variable
+y_resp = dss2025["salary_in_usd"]                          # original salary in USD
+log_y_resp = np.log(y_resp)                                # log-transformed salary
 
-x_pred = dss2025[                                          # selects predictor variables
-    ['experience_level', 'employment_type', 'job_title',
-     'employee_residence', 'remote_ratio',
-     'company_location', 'company_size', 'data_age',
-     'work_year_cat', 'remote_work_cat', 'job_title_group']
-]
+x_pred = dss2025[[
+    'experience_level', 'employment_type', 'job_title',
+    'employee_residence', 'remote_ratio',
+    'company_location', 'company_size', 'data_age',
+    'work_year_cat', 'remote_work_cat', 'job_title_group'
+]]                                          # same predictors as before
 
-print("----- TARGET VARIABLE (y_resp) -----")
-print(y_resp.head())                                       # prints first few values of response
-
-print("\n----- PREDICTOR VARIABLES (x_pred) -----")
-print(x_pred.head())                                       # prints first few rows of predictors
+print("----- TARGET VARIABLE (log(y_resp)) -----")
+print(y_resp.head())                             # show first few log-salary values
 
 # =========================================================
 # 7. Check Missing Values
@@ -176,15 +174,15 @@ plt.ylabel("Count")                                         # y-axis label
 plt.show()                                                  # displays plot
 
 # =========================================================
-# 9. Create X and y (using your chosen predictors/response)
+# 9. Create X and y (LOG RESPONSE)
 # =========================================================
 
-X = x_pred.copy()                                           # predictor matrix
-y = y_resp.copy()                                           # response vector
+X = x_pred.copy()                                          # predictor matrix
+y = y_resp.copy()                                          # original salary response
 
 print("\n----- X AND y SHAPES -----")
-print(f"X shape: {X.shape}")                                # prints shape of X
-print(f"y shape: {y.shape}")                                # prints shape of y
+print(f"X shape: {X.shape}")
+print(f"y shape: {y.shape}")
 
 # =========================================================
 # 10. Identify Numeric and Categorical Predictors
@@ -243,32 +241,38 @@ linear_regression = Pipeline(
 )
 
 # =========================================================
-# 14. Fit Model
+# 14. Fit Model (LOG-LINEAR REGRESSION)
 # =========================================================
 
-linear_regression.fit(X_train, y_train)                    # trains model on training data
+linear_regression.fit(X_train, y_train)            # fit pipeline using log-salary
 
-print("\n----- MODEL FITTED -----")
-print("Linear regression model successfully fitted.")       # confirms model training
-
-# =========================================================
-# 15. Predict on Test Data
-# =========================================================
-
-y_pred = linear_regression.predict(X_test)                 # predicts salary on test set
+print("\n----- MODEL FITTED (LOG RESPONSE) -----")
+print("Log-linear regression model successfully fitted.")  # confirmation
 
 # =========================================================
-# 16. Model Evaluation
+# 15. Predict on Test Data (LOG SCALE)
 # =========================================================
 
-r2 = r2_score(y_test, y_pred)                              # computes R² score
-rmse = np.sqrt(mean_squared_error(y_test, y_pred))         # computes RMSE
-mae = mean_absolute_error(y_test, y_pred)                  # computes MAE
+y_pred_log = linear_regression.predict(X_test)          # predictions in log(salary)
 
-print("\n----- LINEAR REGRESSION RESULTS -----")
-print(f"R²:   {r2:.4f}")                                   # prints R²
-print(f"RMSE: ${rmse:,.2f}")                               # prints RMSE
-print(f"MAE:  ${mae:,.2f}")                                # prints MAE
+# OPTIONAL: back-transform only for inspection (with clipping to avoid overflow)
+y_pred = np.exp(np.clip(y_pred_log, a_min=None, a_max=20))  # cap log-salary at 20 (~$4.85e8)
+
+# =========================================================
+# 16. Model Evaluation (BACK-TRANSFORMED)
+# =========================================================
+
+log_y_test = np.log(y_test)                             # log-transform true salaries
+
+r2 = r2_score(log_y_test, y_pred_log)                   # R² on log scale
+rmse = np.sqrt(mean_squared_error(log_y_test, y_pred_log))  # RMSE on log scale
+mae = mean_absolute_error(log_y_test, y_pred_log)       # MAE on log scale
+
+print("\n----- LOG-LINEAR REGRESSION RESULTS (LOG SCALE) -----")
+print("\n----- LOG-LINEAR REGRESSION RESULTS -----")
+print(f"R^2:   {r2:.4f}")                          # print R²
+print(f"RMSE: ${rmse:,.2f}")                       # print RMSE
+print(f"MAE:  ${mae:,.2f}")                        # print MAE
 
 # =========================================================
 # 17. Actual vs Predicted Salary Plot
@@ -293,13 +297,13 @@ plt.legend()                                                  # shows legend
 plt.show()                                                    # displays plot
 
 # =========================================================
-# 18. Residuals
+# 18. Residuals (LOG MODEL)
 # =========================================================
 
-residuals = y_test - y_pred                                   # computes residuals (actual - predicted)
+residuals = y_test - y_pred                        # residuals in original salary scale
 
-print("\n----- RESIDUAL SUMMARY -----")
-print(pd.Series(residuals).describe())                        # prints summary statistics of residuals
+print("\n----- RESIDUAL SUMMARY (LOG MODEL) -----")
+print(pd.Series(residuals).describe())             # summary of residuals
 
 # =========================================================
 # 19. Linearity Check (Residuals vs Predicted)
@@ -335,72 +339,65 @@ plt.ylabel("Residuals")                                       # y-axis label
 plt.show()                                                    # displays plot
 
 # =========================================================
-# 21. Breusch-Pagan Test for Heteroscedasticity
+# 21. Breusch-Pagan Test (LOG MODEL, LOG-SCALE RESIDUALS)
 # =========================================================
 
-import statsmodels.api as sm                                   # statsmodels for BP test
-from statsmodels.stats.diagnostic import het_breuschpagan      # BP test function
+# Transform predictors using preprocessing
+X_test_transformed = linear_regression.named_steps["preprocessor"].transform(X_test)
 
-print("\n----- BREUSCH-PAGAN TEST -----")
+# Convert sparse to dense if needed
+if hasattr(X_test_transformed, "toarray"):
+    X_test_transformed = X_test_transformed.toarray()
 
-# Transform test predictors using the fitted preprocessing pipeline
-X_test_transformed = linear_regression.named_steps["preprocessor"].transform(X_test)  
-# applies scaling + one-hot encoding to X_test
+# Add intercept
+X_test_bp = sm.add_constant(X_test_transformed)
 
-# Convert sparse matrix to dense if needed
-if hasattr(X_test_transformed, "toarray"):                     # checks if sparse matrix
-    X_test_transformed = X_test_transformed.toarray()          # converts to dense array
+# Compute LOG-SCALE residuals (correct for log-linear model)
+log_y_test = np.log(y_test)                 # true log-salary
+residuals_log = log_y_test - y_pred_log     # residuals in log space
 
-# Add intercept column for BP test
-X_test_bp = sm.add_constant(X_test_transformed)                # adds intercept term
+# Convert to numpy array
+residuals_bp = np.array(residuals_log)
 
-# Ensure residuals are a 1-D numpy array
-residuals_bp = np.array(residuals)                             # converts residuals to numpy array
+# Run Breusch-Pagan test on LOG residuals
+bp_test = het_breuschpagan(residuals_bp, X_test_bp)
 
-# Run Breusch-Pagan test
-bp_test = het_breuschpagan(residuals_bp, X_test_bp)            # performs BP test
+# Label results
+bp_results = pd.Series(bp_test, index=[
+    "LM Statistic", "LM-Test p-value", "F Statistic", "F-Test p-value"
+])
 
-# Store results with readable labels
-bp_labels = [
-    "LM Statistic",                                            # Lagrange Multiplier statistic
-    "LM-Test p-value",                                         # p-value for LM test
-    "F Statistic",                                             # F-statistic
-    "F-Test p-value"                                           # p-value for F-test
-]
+print("\n----- BREUSCH-PAGAN TEST (LOG MODEL, LOG SCALE) -----")
+print(bp_results)
 
-bp_results = pd.Series(bp_test, index=bp_labels)               # creates labeled series
-
-print(bp_results)                                              # prints BP test results
-
-# Your linear regression violates the homoskedasticity assumption.
 
 # =========================================================
-# 22. Prepare Data for AIC/BIC Model Selection
+# 22. Prepare Data for AIC/BIC Model Selection (LOG RESPONSE)
 # =========================================================
-
-import statsmodels.api as sm                                  # statsmodels for OLS
-import numpy as np                                            # numerical operations
 
 # Transform full predictor matrix using fitted preprocessing
-X_transformed = linear_regression.named_steps["preprocessor"].fit_transform(X)  
-# applies scaling + encoding to full X
+X_transformed = linear_regression.named_steps["preprocessor"].fit_transform(X)
 
 # Convert sparse matrix to dense if needed
-if hasattr(X_transformed, "toarray"):                         # checks if sparse
-    X_transformed = X_transformed.toarray()                   # converts to dense
+if hasattr(X_transformed, "toarray"):
+    X_transformed = X_transformed.toarray()
 
 # Add intercept column
-X_transformed = sm.add_constant(X_transformed)                # adds intercept for OLS
+X_transformed = sm.add_constant(X_transformed)
 
-# Convert y to numpy array
-y_array = np.array(y)                                         # converts response to numpy
+# Use LOG-TRANSFORMED response for AIC/BIC
+y_array = np.array(log_y_resp)        # <-- FIXED: must use log response
 
 # =========================================================
-# 23. Utility Function: Fit OLS Model
+# 23. Utility Function: Fit OLS Model (LOG RESPONSE)
 # =========================================================
 
-def fit_ols(Xmat, yvec):                                      # defines OLS fitting function
-    return sm.OLS(yvec, Xmat).fit()                           # fits OLS model and returns results
+def fit_ols(Xmat, yvec):
+    """
+    Fits an OLS model using statsmodels on a numeric matrix.
+    Used ONLY for the final reduced predictor matrix.
+    """
+    return sm.OLS(yvec, Xmat).fit()
 
 # =========================================================
 # 24. Stepwise Selection (AIC/BIC) — R-style
@@ -472,26 +469,45 @@ def stepAIC(formula, data, direction="both", criterion="AIC"):
     return best_model
 
 # =========================================================
-# FINAL NON-LOG MODEL (AIC-selected predictors)
+# Run stepAIC on LOG-LINEAR MODEL
 # =========================================================
 
-final_lm = """
-salary_in_usd ~ experience_level + employment_type + job_title +
+formula_log = """
+np.log(salary_in_usd) ~ experience_level + employment_type + job_title +
+employee_residence + remote_ratio + company_location + company_size +
+data_age + work_year_cat + remote_work_cat + job_title_group
+"""
+
+best_log = stepAIC(formula_log, dss2025, direction="both", criterion="AIC")
+
+print(best_log.summary())
+print("AIC:", best_log.aic)
+print("BIC:", best_log.bic)
+
+# =========================================================
+# 25. Fit Final Model (LOG RESPONSE) — Matrix Version
+# =========================================================
+
+# =========================================================
+# 25.1. Fit Final Log-Linear Model
+# =========================================================
+
+final_lm_log = """
+np.log(salary_in_usd) ~ experience_level + employment_type + job_title +
 remote_ratio + work_year_cat
 """
 
-final_model = smf.ols(final_lm, data=dss2025).fit()
+final_model = smf.ols(final_lm_log, data=dss2025).fit()
 print(final_model.summary())
 
 # =========================================================
-# FINAL MODEL CHECKS (NON-LOG RESPONSE)
+# 25.2. Basic Metrics: R², Adjusted R², RMSE, MAE, MAPE
 # =========================================================
 
-y_true = dss2025["salary_in_usd"]
+y_true = np.log(dss2025["salary_in_usd"])
 y_pred = final_model.fittedvalues
 residuals = final_model.resid
 
-# --- Performance Metrics ---
 r2 = final_model.rsquared
 adj_r2 = final_model.rsquared_adj
 rmse = np.sqrt(np.mean((y_true - y_pred)**2))
@@ -505,26 +521,39 @@ print("RMSE:", rmse)
 print("MAE:", mae)
 print("MAPE (%):", mape)
 
-# --- Constant Variance (Breusch-Pagan) ---
+# =========================================================
+# 25.3. Constant Variance (Breusch-Pagan Test)
+# =========================================================
+
 bp_stat, bp_pvalue, _, _ = het_breuschpagan(residuals, final_model.model.exog)
 print("\n=== BREUSCH-PAGAN TEST ===")
 print("BP p-value:", bp_pvalue)
 
-# --- Multicollinearity (VIF) ---
+# =========================================================
+# 25.4. Multicollinearity (VIF)
+# =========================================================
+
 X = final_model.model.exog
 vif_df = pd.DataFrame({
     "variable": final_model.model.exog_names,
     "VIF": [variance_inflation_factor(X, i) for i in range(X.shape[1])]
 })
+
 print("\n=== VARIANCE INFLATION FACTORS (VIF) ===")
 print(vif_df)
 
-# --- Normality (QQ Plot) ---
+# =========================================================
+# 25.5. Normality of Residuals (QQ Plot)
+# =========================================================
+
 sm.qqplot(residuals, line='45')
 plt.title("QQ Plot of Residuals")
 plt.show()
 
-# --- Linearity (Residuals vs Fitted) ---
+# =========================================================
+# 6. Linearity Check (Residuals vs Fitted)
+# =========================================================
+
 plt.scatter(y_pred, residuals, alpha=0.3)
 plt.axhline(0, color='red')
 plt.xlabel("Fitted Values")
@@ -532,10 +561,14 @@ plt.ylabel("Residuals")
 plt.title("Residuals vs Fitted")
 plt.show()
 
-# --- Influential Points (Cook's Distance) ---
+# =========================================================
+# 25.7. Influential Points (Cook's Distance)
+# =========================================================
+
 influence = final_model.get_influence()
 cooks = influence.cooks_distance[0]
 
 plt.stem(cooks, markerfmt=",")
 plt.title("Cook's Distance")
 plt.show()
+
