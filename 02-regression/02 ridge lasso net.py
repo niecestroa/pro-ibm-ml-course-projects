@@ -38,45 +38,36 @@ Usage:
 """
 
 # =========================================================
-# Regularization Model Comparison + Visualization Suite
+# Imports
 # =========================================================
 
-import numpy as np                                  # numerical operations
-import pandas as pd                                 # data handling
-import matplotlib.pyplot as plt                     # plotting
-import seaborn as sns                               # visualization
-import statsmodels.api as sm                        # OLS and statistical tools
+import numpy as np                      # numerical operations
+import pandas as pd                     # data handling
+import matplotlib.pyplot as plt         # plotting
+import seaborn as sns                   # visualization
+import statsmodels.api as sm            # OLS model
 
-from sklearn.linear_model import Ridge, RidgeCV, Lasso, LassoCV, ElasticNetCV  # regularization models
-from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score   # evaluation metrics
-from sklearn.model_selection import train_test_split                            # train/test split
-from sklearn.preprocessing import StandardScaler, OneHotEncoder                 # scaling + encoding
-from sklearn.compose import ColumnTransformer                                   # preprocessing transformer
-from sklearn.pipeline import Pipeline                                           # pipeline
+from sklearn.linear_model import RidgeCV, LassoCV, ElasticNetCV   # regularization models
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.compose import ColumnTransformer
 
-sns.set(style="whitegrid", context="talk")          # set seaborn style
+sns.set(style="whitegrid", context="talk")  # seaborn style
 
 # =========================================================
-# 1. Load Data (USA-only)
+# Load USA-only dataset
 # =========================================================
 
 file_path = r"C:\Users\aniec\Desktop\ibm-ml-project\00-data\kaggle-data\dss2025_final.csv"
-dss2025 = pd.read_csv(file_path)                    # load full dataset
-
-dss2025 = dss2025.query("company_location == 'United States'").copy()  # filter to USA only
+dss2025 = pd.read_csv(file_path)
+dss2025 = dss2025.query("company_location == 'United States'").copy()
 
 # =========================================================
-# 2. PIPELINE A — FULL PREDICTOR SET (LOG RESPONSE)
+# Predictor sets
 # =========================================================
 
-print("\n=========================================================")
-print("PIPELINE A — FULL PREDICTOR SET (LOG RESPONSE)")
-print("=========================================================\n")
+y_full = np.log(dss2025["salary_in_usd"])  # log salary response
 
-# LOG RESPONSE (updated from raw salary)
-y_full = np.log(dss2025["salary_in_usd"])           # log-transformed salary
-
-# Full predictor set (same as original file)
 X_full = dss2025[
     ['experience_level', 'employment_type', 'job_title',
      'employee_residence', 'remote_ratio',
@@ -84,239 +75,143 @@ X_full = dss2025[
      'work_year_cat', 'remote_work_cat', 'job_title_group']
 ]
 
-# Identify numeric and categorical predictors
-numeric_features_full = X_full.select_dtypes(include=["int64", "float64"]).columns.tolist()
-categorical_features_full = X_full.select_dtypes(include=["object", "category"]).columns.tolist()
+X_aic = dss2025[
+    ['experience_level', 'employment_type', 'job_title',
+     'remote_ratio', 'work_year_cat']
+]
 
-# Preprocessing (scaling + encoding)
-preprocessor_full = ColumnTransformer(
-    transformers=[
-        ("numeric", StandardScaler(), numeric_features_full),
-        ("categorical", OneHotEncoder(handle_unknown="ignore", drop="first"),
-         categorical_features_full)
-    ]
-)
-
-# Transform full predictor matrix
-X_full_transformed = preprocessor_full.fit_transform(X_full)
-
-# Convert sparse to dense if needed
-if hasattr(X_full_transformed, "toarray"):
-    X_full_transformed = X_full_transformed.toarray()
-
-# Add intercept for OLS
-X_full_ols = sm.add_constant(X_full_transformed)
+y_aic = np.log(dss2025["salary_in_usd"])  # same log response
 
 # =========================================================
-# A.1 Utility: Metrics (LOG SCALE)
+# Identify numeric + categorical predictors
 # =========================================================
 
-def compute_metrics_log(y_true, y_pred):
-    rmse = np.sqrt(mean_squared_error(y_true, y_pred))   # RMSE in log scale
-    mae = mean_absolute_error(y_true, y_pred)            # MAE in log scale
-    r2 = r2_score(y_true, y_pred)                        # R² in log scale
-    return rmse, mae, r2
+numeric_full = X_full.select_dtypes(include=["int64", "float64"]).columns.tolist()
+categorical_full = X_full.select_dtypes(include=["object", "category"]).columns.tolist()
+
+numeric_aic = X_aic.select_dtypes(include=["int64", "float64"]).columns.tolist()
+categorical_aic = X_aic.select_dtypes(include=["object", "category"]).columns.tolist()
 
 # =========================================================
-# A.2 Fit OLS (LOG RESPONSE)
+# Preprocessing (scaling + one-hot encoding)
 # =========================================================
+
+pre_full = ColumnTransformer([
+    ("num", StandardScaler(), numeric_full),
+    ("cat", OneHotEncoder(handle_unknown="ignore", drop="first"), categorical_full)
+])
+
+pre_aic = ColumnTransformer([
+    ("num", StandardScaler(), numeric_aic),
+    ("cat", OneHotEncoder(handle_unknown="ignore", drop="first"), categorical_aic)
+])
+
+# =========================================================
+# Transform predictor matrices
+# =========================================================
+
+X_full_t = pre_full.fit_transform(X_full)
+X_aic_t = pre_aic.fit_transform(X_aic)
+
+X_full_t = X_full_t.toarray() if hasattr(X_full_t, "toarray") else X_full_t
+X_aic_t = X_aic_t.toarray() if hasattr(X_aic_t, "toarray") else X_aic_t
+
+X_full_ols = sm.add_constant(X_full_t)  # add intercept
+X_aic_ols = sm.add_constant(X_aic_t)
+
+# =========================================================
+# Metric function (RMSE, MAE, R², Adjusted R²)
+# =========================================================
+
+def compute_metrics_log(y_true, y_pred, p):
+    rmse = np.sqrt(mean_squared_error(y_true, y_pred))      # RMSE
+    mae = mean_absolute_error(y_true, y_pred)               # MAE
+    r2 = r2_score(y_true, y_pred)                           # R²
+    n = len(y_true)                                         # sample size
+    adj_r2 = 1 - ((1 - r2) * (n - 1) / (n - p - 1))          # Adjusted R²
+    return rmse, mae, r2, adj_r2
+
+# =========================================================
+# FULL predictor set — Fit models
+# =========================================================
+
+p_full = X_full_t.shape[1]  # number of predictors
 
 ols_full = sm.OLS(y_full, X_full_ols).fit()
 ols_full_pred = ols_full.predict(X_full_ols)
-ols_full_rmse, ols_full_mae, ols_full_r2 = compute_metrics_log(y_full, ols_full_pred)
+ols_full_rmse, ols_full_mae, ols_full_r2, ols_full_adj_r2 = compute_metrics_log(y_full, ols_full_pred, p_full)
 
-# =========================================================
-# A.3 Ridge Regression (LOG RESPONSE)
-# =========================================================
+ridge_full = RidgeCV(alphas=np.logspace(-4, 4, 200), cv=10).fit(X_full_t, y_full)
+ridge_full_pred = ridge_full.predict(X_full_t)
+ridge_full_rmse, ridge_full_mae, ridge_full_r2, ridge_full_adj_r2 = compute_metrics_log(y_full, ridge_full_pred, p_full)
 
-ridge_full = RidgeCV(alphas=np.logspace(-4, 4, 200), cv=10).fit(X_full_transformed, y_full)
-ridge_full_pred = ridge_full.predict(X_full_transformed)
-ridge_full_rmse, ridge_full_mae, ridge_full_r2 = compute_metrics_log(y_full, ridge_full_pred)
-
-# =========================================================
-# A.4 Lasso Regression (LOG RESPONSE)
-# =========================================================
-
-lasso_full = LassoCV(alphas=np.logspace(-4, 4, 200), cv=10, max_iter=5000).fit(X_full_transformed, y_full)
-lasso_full_pred = lasso_full.predict(X_full_transformed)
-lasso_full_rmse, lasso_full_mae, lasso_full_r2 = compute_metrics_log(y_full, lasso_full_pred)
-lasso_full_nonzero = np.sum(lasso_full.coef_ != 0)
-
-# =========================================================
-# A.5 Elastic Net (LOG RESPONSE)
-# =========================================================
+lasso_full = LassoCV(alphas=np.logspace(-4, 4, 200), cv=10, max_iter=5000).fit(X_full_t, y_full)
+lasso_full_pred = lasso_full.predict(X_full_t)
+lasso_full_rmse, lasso_full_mae, lasso_full_r2, lasso_full_adj_r2 = compute_metrics_log(y_full, lasso_full_pred, p_full)
 
 elastic_full = ElasticNetCV(
     l1_ratio=[0.1, 0.3, 0.5, 0.7, 0.9],
     alphas=np.logspace(-4, 4, 200),
     cv=10,
     max_iter=5000
-).fit(X_full_transformed, y_full)
-
-elastic_full_pred = elastic_full.predict(X_full_transformed)
-elastic_full_rmse, elastic_full_mae, elastic_full_r2 = compute_metrics_log(y_full, elastic_full_pred)
-elastic_full_nonzero = np.sum(elastic_full.coef_ != 0)
+).fit(X_full_t, y_full)
+elastic_full_pred = elastic_full.predict(X_full_t)
+elastic_full_rmse, elastic_full_mae, elastic_full_r2, elastic_full_adj_r2 = compute_metrics_log(y_full, elastic_full_pred, p_full)
 
 # =========================================================
-# A.6 Comparison Table (FULL PREDICTORS)
+# AIC predictor set — Fit models
 # =========================================================
 
-comparison_full = pd.DataFrame({
-    "Model": ["OLS", "Ridge", "Lasso", "Elastic Net"],
-    "RMSE (log)": [ols_full_rmse, ridge_full_rmse, lasso_full_rmse, elastic_full_rmse],
-    "MAE (log)": [ols_full_mae, ridge_full_mae, lasso_full_mae, elastic_full_mae],
-    "R² (log)": [ols_full_r2, ridge_full_r2, lasso_full_r2, elastic_full_r2],
-    "Non-zero Coefficients": [
-        np.sum(ols_full.params != 0),
-        np.sum(ridge_full.coef_ != 0),
-        lasso_full_nonzero,
-        elastic_full_nonzero
-    ]
-})
-
-print("\n===== FULL PREDICTOR MODEL COMPARISON (LOG SCALE) =====")
-print(comparison_full)
-
-# =========================================================
-# 3. PIPELINE B — AIC-SELECTED PREDICTOR SET (LOG RESPONSE)
-# =========================================================
-
-print("\n=========================================================")
-print("PIPELINE B — AIC-SELECTED PREDICTOR SET (LOG RESPONSE)")
-print("=========================================================\n")
-
-# LOG RESPONSE (same as Pipeline A)
-y_aic = np.log(dss2025["salary_in_usd"])
-
-# AIC-selected predictors
-X_aic = dss2025[
-    ['experience_level', 'employment_type', 'job_title',
-     'remote_ratio', 'work_year_cat']
-]
-
-# Identify numeric and categorical predictors
-numeric_features_aic = X_aic.select_dtypes(include=["int64", "float64"]).columns.tolist()
-categorical_features_aic = X_aic.select_dtypes(include=["object", "category"]).columns.tolist()
-
-# Preprocessing (scaling + encoding)
-preprocessor_aic = ColumnTransformer(
-    transformers=[
-        ("numeric", StandardScaler(), numeric_features_aic),
-        ("categorical", OneHotEncoder(handle_unknown="ignore", drop="first"),
-         categorical_features_aic)
-    ]
-)
-
-# Transform AIC predictor matrix
-X_aic_transformed = preprocessor_aic.fit_transform(X_aic)
-
-# Convert sparse to dense if needed
-if hasattr(X_aic_transformed, "toarray"):
-    X_aic_transformed = X_aic_transformed.toarray()
-
-# Add intercept for OLS
-X_aic_ols = sm.add_constant(X_aic_transformed)
-
-# =========================================================
-# B.1 Fit OLS (LOG RESPONSE)
-# =========================================================
+p_aic = X_aic_t.shape[1]  # number of predictors
 
 ols_aic = sm.OLS(y_aic, X_aic_ols).fit()
 ols_aic_pred = ols_aic.predict(X_aic_ols)
-ols_aic_rmse, ols_aic_mae, ols_aic_r2 = compute_metrics_log(y_aic, ols_aic_pred)
+ols_aic_rmse, ols_aic_mae, ols_aic_r2, ols_aic_adj_r2 = compute_metrics_log(y_aic, ols_aic_pred, p_aic)
 
-# =========================================================
-# B.2 Ridge Regression (LOG RESPONSE)
-# =========================================================
+ridge_aic = RidgeCV(alphas=np.logspace(-4, 4, 200), cv=10).fit(X_aic_t, y_aic)
+ridge_aic_pred = ridge_aic.predict(X_aic_t)
+ridge_aic_rmse, ridge_aic_mae, ridge_aic_r2, ridge_aic_adj_r2 = compute_metrics_log(y_aic, ridge_aic_pred, p_aic)
 
-ridge_aic = RidgeCV(alphas=np.logspace(-4, 4, 200), cv=10).fit(X_aic_transformed, y_aic)
-ridge_aic_pred = ridge_aic.predict(X_aic_transformed)
-ridge_aic_rmse, ridge_aic_mae, ridge_aic_r2 = compute_metrics_log(y_aic, ridge_aic_pred)
-
-# =========================================================
-# B.3 Lasso Regression (LOG RESPONSE)
-# =========================================================
-
-lasso_aic = LassoCV(alphas=np.logspace(-4, 4, 200), cv=10, max_iter=5000).fit(X_aic_transformed, y_aic)
-lasso_aic_pred = lasso_aic.predict(X_aic_transformed)
-lasso_aic_rmse, lasso_aic_mae, lasso_aic_r2 = compute_metrics_log(y_aic, lasso_aic_pred)
-lasso_aic_nonzero = np.sum(lasso_aic.coef_ != 0)
-
-# =========================================================
-# B.4 Elastic Net (LOG RESPONSE)
-# =========================================================
+lasso_aic = LassoCV(alphas=np.logspace(-4, 4, 200), cv=10, max_iter=5000).fit(X_aic_t, y_aic)
+lasso_aic_pred = lasso_aic.predict(X_aic_t)
+lasso_aic_rmse, lasso_aic_mae, lasso_aic_r2, lasso_aic_adj_r2 = compute_metrics_log(y_aic, lasso_aic_pred, p_aic)
 
 elastic_aic = ElasticNetCV(
     l1_ratio=[0.1, 0.3, 0.5, 0.7, 0.9],
     alphas=np.logspace(-4, 4, 200),
     cv=10,
     max_iter=5000
-).fit(X_aic_transformed, y_aic)
-
-elastic_aic_pred = elastic_aic.predict(X_aic_transformed)
-elastic_aic_rmse, elastic_aic_mae, elastic_aic_r2 = compute_metrics_log(y_aic, elastic_aic_pred)
-elastic_aic_nonzero = np.sum(elastic_aic.coef_ != 0)
+).fit(X_aic_t, y_aic)
+elastic_aic_pred = elastic_aic.predict(X_aic_t)
+elastic_aic_rmse, elastic_aic_mae, elastic_aic_r2, elastic_aic_adj_r2 = compute_metrics_log(y_aic, elastic_aic_pred, p_aic)
 
 # =========================================================
-# B.5 Comparison Table (AIC PREDICTORS)
+# Export best metrics for leaderboard
 # =========================================================
 
-comparison_aic = pd.DataFrame({
-    "Model": ["OLS", "Ridge", "Lasso", "Elastic Net"],
-    "RMSE (log)": [ols_aic_rmse, ridge_aic_rmse, lasso_aic_rmse, elastic_aic_rmse],
-    "MAE (log)": [ols_aic_mae, ridge_aic_mae, lasso_aic_mae, elastic_aic_mae],
-    "R² (log)": [ols_aic_r2, ridge_aic_r2, lasso_aic_r2, elastic_aic_r2],
-    "Non-zero Coefficients": [
-        np.sum(ols_aic.params != 0),
-        np.sum(ridge_aic.coef_ != 0),
-        lasso_aic_nonzero,
-        elastic_aic_nonzero
-    ]
-})
+best_ols_rmse       = ols_full_rmse
+best_ols_mae        = ols_full_mae
+best_ols_r2         = ols_full_r2
+best_ols_adj_r2     = ols_full_adj_r2
 
-print("\n===== AIC PREDICTOR MODEL COMPARISON (LOG SCALE) =====")
-print(comparison_aic)
+best_ridge_rmse     = ridge_full_rmse
+best_ridge_mae      = ridge_full_mae
+best_ridge_r2       = ridge_full_r2
+best_ridge_adj_r2   = ridge_full_adj_r2
 
-# =========================================================
-# 4. Visualization Suite (FULL + AIC)
-# =========================================================
+best_lasso_rmse     = lasso_full_rmse
+best_lasso_mae      = lasso_full_mae
+best_lasso_r2       = lasso_full_r2
+best_lasso_adj_r2   = lasso_full_adj_r2
 
-# ---------------------------------------------------------
-# A. RMSE Comparison (Full vs AIC)
-# ---------------------------------------------------------
+best_elastic_rmse   = elastic_full_rmse
+best_elastic_mae    = elastic_full_mae
+best_elastic_r2     = elastic_full_r2
+best_elastic_adj_r2 = elastic_full_adj_r2
 
-plt.figure(figsize=(12, 6))
-combined_rmse = pd.concat([
-    comparison_full.assign(Predictor_Set="Full"),
-    comparison_aic.assign(Predictor_Set="AIC")
-])
-sns.barplot(data=combined_rmse, x="Model", y="RMSE (log)", hue="Predictor_Set")
-plt.title("RMSE Comparison: Full vs AIC Predictor Sets (Log Scale)")
-plt.show()
-
-# ---------------------------------------------------------
-# B. Coefficient Shrinkage (Full vs AIC)
-# ---------------------------------------------------------
-
-plt.figure(figsize=(14, 6))
-plt.plot(ridge_full.coef_, label="Ridge (Full)", linewidth=2)
-plt.plot(ridge_aic.coef_, label="Ridge (AIC)", linewidth=2)
-plt.title("Ridge Coefficient Shrinkage: Full vs AIC Predictors")
-plt.legend()
-plt.show()
-
-# ---------------------------------------------------------
-# C. Predicted vs Actual (Full vs AIC)
-# ---------------------------------------------------------
-
-plt.figure(figsize=(10, 6))
-plt.scatter(y_full, ridge_full_pred, alpha=0.5, label="Ridge (Full)")
-plt.scatter(y_aic, ridge_aic_pred, alpha=0.5, label="Ridge (AIC)")
-plt.plot([y_full.min(), y_full.max()],
-         [y_full.min(), y_full.max()],
-         "k--", linewidth=2)
-plt.title("Predicted vs Actual (Log Salary): Full vs AIC")
-plt.xlabel("Actual log(salary)")
-plt.ylabel("Predicted log(salary)")
-plt.legend()
-plt.show()
+__all__ = [
+    "best_ols_rmse", "best_ols_mae", "best_ols_r2", "best_ols_adj_r2",
+    "best_ridge_rmse", "best_ridge_mae", "best_ridge_r2", "best_ridge_adj_r2",
+    "best_lasso_rmse", "best_lasso_mae", "best_lasso_r2", "best_lasso_adj_r2",
+    "best_elastic_rmse", "best_elastic_mae", "best_elastic_r2", "best_elastic_adj_r2"
+]

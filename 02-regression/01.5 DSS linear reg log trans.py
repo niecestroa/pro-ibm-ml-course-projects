@@ -572,3 +572,19 @@ plt.stem(cooks, markerfmt=",")
 plt.title("Cook's Distance")
 plt.show()
 
+# =========================================================
+# Export Best Metrics for Linear Regression (Final Log Model)
+# =========================================================
+
+best_ols_rmse = rmse
+best_ols_mae  = mae
+best_ols_r2   = r2
+best_ols_adj_r2 = adj_r2   # <-- NEW: Adjusted R² added
+
+__all__ = [
+    "best_ols_rmse",
+    "best_ols_mae",
+    "best_ols_r2",
+    "best_ols_adj_r2"       
+]
+

@@ -5,7 +5,7 @@ Project:    DS Salaries – Support Vector Machines
 
 # Created:    September 21 ,2026
 # Last Edit:  September 23, 2026
-Progress:     Ongoing
+Progress:     Completed
 
 Description - PART 4 Support Vector Regression (SVR with RBF Kernel):
 
@@ -204,3 +204,28 @@ plt.xlabel("Predicted Salary")
 plt.ylabel("Residuals")
 plt.tight_layout()
 plt.show()
+
+# =========================================================
+# Export Best Metrics for SVR (with Adjusted R²)
+# =========================================================
+
+# compute adjusted R² for best SVR model
+X_test_transformed = best_pipe.named_steps["preprocessor"].transform(X_test)
+X_test_transformed = X_test_transformed.toarray() if hasattr(X_test_transformed, "toarray") else X_test_transformed
+p = X_test_transformed.shape[1]                          # number of encoded predictors
+
+# recompute metrics including adjusted R²
+best_svr_rmse = np.sqrt(mean_squared_error(y_test, best_pred))
+best_svr_mae  = mean_absolute_error(y_test, best_pred)
+best_svr_r2   = r2_score(y_test, best_pred)
+n = len(y_test)
+best_svr_adj_r2 = 1 - ((1 - best_svr_r2) * (n - 1) / (n - p - 1))
+
+# export variables for import
+__all__ = [
+    "best_svr_rmse",
+    "best_svr_mae",
+    "best_svr_r2",
+    "best_svr_adj_r2"
+]
+

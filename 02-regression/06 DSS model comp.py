@@ -4,9 +4,9 @@ Author:     Aaron Niecestro
 Project:    DS Salaries – Production-Ready EDA for Regression Models
 
 Created:    September 17 ,2026
-Last Edit:  September 21, 2026
-Progress:   Ongoing
-Author:     Aaron Niecestro
+Last Edit:  September 23, 2026
+Progress:   Ongoing - Waiting for File 03 Part 4 onwards to finish
+
 MASTER MODEL COMPARISON TABLE
 
 Purpose:
@@ -20,79 +20,102 @@ Purpose:
         • Support Vector Regression (SVR, RBF Kernel)
 
 Output:
-    • Unified comparison table (RMSE, MAE, R²)
+    - Unified Leaderboard — DS Salaries Regression Models
 """
 
 # =========================================================
-# Imports
+# Imports: Pull Best Metrics From Each Model File
 # =========================================================
 
-import numpy as np                                      # numerical ops
-import pandas as pd                                     # data handling
+import pandas as pd
+
+# Linear Regression (OLS)
+from ols_results import (
+    best_ols_rmse,
+    best_ols_mae,
+    best_ols_r2,
+    best_ols_adj_r2
+)
+
+# Polynomial / Interaction Models
+from poly_results import (
+    best_poly_rmse,
+    best_poly_mae,
+    best_poly_r2,
+    best_poly_adj_r2
+)
+
+from inter_results import (
+    best_inter_rmse,
+    best_inter_mae,
+    best_inter_r2,
+    best_inter_adj_r2
+)
+
+from poly_inter_results import (
+    best_poly_inter_rmse,
+    best_poly_inter_mae,
+    best_poly_inter_r2,
+    best_poly_inter_adj_r2
+)
+
+# Regularization Models
+from ridge_results import (
+    best_ridge_rmse,
+    best_ridge_mae,
+    best_ridge_r2,
+    best_ridge_adj_r2
+)
+
+from lasso_results import (
+    best_lasso_rmse,
+    best_lasso_mae,
+    best_lasso_r2,
+    best_lasso_adj_r2
+)
+
+from elastic_results import (
+    best_elastic_rmse,
+    best_elastic_mae,
+    best_elastic_r2,
+    best_elastic_adj_r2
+)
+
+# Tree-Based Models
+from rf_results import (
+    best_rf_rmse,
+    best_rf_mae,
+    best_rf_r2,
+    best_rf_adj_r2
+)
+
+from xgb_results import (
+    best_xgb_rmse,
+    best_xgb_mae,
+    best_xgb_r2,
+    best_xgb_adj_r2
+)
+
+from lgbm_results import (
+    best_lgbm_rmse,
+    best_lgbm_mae,
+    best_lgbm_r2,
+    best_lgbm_adj_r2
+)
+
+# Support Vector Regression
+from svr_results import (
+    best_svr_rmse,
+    best_svr_mae,
+    best_svr_r2,
+    best_svr_adj_r2
+)
 
 # =========================================================
-# Collect Best Model Metrics
-# =========================================================
-# NOTE:
-# These values should come from your actual model runs.
-# Replace each variable with the real metrics from your pipeline.
-
-# ---------- Linear Regression ----------
-rmse_ols = best_ols_rmse
-mae_ols  = best_ols_mae
-r2_ols   = best_ols_r2
-
-# ---------- Polynomial Regression ----------
-rmse_poly = best_poly_rmse
-mae_poly  = best_poly_mae
-r2_poly   = best_poly_r2
-
-# ---------- Interaction-Only ----------
-rmse_inter = best_inter_rmse
-mae_inter  = best_inter_mae
-r2_inter   = best_inter_r2
-
-# ---------- Polynomial + Interaction ----------
-rmse_poly_inter = best_poly_inter_rmse
-mae_poly_inter  = best_poly_inter_mae
-r2_poly_inter   = best_poly_inter_r2
-
-# ---------- Regularization Models ----------
-rmse_ridge = best_ridge_rmse
-mae_ridge  = best_ridge_mae
-r2_ridge   = best_ridge_r2
-
-rmse_lasso = best_lasso_rmse
-mae_lasso  = best_lasso_mae
-r2_lasso   = best_lasso_r2
-
-rmse_elastic = best_elastic_rmse
-mae_elastic  = best_elastic_mae
-r2_elastic   = best_elastic_r2
-
-# ---------- Tree-Based Models ----------
-rmse_rf = best_rf_rmse
-mae_rf  = best_rf_mae
-r2_rf   = best_rf_r2
-
-rmse_xgb = best_xgb_rmse
-mae_xgb  = best_xgb_mae
-r2_xgb   = best_xgb_r2
-
-rmse_lgbm = best_lgbm_rmse
-mae_lgbm  = best_lgbm_mae
-r2_lgbm   = best_lgbm_r2
-
-# ---------- Support Vector Regression ----------
-rmse_svr = best_svr_rmse
-mae_svr  = best_svr_mae
-r2_svr   = best_svr_r2
-
-# =========================================================
-# Build Comparison Table
+# Build Unified Leaderboard Table
 # =========================================================
 
-comparison_df = pd.DataFrame({
+leaderboard = pd.DataFrame({
     "Model": [
         "OLS Linear Regression",
         "Polynomial Regression (Degree 2)",
@@ -107,27 +130,65 @@ comparison_df = pd.DataFrame({
         "SVR (RBF Kernel)"
     ],
     "RMSE": [
-        rmse_ols, rmse_poly, rmse_inter, rmse_poly_inter,
-        rmse_ridge, rmse_lasso, rmse_elastic,
-        rmse_rf, rmse_xgb, rmse_lgbm, rmse_svr
+        best_ols_rmse,
+        best_poly_rmse,
+        best_inter_rmse,
+        best_poly_inter_rmse,
+        best_ridge_rmse,
+        best_lasso_rmse,
+        best_elastic_rmse,
+        best_rf_rmse,
+        best_xgb_rmse,
+        best_lgbm_rmse,
+        best_svr_rmse
     ],
     "MAE": [
-        mae_ols, mae_poly, mae_inter, mae_poly_inter,
-        mae_ridge, mae_lasso, mae_elastic,
-        mae_rf, mae_xgb, mae_lgbm, mae_svr
+        best_ols_mae,
+        best_poly_mae,
+        best_inter_mae,
+        best_poly_inter_mae,
+        best_ridge_mae,
+        best_lasso_mae,
+        best_elastic_mae,
+        best_rf_mae,
+        best_xgb_mae,
+        best_lgbm_mae,
+        best_svr_mae
     ],
     "R²": [
-        r2_ols, r2_poly, r2_inter, r2_poly_inter,
-        r2_ridge, r2_lasso, r2_elastic,
-        r2_rf, r2_xgb, r2_lgbm, r2_svr
+        best_ols_r2,
+        best_poly_r2,
+        best_inter_r2,
+        best_poly_inter_r2,
+        best_ridge_r2,
+        best_lasso_r2,
+        best_elastic_r2,
+        best_rf_r2,
+        best_xgb_r2,
+        best_lgbm_r2,
+        best_svr_r2
+    ],
+    "Adj R²": [
+    best_ols_adj_r2,
+    best_poly_adj_r2,
+    best_inter_adj_r2,
+    best_poly_inter_adj_r2,
+    best_ridge_adj_r2,
+    best_lasso_adj_r2,
+    best_elastic_adj_r2,
+    best_rf_adj_r2,
+    best_xgb_adj_r2,
+    best_lgbm_adj_r2,
+    best_svr_adj_r2
     ]
 })
 
+
 # =========================================================
-# Sort by RMSE (Best Model at Top)
+# Sort Leaderboard by RMSE (Lower = Better)
 # =========================================================
 
-comparison_df = comparison_df.sort_values("RMSE")
+leaderboard = leaderboard.sort_values("RMSE").reset_index(drop=True)
 
-print("\n===== FINAL MODEL COMPARISON TABLE =====")
-print(comparison_df)
+print("\n===== UNIFIED MODEL LEADERBOARD (ALL REGRESSION FAMILIES) =====")
+print(leaderboard)
