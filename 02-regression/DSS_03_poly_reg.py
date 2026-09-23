@@ -5,7 +5,7 @@ Project:    DS Salaries – Polynomial Regression Analysis
 
 # Created:    September 21 ,2026
 # Last Edit:  September 23, 2026
-Progress:     Ongoing - Part 4 is taking long time to run
+Progress:     Completed
 
 Description:
     
