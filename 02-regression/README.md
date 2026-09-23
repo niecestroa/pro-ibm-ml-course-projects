@@ -64,31 +64,130 @@ Categorical variables will be introduced later for classification tasks in class
 ---
 
 ## **1. Linear Models**
-These provide interpretability and establish baseline performance.
 
-- **Linear Regression (OLS)**  
-  
+Linear Regression (OLS) serves as the baseline model for the numeric‑only phase.  
+During initial modeling, the response variable was:
+
+### **Original Target Variable:**  
+`salary_in_usd`
+
+However, the raw salary distribution was **highly right‑skewed**, and the OLS diagnostic plots showed clear violations of key regression assumptions:
+
+- **Non‑constant variance (heteroscedasticity)**  
+- **Non‑normal residuals**  
+- **Nonlinear mean–variance relationship**  
+- **High‑influence outliers**
+
+To address these issues, the response variable was transformed using:
+
+### **Log Transformation:**  
+`log_salary = log(salary_in_usd)`
+
+### **Why Log Transformation Was Necessary**
+Even after initial preprocessing, the OLS assumptions were **not met** using the original salary scale.  
+After applying the log transformation:
+
+- Residuals became **more symmetric**  
+- Variance stabilized across fitted values  
+- QQ‑plots showed **closer alignment to normality**  
+- Residual vs. fitted plots showed **reduced funneling**  
+- Extreme salaries exerted less influence on the model  
+
+Although the assumptions were **not perfectly satisfied**, the log‑transformed model exhibited **substantially improved diagnostic behavior** compared to the untransformed model.
+
+### **Final Decision**
+All subsequent regression models in this numeric‑only phase use:
+
+**`log_salary` as the response variable.**
+
+This includes:
+
+- Linear Regression (OLS)  
+- Polynomial Regression  
+- Interaction‑Only Regression  
+- Polynomial + Interaction Regression  
+- Ridge Regression  
+- Lasso Regression  
+- Elastic Net Regression  
+
+Using the log‑transformed response ensures:
+
+- More reliable inference  
+- More stable coefficient estimates  
+- Better comparability across modeling families  
+- Improved AIC/BIC model selection  
+- More interpretable multiplicative effects (percentage salary changes)
+
 ---
 
 ## **2. Regularized Models**
-These provide interpretability and establish baseline performance.
+
+Regularization was applied **after** the log transformation to stabilize coefficients and reduce overfitting in high‑dimensional numeric expansions.
+
+All regularized models use:
+
+**`log_salary` as the response variable.**
+
+Models included:
 
 - **Ridge Regression**  
 - **Lasso Regression**  
 - **Elastic Net Regression**
 
+These models benefit from the log transformation because:
+
+- Ridge stabilizes coefficients under heteroscedasticity  
+- Lasso performs cleaner feature selection when variance is stabilized  
+- Elastic Net handles correlated numeric predictors more effectively  
+
+The log transformation improved residual structure and reduced the influence of extreme salary values, making regularization more effective and interpretable.
+
 ---
 
 ## **3. Polynomial & Interaction Models**
-Capture nonlinear salary patterns using numeric transformations.
+
+Polynomial and interaction models also use the **log‑transformed response**.
+
+### **Why?**
+
+Polynomial expansions (degree 2 or 3) and numeric × numeric interactions can amplify:
+
+- heteroscedasticity  
+- skewness  
+- outlier influence  
+
+Using `log_salary`:
+
+- reduces variance inflation  
+- improves normality of residuals  
+- stabilizes polynomial terms  
+- improves AIC/BIC model selection  
+- yields more interpretable nonlinear effects  
+
+Models included:
 
 - **Polynomial Regression (degree 2 or 3)**  
-- **Interaction Regression (numeric × numeric)**  
+- **Interaction‑Only Regression**  
+- **Polynomial + Interaction Regression**
+
+All diagnostics (residual plots, QQ plots, BP tests) showed **clear improvement** after log transformation.
 
 ---
 
 ## **4. Tree‑Based Ensemble Models**
-Model nonlinearities and interactions automatically.
+
+Tree‑based models do not require log transformation for assumptions, but for **consistency across the regression suite**, they were also trained on:
+
+**`log_salary`**
+
+This allows:
+
+- consistent RMSE/MAE comparison  
+- unified leaderboard evaluation  
+- easier interpretation of multiplicative effects  
+- smoother transition into Phase 2 (mixed‑feature modeling)
+
+Models included:
 
 - **Decision Tree Regressor**  
 - **Random Forest Regressor**  
@@ -99,18 +198,35 @@ Model nonlinearities and interactions automatically.
 ---
 
 ## **5. Support Vector Regression**
-Kernel‑based nonlinear modeling.
 
-- **SVR with RBF kernel**
+SVR with RBF kernel also uses:
+
+**`log_salary`**
+
+This improves:
+
+- margin stability  
+- kernel behavior  
+- prediction smoothness  
+- comparability with other nonlinear models
 
 ---
 
 ## **6. Model Comparison**
-Comparison of all the "Best" Models from Methods 1-5
+
+All models — linear, polynomial, interaction, regularized, tree‑based, and SVR — are compared using:
+
+- RMSE (log scale)  
+- MAE (log scale)  
+- R²  
+- Adjusted R²  
+
+This ensures a fair, unified evaluation across the entire numeric‑only modeling phase.
 
 ---
 
 # **Next Steps**
+
 This repository represents **Phase 1: Numeric‑Only Regression Models**.  
 Future phases will include:
 
@@ -119,4 +235,3 @@ Future phases will include:
 - **Salary category prediction**  
 - **SHAP interpretability across mixed feature types**  
 - **Full model comparison dashboard**
-
