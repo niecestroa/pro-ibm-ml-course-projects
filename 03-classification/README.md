@@ -1,6 +1,4 @@
-This phase of the project was not been started yet.
-
-It is my hope that I will be able to start on September 25, 2026
+This phase of the project was not been started yet. This is the classification modeling phase.
 
 ---
 
