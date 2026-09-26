@@ -1,6 +1,6 @@
 # **Salary Classification Modeling Suite**
 
-- **Author:**       Aaron Niecestro  
+**Author:**       Aaron Niecestro  
 **Created on:**   Not started yet (Estimated to start on September 25, 2026)  
 **Edited on:**    Not started yet (Estimated to start on September 25, 2026)  
 **Progress:**     Not started yet (Estimated to start on September 25, 2026)
@@ -11,7 +11,7 @@ A comprehensive machine learning project exploring multiple classification appro
 
 ---
 
-## **📌 Project Overview**
+## **Project Overview**
 Salary can be modeled not only as a continuous variable but also as a categorical one. This project builds and compares classification models across **five major ML families**, applied to three different target formulations:
 
 ### **Classification Targets**
@@ -23,7 +23,7 @@ These targets allow exploration of how different statistical definitions of sala
 
 ---
 
-## **📁 Dataset**
+## **Dataset**
 - **Source:** WSD Salary Dataset  
 - **Features:** Demographics, job characteristics, experience, education, etc.  
 - **Targets:**  
@@ -33,7 +33,7 @@ These targets allow exploration of how different statistical definitions of sala
 
 ---
 
-## **🎯 Target Engineering**
+## **Target Engineering**
 ### **Mean‑Based Binary Classification**
 ```python
 mean_salary = df['salary'].mean()
@@ -57,7 +57,7 @@ df['salary_tier'] = pd.qcut(
 
 ---
 
-# **🧠 Classification Models (Methods 1–5)**
+# **Classification Models (Methods 1–5)**
 
 This project implements every classification model from the first five major ML families.  
 Each section now includes **what the method does** and **why it is used**.
@@ -173,7 +173,7 @@ These models classify new samples based on similarity to existing samples. They 
 
 ---
 
-# **⚙️ Modeling Workflow**
+# **Modeling Workflow**
 ### **1. Preprocessing**
 - Stratified train/test split  
 - Scaling for linear/SVM/KNN models  
@@ -212,21 +212,3 @@ Each model is trained on all three targets:
 - SHAP interpretability  
 
 ---
-
-# **📂 Repository Structure**
-```
-classification/
-│
-├── 01_preprocessing.py
-├── 02_target_engineering.py
-│
-├── 03_linear_models.py
-├── 04_tree_models.py
-├── 05_svm_models.py
-├── 06_probabilistic_models.py
-├── 07_knn_models.py
-│
-├── 08_model_comparison.py
-└── README.md
-```
-
