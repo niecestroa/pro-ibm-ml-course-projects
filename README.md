@@ -31,7 +31,7 @@ Here’s a clean, professional **README timeline section** based on your progres
 ---
 
 ### **02 — Regression Modeling**  
-- **Started:** September 14, 2026  
+- **Started:** September 17, 2026  
 - **Last Edited:** September 23, 2026  
 - **Progress:** **Completed**  
 - **Notes:**  
@@ -44,7 +44,7 @@ Here’s a clean, professional **README timeline section** based on your progres
 ### **03 — Classification Modeling**  
 - **Started:** September 28, 2026  
 - **Last Edited:** September 28, 2026  
-- **Progress:** **On-Going**  
+- **Progress:** **Ongoing**  
 - **Notes:**  
   - Targets: `salary_mean_cat`, `salary_median_cat`, `salary_3cat`  
   - Will include imbalance handling (SMOTE / class weights)
