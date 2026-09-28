@@ -31,9 +31,9 @@ Here’s a clean, professional **README timeline section** based on your progres
 ---
 
 ### **02 — Regression Modeling**  
-- **Started:** September __, 2026  
-- **Last Edited:** September __, 2026  
-- **Progress:** **Not Started Yet**  
+- **Started:** September 14, 2026  
+- **Last Edited:** September 23, 2026  
+- **Progress:** **Completed**  
 - **Notes:**  
   - Planned models: Linear Regression, Random Forest, Gradient Boosting  
   - Target: `salary_in_usd`  
@@ -42,9 +42,9 @@ Here’s a clean, professional **README timeline section** based on your progres
 ---
 
 ### **03 — Classification Modeling**  
-- **Started:** September __, 2026  
-- **Last Edited:** September __, 2026  
-- **Progress:** **Not Started Yet**  
+- **Started:** September 28, 2026  
+- **Last Edited:** September 28, 2026  
+- **Progress:** **On-Going**  
 - **Notes:**  
   - Targets: `salary_mean_cat`, `salary_median_cat`, `salary_3cat`  
   - Will include imbalance handling (SMOTE / class weights)
