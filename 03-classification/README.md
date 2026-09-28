@@ -1,9 +1,9 @@
 # **Salary Classification Modeling Suite**
 
-- **Author:**       Aaron Niecestro  
-- **Created on:**   September 28, 2026 
-- **Edited on:**    September 28, 2026
-- **Progress:**     Ongoing (Estimated to completed by October 14, 2026)
+**Author:**       Aaron Niecestro  
+**Created on:**   Not started yet (Estimated to start on September 27, 2026)  
+**Edited on:**    Not started yet (Estimated to start on September 27, 2026)  
+**Progress:**     Not started yet (Estimated to start on September 27, 2026)
 
 ---
 

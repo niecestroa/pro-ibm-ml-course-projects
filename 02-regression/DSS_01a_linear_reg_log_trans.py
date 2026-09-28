@@ -140,7 +140,7 @@ y_resp = dss2025["salary_in_usd"]                          # original salary in 
 log_y_resp = np.log(y_resp)                                # log-transformed salary
 
 x_pred = dss2025[[
-    'experience_level', 'employment_type', 'job_title',
+    'experience_level', 'employment_type',
     'employee_residence', 'remote_ratio',
     'company_location', 'company_size', 'data_age',
     'work_year_cat', 'remote_work_cat', 'job_title_group'
