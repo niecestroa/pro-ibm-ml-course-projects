@@ -158,7 +158,6 @@ These models classify new samples based on similarity to existing samples. They 
 | Model | Description |
 |-------|-------------|
 | K‑Nearest Neighbors (KNN) | Non‑parametric, similarity‑based |
-| Radius Neighbors | Uses fixed radius instead of k |
 
 ---
 
