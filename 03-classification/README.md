@@ -137,7 +137,6 @@ Probabilistic models compute the likelihood of each class given the input featur
 | Model | Description |
 |-------|-------------|
 | Gaussian Naive Bayes | Assumes normal feature distributions |
-| Multinomial Naive Bayes | Useful for count‑based features |
 | Bernoulli Naive Bayes | Binary feature variant |
 
 ---
