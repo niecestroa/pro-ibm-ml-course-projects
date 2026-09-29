@@ -17,7 +17,6 @@ Salary can be modeled not only as a continuous variable but also as a categorica
 ### **Classification Targets**
 1. **Mean‑Based Binary Classification**  
 2. **Median‑Based Binary Classification**  
-3. **Tiered Salary Categories (Multiclass)**  
 
 These targets allow exploration of how different statistical definitions of salary influence model performance and interpretability.
 
@@ -29,7 +28,6 @@ These targets allow exploration of how different statistical definitions of sala
 - **Targets:**  
   - `salary_mean_class`  
   - `salary_median_class`  
-  - `salary_tier`
 
 ---
 
@@ -44,15 +42,6 @@ df['salary_mean_class'] = (df['salary'] >= mean_salary).astype(int)
 ```python
 median_salary = df['salary'].median()
 df['salary_median_class'] = (df['salary'] >= median_salary).astype(int)
-```
-
-### **Tiered Salary Categories (Multiclass)**
-```python
-df['salary_tier'] = pd.qcut(
-    df['salary'],
-    q=3,
-    labels=['Low', 'Medium', 'High']
-)
 ```
 
 ---
