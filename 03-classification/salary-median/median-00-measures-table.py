@@ -61,7 +61,10 @@ file_path = r"C:\Users\aniec\Desktop\ibm-ml-project\00-data\kaggle-data\dss2025_
 dss2025 = pd.read_csv(file_path)  # load dataset
 dss2025 = dss2025.query("company_location == 'United States'").copy()  # filter US rows
 
-dss2025["salary_mean_cat"] = dss2025["salary_mean_cat"].map({"Below-Average": 0, "Above-Average": 1})  # map target to binary
+dss2025["salary_median_cat"] = dss2025["salary_median_cat"].map({
+    "Below-Median": 0,
+    "Above-Median": 1
+})
 
 # ============================
 # 3. FULL Model Preprocessing
@@ -79,7 +82,7 @@ X_full = dss2025[[
     "job_title_group"  # job title group
 ]]  # full predictors
 
-y_full = dss2025["salary_mean_cat"]  # full target
+y_full = dss2025["salary_median_cat"]  # full target
 
 X_train, X_test, y_train, y_test = train_test_split(X_full, y_full, test_size=0.30, random_state=72018, stratify=y_full)  # full split
 
@@ -111,7 +114,7 @@ X_reduced = dss2025[[
     "remote_work_cat"  # remote work category
 ]]  # reduced predictors
 
-y_reduced = dss2025["salary_mean_cat"]  # reduced target
+y_reduced = dss2025["salary_median_cat"]  # reduced target
 
 X_train_f, X_test_f, y_train_f, y_test_f = train_test_split(X_reduced, y_reduced, test_size=0.30, random_state=72018, stratify=y_reduced)  # reduced split
 
