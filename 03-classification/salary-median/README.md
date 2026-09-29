@@ -1,177 +1,138 @@
-# **Salary Classification Modeling Suite**
+# **Median‑Based Binary Classification (README Section)**
 
-- **Author:**       Aaron Niecestro  
-- **Created on:**   September 30, 2026 
-- **Edited on:**    September __, 2026  
-- **Progress:**     Planned for September 30, 2026
+This section documents the **median‑based binary classification target**, the second of three target‑engineering strategies used in the Salary Classification Modeling Suite. It explains the motivation, construction, modeling approach, and evaluation framework for this target.
 
 ---
 
-A comprehensive machine learning project exploring multiple classification approaches for predicting salary categories using the WSD dataset. This work extends prior regression modeling by reframing salary prediction as a classification problem under three different target definitions.
+## **1. Motivation**
+
+While the mean salary provides a useful benchmark, it can be influenced by extreme values—especially in datasets where compensation varies widely across roles, industries, or seniority levels. The **median salary** offers a more robust central tendency measure.
+
+Using the median allows us to ask:
+
+**Does a data professional earn at or above the median salary?**
+
+This formulation is particularly valuable in skewed salary distributions, where the median better represents the “typical” salary.
 
 ---
 
-## **Project Overview**
-Salary can be modeled not only as a continuous variable but also as a categorical one. This project builds and compares classification models across **five major ML families**, applied to three different target formulations:
+## **2. Target Construction**
 
-### **Median‑Based Binary Classification**
+The median salary is computed from the dataset, and each observation is labeled based on whether its salary meets or exceeds that median.
+
 ```python
 median_salary = df['salary'].median()
 df['salary_median_class'] = (df['salary'] >= median_salary).astype(int)
 ```
 
----
+### **Class Definitions**
+- **0 — Below‑Median Salary**  
+- **1 — Above‑Median Salary**
 
-# **Classification Models (Methods 1–5)**
-
-This project implements every classification model from the first five major ML families.  
-Each section now includes **what the method does** and **why it is used**.
-
----
-
-## **1. Linear & Generalized Linear Models**
-
-### **What these models do**
-Linear models learn a weighted combination of input features to separate classes. They assume a linear decision boundary and often provide interpretable coefficients showing how each feature influences the prediction.
-
-### **Why use them**
-- They are fast and computationally efficient  
-- Provide clear interpretability  
-- Serve as strong baselines  
-- Perform well when relationships are approximately linear  
-- Useful for understanding feature directionality (positive/negative influence)
-
-### **Models Included**
-| Model | Description |
-|-------|-------------|
-| Logistic Regression | Baseline linear classifier; interpretable |
-| Ridge Logistic Regression | L2‑regularized variant |
-| Lasso Logistic Regression | L1‑regularized variant |
-| Elastic Net Logistic Regression | Combined L1/L2 regularization |
-| Linear Discriminant Analysis (LDA) | Assumes Gaussian class distributions |
-| Quadratic Discriminant Analysis (QDA) | Allows class‑specific covariance |
+This creates a binary classification problem similar to the mean‑based target but with a more robust threshold.
 
 ---
 
-## **2. Tree‑Based Models**
+## **3. Why Median‑Based Classification?**
 
-### **What these models do**
-Tree‑based models split the data into decision regions using hierarchical rules. They capture nonlinear relationships, interactions, and complex boundaries without requiring feature scaling.
+### **Advantages**
+- More robust to outliers than the mean  
+- Better reflects the “typical” salary in skewed distributions  
+- Often produces a more balanced class split  
+- Useful for fairness‑oriented or distribution‑aware modeling  
+- Aligns with compensation benchmarking practices (median is widely used in HR analytics)
 
-### **Why use them**
-- Excellent performance on tabular data  
-- Naturally handle mixed numeric + categorical features  
-- Provide feature importance  
-- Capture nonlinear patterns missed by linear models  
-- Robust to outliers and skewed distributions  
-- Often top performers for salary prediction tasks
-
-### **Models Included**
-| Model | Description |
-|-------|-------------|
-| Decision Tree | Simple, interpretable tree |
-| Random Forest | Ensemble of trees; robust and stable |
-| Extra Trees | Highly randomized trees; fast |
-| Gradient Boosting | Sequential boosting; strong performance |
-| AdaBoost | Boosting with weighted samples |
+### **Use Cases**
+- Market‑rate classification  
+- Compensation equity analysis  
+- Salary benchmarking dashboards  
+- Predicting whether a role is “above typical pay”  
+- Complementary analysis alongside mean‑based classification
 
 ---
 
-## **3. Support Vector Machines**
+## **4. Models Applied**
 
-### **What these models do**
-SVMs find the optimal separating hyperplane between classes by maximizing the margin. Kernel SVMs transform the feature space to capture nonlinear boundaries.
+All five ML families are trained and evaluated on the median‑based target:
 
-### **Why use them**
-- Strong performance on medium‑sized datasets  
-- Effective when classes are not linearly separable  
-- RBF and polynomial kernels capture complex relationships  
-- Provide margin‑based decision boundaries that reduce overfitting
+### **Linear / GLM Models**
+- Logistic Regression  
+- Ridge / Lasso / Elastic Net  
+- LDA / QDA  
 
-### **Models Included**
-| Model | Description |
-|-------|-------------|
-| Linear SVM | High‑dimensional linear classifier |
-| RBF SVM | Nonlinear kernel; powerful |
-| Polynomial SVM | Captures interaction effects |
+### **Tree‑Based Models**
+- Decision Tree  
+- Random Forest  
+- Extra Trees  
+- Gradient Boosting  
+- AdaBoost  
 
----
+### **Support Vector Machines**
+- Linear SVM  
+- RBF SVM  
+- Polynomial SVM  
 
-## **4. Probabilistic Models**
+### **Probabilistic Models**
+- Gaussian Naive Bayes  
+- Bernoulli Naive Bayes  
 
-### **What these models do**
-Probabilistic models compute the likelihood of each class given the input features. They assume statistical distributions (e.g., Gaussian) and use Bayes’ theorem to classify.
+### **Instance‑Based Models**
+- K‑Nearest Neighbors (with tuned k)
 
-### **Why use them**
-- Extremely fast and lightweight  
-- Provide calibrated probabilities  
-- Useful when features are independent or categorical  
-- Strong baselines for comparison  
-- Good for understanding uncertainty in predictions
-
-### **Models Included**
-| Model | Description |
-|-------|-------------|
-| Gaussian Naive Bayes | Assumes normal feature distributions |
-| Bernoulli Naive Bayes | Binary feature variant |
+This ensures a complete benchmarking suite across linear, nonlinear, probabilistic, and distance‑based paradigms.
 
 ---
 
-## **5. Instance‑Based / Distance‑Based Models**
+## **5. Preprocessing Pipeline**
 
-### **What these models do**
-These models classify new samples based on similarity to existing samples. They rely on distance metrics (e.g., Euclidean) rather than learned parameters.
+To ensure consistency across models:
 
-### **Why use them**
-- Capture irregular, highly nonlinear boundaries  
-- Useful when relationships are local  
-- Simple and intuitive  
-- Provide strong performance when data is well‑scaled  
-- Good sanity‑check models for comparison
+- **Stratified train/test split**  
+- **Median imputation** for numeric features  
+- **Mode imputation** for categorical features  
+- **StandardScaler** for numeric features  
+- **OneHotEncoder(drop="first")** for categorical features  
+- **ColumnTransformer** to unify preprocessing  
 
-### **Models Included**
-| Model | Description |
-|-------|-------------|
-| K‑Nearest Neighbors (KNN) | Non‑parametric, similarity‑based |
+This produces a fully reproducible and model‑agnostic workflow identical to the mean‑based target.
 
 ---
 
-# **Modeling Workflow**
-### **1. Preprocessing**
-- Stratified train/test split  
-- Scaling for linear/SVM/KNN models  
-- One‑hot encoding for categorical features  
-- Optional feature selection  
+## **6. Evaluation Metrics**
 
-### **2. Training**
-Each model is trained on all three targets:
-- Mean‑based binary  
-- Median‑based binary  
-- Tiered multiclass  
+### **Primary Metrics**
+- **Accuracy**  
+- **Precision**  
+- **Recall**  
+- **F1 Score**  
+- **ROC‑AUC**
 
-### **3. Evaluation Metrics**
-#### **Binary**
-- Accuracy  
-- Precision  
-- Recall  
-- F1 Score  
-- ROC‑AUC  
+### **Diagnostic Tools**
 - Confusion Matrix  
+- ROC Curves for all models  
+- SHAP analysis for Extra Trees  
+- GLM coefficient interpretation  
 
-#### **Multiclass**
-- Macro F1  
-- Weighted F1  
-- One‑vs‑Rest ROC‑AUC  
-- Confusion Matrix  
-
-### **4. Model Comparison**
-- Performance tables  
-- Ranking by metric  
-- Hyperparameter tuning  
-- Cross‑validation  
-- Feature importance (tree models)  
-- SHAP analysis (tree models only)  
-- Ensemble stacking  
-- SHAP interpretability  
+These metrics provide both predictive and interpretive insight.
 
 ---
+
+## **7. Outputs Generated**
+
+For the median‑based target, the modeling suite produces:
+
+- Full model comparison table  
+- Reduced model comparison table  
+- ROC curves for all models  
+- SHAP summary plots (full + reduced)  
+- GLM inference summaries  
+- Feature importance plots  
+- Final model selection summary  
+
+This mirrors the outputs of the mean‑based target, enabling direct comparison between the two formulations.
+
+---
+
+## **8. Summary**
+
+The median‑based binary classification target provides a robust, distribution‑aware way to evaluate salary prediction models. It complements the mean‑based target by reducing sensitivity to outliers and offering a more representative threshold for typical salary levels. Together, the mean‑ and median‑based targets form a comprehensive binary classification framework for salary analytics.
