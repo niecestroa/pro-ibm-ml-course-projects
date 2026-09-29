@@ -30,7 +30,7 @@ Here’s a clean, professional **README timeline section** based on your progres
 
 ---
 
-### **02 — Regression Modeling**  
+### **03 - Supervised Machine Learning: Regression**  
 - **Started:** September 17, 2026  
 - **Last Edited:** September 23, 2026  
 - **Progress:** **Completed**  
@@ -41,13 +41,39 @@ Here’s a clean, professional **README timeline section** based on your progres
 
 ---
 
-### **03 — Classification Modeling**  
+### **03 - Supervised Machine Learning: Classification**  
 - **Started:** September 28, 2026  
-- **Last Edited:** September 28, 2026  
+- **Last Edited:** September 30, 2026  
 - **Progress:** **Ongoing**  
 - **Notes:**  
-  - Targets: `salary_mean_cat`, `salary_median_cat`, `salary_3cat`  
-  - Will include imbalance handling (SMOTE / class weights)
+  - Targets: `salary_mean_cat` & `salary_median_cat` 
+
+---
+
+### **04 — Unsupervised Machine Learning**  
+- **Started:** October __, 2026  
+- **Last Edited:** October __, 2026  
+- **Progress:** **No Plan Yet**  
+- **Notes:**  
+  - Need to complete 03 - Supervised Machine Learning: Classification first.
+    
+---
+
+### **05 — Deep Learning and Reinforcement Learning**  
+- **Started:** October __, 2026  
+- **Last Edited:** October __, 2026  
+- **Progress:** **No Plan Yet**  
+- **Notes:**
+   - Need to complete 04 — Unsupervised Machine Learning first.
+
+---
+
+### **06 — Machine Learning Capstone**  
+- **Started:** October __, 2026  
+- **Last Edited:** October __, 2026  
+- **Progress:** **No Plan Yet**  
+- **Notes:**
+   - Need to complete 05 — Deep Learning and Reinforcement Learning first.
 
 ---
 
@@ -84,37 +110,6 @@ This dataset contains **global data science job roles**, salaries, experience le
 - regression modeling  
 - classification of job categories  
 - cross‑validated evaluation  
-
----
-
-# **Project Structure**
-
-```
-pro-ibm-ml-course1-3-projects/
-│
-├── 01_eda/
-│   ├── notebooks/
-│   ├── scripts/
-│   ├── visuals/
-│   └── reports/
-│
-├── 02_regression/
-│   ├── feature_engineering/
-│   ├── models/
-│   ├── evaluation/
-│   └── pipeline/
-│
-├── 03_classification/
-│   ├── preprocessing/
-│   ├── models/
-│   ├── evaluation/
-│   └── pipeline/
-│
-└── docs/
-    ├── project_overview.md
-    ├── methods.md
-    └── future_work.md
-```
 
 ---
 
