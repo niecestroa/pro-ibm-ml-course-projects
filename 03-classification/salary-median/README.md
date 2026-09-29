@@ -1,9 +1,9 @@
 # **Salary Classification Modeling Suite**
 
 - **Author:**       Aaron Niecestro  
-- **Created on:**   September 28, 2026 
-- **Edited on:**    September 29, 2026  
-- **Progress:**     Ongoing
+- **Created on:**   September 30, 2026 
+- **Edited on:**    September __, 2026  
+- **Progress:**     Planned for September 30, 2026
 
 ---
 
@@ -13,30 +13,6 @@ A comprehensive machine learning project exploring multiple classification appro
 
 ## **Project Overview**
 Salary can be modeled not only as a continuous variable but also as a categorical one. This project builds and compares classification models across **five major ML families**, applied to three different target formulations:
-
-### **Classification Targets**
-1. **Mean‑Based Binary Classification**  
-2. **Median‑Based Binary Classification**  
-
-These targets allow exploration of how different statistical definitions of salary influence model performance and interpretability.
-
----
-
-## **Dataset**
-- **Source:** WSD Salary Dataset  
-- **Features:** Demographics, job characteristics, experience, education, etc.  
-- **Targets:**  
-  - `salary_mean_class`  
-  - `salary_median_class`  
-
----
-
-## **Target Engineering**
-### **Mean‑Based Binary Classification**
-```python
-mean_salary = df['salary'].mean()
-df['salary_mean_class'] = (df['salary'] >= mean_salary).astype(int)
-```
 
 ### **Median‑Based Binary Classification**
 ```python
