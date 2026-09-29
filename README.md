@@ -44,7 +44,7 @@ Here’s a clean, professional **README timeline section** based on your progres
 ### **03 - Supervised Machine Learning: Classification**  
 - **Started:** September 28, 2026  
 - **Last Edited:** September 30, 2026  
-- **Progress:** **Ongoing**  
+- **Progress:** **Completed**  
 - **Notes:**  
   - Targets: `salary_mean_cat` & `salary_median_cat` 
 
