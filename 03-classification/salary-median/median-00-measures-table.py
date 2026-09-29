@@ -10,7 +10,7 @@ Progress: Completed
 
 Brief Description for Master Script
 This master script builds a complete end‑to‑end machine‑learning pipeline for 
-predicting whether a data professional earns an above‑average salary. 
+predicting whether a data professional earns an above‑median salary. 
 It loads and preprocesses the dataset, constructs both full and reduced 
 feature sets, and trains a comprehensive suite of classification models—including 
 logistic regression variants, LDA/QDA, SVMs, Naive Bayes, KNN, and multiple 
@@ -671,7 +671,7 @@ print("   - No meaningful loss in predictive performance\n")  # justification
     
 # **Model Selection Summary**
 
-This project evaluated a comprehensive suite of machine‑learning models for predicting whether a data professional earns an above‑average salary. Models were trained using both a **full predictor set** and a **reduced final model** selected through statistical inference (GLM), likelihood ratio testing, and diagnostic evaluation.
+This project evaluated a comprehensive suite of machine‑learning models for predicting whether a data professional earns an above‑median salary. Models were trained using both a **full predictor set** and a **reduced final model** selected through statistical inference (GLM), likelihood ratio testing, and diagnostic evaluation.
 
 ## **1. Full Model Findings**
 The full model includes all predictors except `company_location` (USA‑only subset).  
