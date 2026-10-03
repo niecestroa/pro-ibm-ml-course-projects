@@ -3,7 +3,7 @@
 Author: Aaron Niecestro  
 Project: Logistic Regression Pipeline (Multi‑Part)  
 Created: September 29, 2026  
-Last Edit: October 2, 2026  
+Last Edit: October 3, 2026  
 Progress: Completed  
 
 ---
@@ -678,6 +678,9 @@ plt.show()  # display plot
 
 # Powerpoint Slide Plots
 
+# Variable-Category‑Level Feature Importance (Reduced Model Only)
+# Gives the categories of the variables - better for technical people
+
 # Feature Importance (Reduced Model Only)
 # Get reduced feature names
 reduced_feature_names = preprocessor_reduced.get_feature_names_out()
@@ -706,6 +709,7 @@ importance_df = pd.DataFrame({
 print(importance_df)
 
 # Variable‑Level Feature Importance (Reduced Model Only)
+# Gives only the variables itself - better for presentations 
 
 # 1. Get encoded feature names
 feature_names = preprocessor_reduced.get_feature_names_out()
@@ -741,8 +745,6 @@ print(variable_importance)
 # SHAP values for reduced model (already computed in your script)
 # shap_values_reduced = explainer_reduced.shap_values(X_train_reduced_transformed)
 
-import shap
-
 # 1. Extract classifier
 clf = extra_model_reduced.named_steps["classifier"]
 
@@ -753,7 +755,18 @@ X_transformed = preprocessor_reduced.transform(X_train_f)
 explainer = shap.Explainer(clf, X_transformed)
 
 # 4. Compute SHAP values
-shap_vals = explainer(X_transformed).values   # shape: (n_samples, n_features)
+shap_vals = explainer(X_transformed).values
+
+# --- FIX: normalize SHAP output ---
+shap_vals = np.array(shap_vals)
+
+# Case 1: SHAP returns list-of-arrays
+if isinstance(shap_vals, list):
+    shap_vals = shap_vals[1]   # positive class
+
+# Case 2: SHAP returns 3-D array
+if shap_vals.ndim == 3:
+    shap_vals = shap_vals[:, :, 1]   # positive class
 
 # 5. Get transformed feature names
 feature_names = preprocessor_reduced.get_feature_names_out()
@@ -769,43 +782,6 @@ shap_importance_df = pd.DataFrame({
 
 print("\n===== SHAP IMPORTANCE TABLE (REDUCED MODEL) =====")
 print(shap_importance_df)
-
-# Variable‑Level SHAP (Reduced Model Only)
-
-# 1. Extract classifier
-clf = extra_model_reduced.named_steps["classifier"]
-
-# 2. Transform reduced training data
-X_transformed = preprocessor_reduced.transform(X_train_f)
-
-# 3. Fast SHAP explainer (prevents freezing)
-explainer = shap.Explainer(clf, X_transformed)
-shap_vals = explainer(X_transformed).values   # shape: (n_samples, n_features)
-
-# 4. Get transformed feature names
-feature_names = preprocessor_reduced.get_feature_names_out()
-
-# 5. Compute mean absolute SHAP values per encoded column
-mean_abs_shap = np.abs(shap_vals).mean(axis=0)
-
-# 6. Build encoded-level SHAP table
-encoded_df = pd.DataFrame({
-    "EncodedFeature": feature_names,
-    "MeanAbsSHAP": mean_abs_shap
-})
-
-# 7. Extract base variable name (before the second "__")
-encoded_df["Variable"] = encoded_df["EncodedFeature"].apply(lambda x: x.split("__")[1].split("_")[0])
-
-# 8. Aggregate SHAP values by variable
-variable_shap = encoded_df.groupby("Variable")["MeanAbsSHAP"].sum().sort_values(ascending=False)
-
-# 9. Convert to DataFrame
-variable_shap_df = variable_shap.reset_index()
-variable_shap_df.columns = ["Variable", "Total SHAP Importance"]
-
-print("\n===== VARIABLE-LEVEL SHAP IMPORTANCE (REDUCED MODEL) =====")
-print(variable_shap_df)
 
 
 # ============================
@@ -840,37 +816,98 @@ print("   - More stable, interpretable, and efficient")  # justification
 print("   - No meaningful loss in predictive performance\n")  # justification
 
 '''
-# 5. Polished “Model Selection Summary” Section (Final Report)
-    
-# **Model Selection Summary**
+# **Final Model Selection Summary (Polished & Updated)**
 
-This project evaluated a comprehensive suite of machine‑learning models for predicting whether a data professional earns an above‑median salary. Models were trained using both a **full predictor set** and a **reduced final model** selected through statistical inference (GLM), likelihood ratio testing, and diagnostic evaluation.
+This project evaluated a broad suite of machine‑learning models to predict 
+whether a data professional earns an above‑median salary. Models were trained 
+using both a **full predictor set** and a **reduced final model** selected 
+through GLM inference, likelihood‑ratio testing, and diagnostic evaluation. 
+SHAP and feature‑importance analysis were used to understand the drivers of 
+salary prediction.
+
+---
 
 ## **1. Full Model Findings**
-The full model includes all predictors except `company_location` (USA‑only subset).  
-Performance varies across model families:
 
-- **Tree‑based models** (Extra Trees, Random Forest, Gradient Boosting) consistently outperform linear and probabilistic models.
-- **RBF SVM** is the strongest non‑tree model.
-- **GLM / Logistic / Ridge / Elastic Net** perform similarly and provide interpretable coefficients.
-- **Naive Bayes** and **KNN** serve as fast baselines but underperform due to independence and distance assumptions.
+The full model included all available predictors except `company_location` 
+(U.S.‑only subset). Performance patterns were consistent across model families:
+
+- **Tree‑based models** (Extra Trees, Random Forest, Gradient Boosting) 
+delivered the strongest predictive performance, confirming nonlinear structure 
+in the data.
+- **RBF SVM** was the strongest non‑tree model and competitive with tree ensembles.
+- **GLM Logistic Regression, Ridge, Lasso, and Elastic Net** performed 
+similarly, offering stable and interpretable linear baselines.
+- **Naive Bayes** and **KNN** underperformed due to independence and 
+distance‑metric assumptions.
+
+Overall, the full model demonstrated that salary prediction is driven by 
+nonlinear interactions between experience, job type, company size, and work modality.
+
+---
 
 ## **2. Reduced Final Model Findings**
-The reduced model uses seven predictors:
 
-Key insights:
+The reduced model uses seven predictors identified through statistical inference 
+and SHAP/feature‑importance consolidation:
 
-- Reduced model performance is nearly identical to the full model.
-- The reduced model is **more stable**, **more interpretable**, and **less prone to overfitting**.
-- Extra Trees remains the top performer, confirming nonlinear structure in the data.
-- GLM Logistic Regression provides the clearest interpretability with strong predictive performance.
+- `experience_level`  
+- `job_title_group`  
+- `work_year_cat`  
+- `remote_work_cat`  
+- `employment_type`  
+- `company_size`  
+- `employee_residence`  
 
-## **3. Best Models Overall**
+Key results:
+
+- The reduced model achieves **nearly identical predictive performance** to 
+the full model.
+- It is **more stable**, **more interpretable**, and **less prone to overfitting**.
+- SHAP and feature‑importance analysis confirm that these seven variables 
+capture the majority of predictive signal.
+- Extra Trees remains the top performer, even with fewer features.
+- GLM Logistic Regression provides clean coefficient interpretation and 
+strong statistical grounding.
+
+This validates the reduced model as the correct final specification.
+
+---
+
+## **3. Feature Importance & SHAP Insights (Reduced Model)**
+
+### **Variable‑Level Feature Importance (Extra Trees)**  
+Ranked by total importance:
+
+1. **experience_level** — strongest driver of salary; senior/executive 
+roles push predictions upward  
+2. **job_title_group** — analytics, ML/AI, and data science roles command higher pay  
+3. **work_year_cat** — newer work years reflect updated market salary trends  
+4. **remote_work_cat** — remote vs. hybrid vs. on‑site affects salary bands  
+5. **employment_type** — full‑time roles predict higher salary  
+6. **company_size** — larger companies offer higher salary baselines  
+7. **employee_residence** — U.S. residence increases predicted salary; 
+other regions lower it  
+
+### **Category‑Level SHAP (Encoded Features)**  
+SHAP confirms the same hierarchy at a finer granularity:
+
+- Senior‑Level and Executive‑Level experience have the strongest positive SHAP impact  
+- Data Analytics and ML/AI Engineering roles show high SHAP contributions  
+- Fully Remote and On‑Site categories differ in salary impact depending on company policy  
+- U.S. residence has the highest positive SHAP contribution among locations  
+
+SHAP and feature importance align perfectly, reinforcing the reduced model’s validity.
+
+---
+
+## **4. Best Models Overall**
+
 ### **Best Predictive Model: Extra Trees Classifier**
-- Highest ROC‑AUC across both full and reduced models  
-- Robust to categorical encoding  
+- Highest ROC‑AUC across full and reduced models  
+- Robust to one‑hot encoding  
 - Captures nonlinear interactions  
-- Provides feature importance and SHAP interpretability  
+- Provides feature importance + SHAP interpretability  
 
 ### **Best Interpretable Model: GLM Logistic Regression (Reduced Model)**
 - Clean coefficient interpretation  
@@ -879,12 +916,18 @@ Key insights:
 - Nearly identical performance to full model  
 
 ### **Best Non‑Tree Model: RBF SVM**
-- Strong nonlinear performance  
 - Competitive ROC‑AUC  
+- Strong nonlinear performance  
 - Good generalization  
 
-## **4. Final Recommendation**
+---
+
+## **5. Final Recommendation**
+
 Use the **Reduced Final Model** for reporting, deployment, and stakeholder communication.  
-Use **Extra Trees** for highest predictive accuracy.  
+Use **Extra Trees** when predictive accuracy is the priority.  
 Use **GLM Logistic Regression** when interpretability is required.
+
+This combination provides the strongest balance of accuracy, stability, 
+interpretability, and business clarity.
 '''

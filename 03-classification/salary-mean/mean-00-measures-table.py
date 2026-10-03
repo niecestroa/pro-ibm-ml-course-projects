@@ -3,7 +3,7 @@
 Author: Aaron Niecestro  
 Project: Logistic Regression Pipeline (Multi‑Part)  
 Created: September 29, 2026  
-Last Edit: October 2, 2026  
+Last Edit: October 3, 2026  
 Progress: Completed  
 
 ---
@@ -26,6 +26,7 @@ and reporting.
 # 1. Imports
 # ============================
 
+import numpy as np
 import pandas as pd  # data handling
 import seaborn as sns  # visualization styling
 import matplotlib.pyplot as plt  # plotting
@@ -54,6 +55,15 @@ import shap  # SHAP explainability
 sns.set(style="whitegrid", context="talk")  # seaborn style
 
 # ============================
+# Pandas Display Options (Show Full Tables)
+# ============================
+
+pd.set_option("display.max_rows", None)        # show all rows
+pd.set_option("display.max_columns", None)     # show all columns
+pd.set_option("display.width", 2000)           # widen console output
+pd.set_option("display.max_colwidth", None)    # don't truncate column text
+
+# ============================
 # 2. Load Data
 # ============================
 
@@ -61,7 +71,10 @@ file_path = r"C:\Users\aniec\Desktop\ibm-ml-project\00-data\kaggle-data\dss2025_
 dss2025 = pd.read_csv(file_path)  # load dataset
 dss2025 = dss2025.query("company_location == 'United States'").copy()  # filter US rows
 
-dss2025["salary_mean_cat"] = dss2025["salary_mean_cat"].map({"Below-Average": 0, "Above-Average": 1})  # map target to binary
+dss2025["salary_mean_cat"] = dss2025["salary_mean_cat"].map({
+    "Below-Average": 0,
+    "Above-Average": 1
+})
 
 # ============================
 # 3. FULL Model Preprocessing
@@ -88,7 +101,7 @@ categorical_features_full = X_full.select_dtypes(include=["object", "category"])
 
 preprocessor_full = ColumnTransformer([
     ("numeric", Pipeline([
-        ("imputer", SimpleImputer(strategy="median")),  # median imputation
+        ("imputer", SimpleImputer(strategy="mean")),  # mean imputation
         ("scaler", StandardScaler())  # scaling
     ]), numeric_features_full),
     ("categorical", Pipeline([
@@ -120,7 +133,7 @@ categorical_features_reduced = X_reduced.select_dtypes(include=["object", "categ
 
 preprocessor_reduced = ColumnTransformer([
     ("numeric", Pipeline([
-        ("imputer", SimpleImputer(strategy="median")),  # median imputation
+        ("imputer", SimpleImputer(strategy="mean")),  # mean imputation
         ("scaler", StandardScaler())  # scaling
     ]), numeric_features_reduced),
     ("categorical", Pipeline([
@@ -584,22 +597,52 @@ plt.show()  # display plot
 # ============================
 
 # ============================
-# GLM Inference – FULL MODEL
+# GLM Inference – FULL MODEL (Corrected)
 # ============================
 
-X_full_glm = sm.add_constant(pd.get_dummies(X_full, drop_first=True))  # one-hot encode full predictors
-glm_full = sm.Logit(y_full, X_full_glm).fit(disp=False)  # fit full GLM
-print("\n===== GLM FULL MODEL SUMMARY =====")  # header
-print(glm_full.summary())  # print full GLM summary
+# 1. Dummy encode all categorical variables
+X_full_glm = pd.get_dummies(X_full, drop_first=True)
+
+# 2. Ensure all columns are numeric
+X_full_glm = X_full_glm.astype(float)
+
+# 3. Add constant term
+X_full_glm = sm.add_constant(X_full_glm)
+
+# 4. Drop rows with NaN (if any)
+glm_data_full = pd.concat([y_full, X_full_glm], axis=1).dropna()
+y_full_clean = glm_data_full.iloc[:, 0]
+X_full_glm_clean = glm_data_full.iloc[:, 1:]
+
+# 5. Fit GLM Logit
+glm_full = sm.Logit(y_full_clean, X_full_glm_clean).fit(disp=False)
+
+print("\n===== GLM FULL MODEL SUMMARY =====")
+print(glm_full.summary())
 
 # ============================
-# GLM Inference – REDUCED MODEL
+# GLM Inference – REDUCED MODEL (Corrected)
 # ============================
 
-X_reduced_glm = sm.add_constant(pd.get_dummies(X_reduced, drop_first=True))  # one-hot encode reduced predictors
-glm_reduced = sm.Logit(y_reduced, X_reduced_glm).fit(disp=False)  # fit reduced GLM
-print("\n===== GLM REDUCED MODEL SUMMARY =====")  # header
-print(glm_reduced.summary())  # print reduced GLM summary
+# 1. Dummy encode all categorical variables
+X_reduced_glm = pd.get_dummies(X_reduced, drop_first=True)
+
+# 2. Ensure all columns are numeric
+X_reduced_glm = X_reduced_glm.astype(float)
+
+# 3. Add constant term
+X_reduced_glm = sm.add_constant(X_reduced_glm)
+
+# 4. Drop rows with NaN (if any)
+glm_data_reduced = pd.concat([y_reduced, X_reduced_glm], axis=1).dropna()
+y_reduced_clean = glm_data_reduced.iloc[:, 0]
+X_reduced_glm_clean = glm_data_reduced.iloc[:, 1:]
+
+# 5. Fit GLM Logit
+glm_reduced = sm.Logit(y_reduced_clean, X_reduced_glm_clean).fit(disp=False)
+
+print("\n===== GLM REDUCED MODEL SUMMARY =====")
+print(glm_reduced.summary())
 
 # ============================
 # **19. Feature Importance Plots (Tree Models)**  
@@ -631,6 +674,115 @@ plt.barh(reduced_feature_names, reduced_importances)  # horizontal bar plot
 plt.title("Feature Importance – Extra Trees (Reduced Model)")  # title
 plt.tight_layout()  # layout
 plt.show()  # display plot
+
+
+# Powerpoint Slide Plots
+
+# Variable-Category‑Level Feature Importance (Reduced Model Only)
+# Gives the categories of the variables - better for technical people
+
+# Feature Importance (Reduced Model Only)
+# Get reduced feature names
+reduced_feature_names = preprocessor_reduced.get_feature_names_out()
+
+# Get feature importances from Extra Trees (Reduced)
+reduced_importances = extra_model_reduced.named_steps["classifier"].feature_importances_
+
+# Build importance table
+importance_df_reduced = pd.DataFrame({
+    "Feature": reduced_feature_names,
+    "Importance": reduced_importances
+}).sort_values(by="Importance", ascending=False)
+
+print("\n===== REDUCED MODEL FEATURE IMPORTANCE =====")
+print(importance_df_reduced)
+
+# Extract feature names + importances directly from reduced model
+feature_names = preprocessor_reduced.get_feature_names_out()
+importances = extra_model_reduced.named_steps["classifier"].feature_importances_
+
+importance_df = pd.DataFrame({
+    "Feature": feature_names,
+    "Importance": importances
+}).sort_values(by="Importance", ascending=False).reset_index(drop=True)
+
+print(importance_df)
+
+# Variable‑Level Feature Importance (Reduced Model Only)
+# Gives only the variables itself - better for presentations 
+
+# 1. Get encoded feature names
+feature_names = preprocessor_reduced.get_feature_names_out()
+
+# 2. Get feature importances from Extra Trees (Reduced)
+importances = extra_model_reduced.named_steps["classifier"].feature_importances_
+
+# 3. Build encoded-level importance table
+encoded_df = pd.DataFrame({
+    "EncodedFeature": feature_names,
+    "Importance": importances
+})
+
+# 4. Extract base variable name (everything after first "__")
+encoded_df["Variable"] = encoded_df["EncodedFeature"].apply(
+    lambda x: x.split("__")[1].split("_")[0]
+)
+
+# 5. Aggregate importance by variable
+variable_importance = (
+    encoded_df.groupby("Variable")["Importance"]
+    .sum()
+    .sort_values(ascending=False)
+    .reset_index()
+)
+
+variable_importance.columns = ["Variable", "Total Importance"]
+
+print("\n===== VARIABLE-LEVEL FEATURE IMPORTANCE (REDUCED MODEL) =====")
+print(variable_importance)
+
+
+# SHAP values for reduced model (already computed in your script)
+# shap_values_reduced = explainer_reduced.shap_values(X_train_reduced_transformed)
+
+# 1. Extract classifier
+clf = extra_model_reduced.named_steps["classifier"]
+
+# 2. Transform reduced training data
+X_transformed = preprocessor_reduced.transform(X_train_f)
+
+# 3. Use fast SHAP explainer (prevents freezing)
+explainer = shap.Explainer(clf, X_transformed)
+
+# 4. Compute SHAP values
+shap_vals = explainer(X_transformed).values
+
+# --- FIX: normalize SHAP output ---
+shap_vals = np.array(shap_vals)
+
+# Case 1: SHAP returns list-of-arrays
+if isinstance(shap_vals, list):
+    shap_vals = shap_vals[1]   # positive class
+
+# Case 2: SHAP returns 3-D array
+if shap_vals.ndim == 3:
+    shap_vals = shap_vals[:, :, 1]   # positive class
+
+# 5. Get transformed feature names
+feature_names = preprocessor_reduced.get_feature_names_out()
+
+# 6. Compute mean absolute SHAP values
+mean_abs_shap = np.abs(shap_vals).mean(axis=0)
+
+# 7. Build SHAP importance table
+shap_importance_df = pd.DataFrame({
+    "Feature": feature_names,
+    "Mean |SHAP|": mean_abs_shap
+}).sort_values(by="Mean |SHAP|", ascending=False).reset_index(drop=True)
+
+print("\n===== SHAP IMPORTANCE TABLE (REDUCED MODEL) =====")
+print(shap_importance_df)
+
 
 # ============================
 # **20. Final “Model Selection Summary” Section**  
@@ -664,37 +816,98 @@ print("   - More stable, interpretable, and efficient")  # justification
 print("   - No meaningful loss in predictive performance\n")  # justification
 
 '''
-# 5. Polished “Model Selection Summary” Section (Final Report)
-    
-# **Model Selection Summary**
+# **Final Model Selection Summary (Polished & Updated)**
 
-This project evaluated a comprehensive suite of machine‑learning models for predicting whether a data professional earns an above‑average salary. Models were trained using both a **full predictor set** and a **reduced final model** selected through statistical inference (GLM), likelihood ratio testing, and diagnostic evaluation.
+This project evaluated a broad suite of machine‑learning models to predict 
+whether a data professional earns an above‑mean salary. Models were trained 
+using both a **full predictor set** and a **reduced final model** selected 
+through GLM inference, likelihood‑ratio testing, and diagnostic evaluation. 
+SHAP and feature‑importance analysis were used to understand the drivers of 
+salary prediction.
+
+---
 
 ## **1. Full Model Findings**
-The full model includes all predictors except `company_location` (USA‑only subset).  
-Performance varies across model families:
 
-- **Tree‑based models** (Extra Trees, Random Forest, Gradient Boosting) consistently outperform linear and probabilistic models.
-- **RBF SVM** is the strongest non‑tree model.
-- **GLM / Logistic / Ridge / Elastic Net** perform similarly and provide interpretable coefficients.
-- **Naive Bayes** and **KNN** serve as fast baselines but underperform due to independence and distance assumptions.
+The full model included all available predictors except `company_location` 
+(U.S.‑only subset). Performance patterns were consistent across model families:
+
+- **Tree‑based models** (Extra Trees, Random Forest, Gradient Boosting) 
+delivered the strongest predictive performance, confirming nonlinear structure 
+in the data.
+- **RBF SVM** was the strongest non‑tree model and competitive with tree ensembles.
+- **GLM Logistic Regression, Ridge, Lasso, and Elastic Net** performed 
+similarly, offering stable and interpretable linear baselines.
+- **Naive Bayes** and **KNN** underperformed due to independence and 
+distance‑metric assumptions.
+
+Overall, the full model demonstrated that salary prediction is driven by 
+nonlinear interactions between experience, job type, company size, and work modality.
+
+---
 
 ## **2. Reduced Final Model Findings**
-The reduced model uses seven predictors:
 
-Key insights:
+The reduced model uses seven predictors identified through statistical inference 
+and SHAP/feature‑importance consolidation:
 
-- Reduced model performance is nearly identical to the full model.
-- The reduced model is **more stable**, **more interpretable**, and **less prone to overfitting**.
-- Extra Trees remains the top performer, confirming nonlinear structure in the data.
-- GLM Logistic Regression provides the clearest interpretability with strong predictive performance.
+- `experience_level`  
+- `job_title_group`  
+- `work_year_cat`  
+- `remote_work_cat`  
+- `employment_type`  
+- `company_size`  
+- `employee_residence`  
 
-## **3. Best Models Overall**
+Key results:
+
+- The reduced model achieves **nearly identical predictive performance** to 
+the full model.
+- It is **more stable**, **more interpretable**, and **less prone to overfitting**.
+- SHAP and feature‑importance analysis confirm that these seven variables 
+capture the majority of predictive signal.
+- Extra Trees remains the top performer, even with fewer features.
+- GLM Logistic Regression provides clean coefficient interpretation and 
+strong statistical grounding.
+
+This validates the reduced model as the correct final specification.
+
+---
+
+## **3. Feature Importance & SHAP Insights (Reduced Model)**
+
+### **Variable‑Level Feature Importance (Extra Trees)**  
+Ranked by total importance:
+
+1. **experience_level** — strongest driver of salary; senior/executive 
+roles push predictions upward  
+2. **job_title_group** — analytics, ML/AI, and data science roles command higher pay  
+3. **work_year_cat** — newer work years reflect updated market salary trends  
+4. **remote_work_cat** — remote vs. hybrid vs. on‑site affects salary bands  
+5. **employment_type** — full‑time roles predict higher salary  
+6. **company_size** — larger companies offer higher salary baselines  
+7. **employee_residence** — U.S. residence increases predicted salary; 
+other regions lower it  
+
+### **Category‑Level SHAP (Encoded Features)**  
+SHAP confirms the same hierarchy at a finer granularity:
+
+- Senior‑Level and Executive‑Level experience have the strongest positive SHAP impact  
+- Data Analytics and ML/AI Engineering roles show high SHAP contributions  
+- Fully Remote and On‑Site categories differ in salary impact depending on company policy  
+- U.S. residence has the highest positive SHAP contribution among locations  
+
+SHAP and feature importance align perfectly, reinforcing the reduced model’s validity.
+
+---
+
+## **4. Best Models Overall**
+
 ### **Best Predictive Model: Extra Trees Classifier**
-- Highest ROC‑AUC across both full and reduced models  
-- Robust to categorical encoding  
+- Highest ROC‑AUC across full and reduced models  
+- Robust to one‑hot encoding  
 - Captures nonlinear interactions  
-- Provides feature importance and SHAP interpretability  
+- Provides feature importance + SHAP interpretability  
 
 ### **Best Interpretable Model: GLM Logistic Regression (Reduced Model)**
 - Clean coefficient interpretation  
@@ -703,12 +916,18 @@ Key insights:
 - Nearly identical performance to full model  
 
 ### **Best Non‑Tree Model: RBF SVM**
-- Strong nonlinear performance  
 - Competitive ROC‑AUC  
+- Strong nonlinear performance  
 - Good generalization  
 
-## **4. Final Recommendation**
+---
+
+## **5. Final Recommendation**
+
 Use the **Reduced Final Model** for reporting, deployment, and stakeholder communication.  
-Use **Extra Trees** for highest predictive accuracy.  
+Use **Extra Trees** when predictive accuracy is the priority.  
 Use **GLM Logistic Regression** when interpretability is required.
+
+This combination provides the strongest balance of accuracy, stability, 
+interpretability, and business clarity.
 '''
