@@ -161,6 +161,7 @@ These models classify new samples based on similarity to existing samples. They 
 ---
 
 # **Modeling Workflow**
+
 ### **1. Preprocessing**
 - Stratified train/test split  
 - Scaling for linear/SVM/KNN models  
@@ -173,19 +174,13 @@ Each model is trained on all three targets:
 - Median‑based binary  
 - Tiered multiclass  
 
-### **3. Evaluation Metrics**
-#### **Binary**
+### **3. Evaluation Metrics - Binary**
+
 - Accuracy  
 - Precision  
 - Recall  
 - F1 Score  
 - ROC‑AUC  
-- Confusion Matrix  
-
-#### **Multiclass**
-- Macro F1  
-- Weighted F1  
-- One‑vs‑Rest ROC‑AUC  
 - Confusion Matrix  
 
 ### **4. Model Comparison**
