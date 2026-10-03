@@ -3,7 +3,7 @@
 Author: Aaron Niecestro  
 Project: Logistic Regression Pipeline (Multi‑Part)  
 Created: September 29, 2026  
-Last Edit: September 30, 2026  
+Last Edit: October 2, 2026  
 Progress: Completed  
 
 ---

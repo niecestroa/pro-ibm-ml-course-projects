@@ -3,7 +3,7 @@
 Author: Aaron Niecestro  
 Project: Logistic Regression Pipeline (Multi‑Part)  
 Created: September 29, 2026  
-Last Edit: September 30, 2026  
+Last Edit: October 2, 2026  
 Progress: Completed  
 
 ---
@@ -26,6 +26,7 @@ and reporting.
 # 1. Imports
 # ============================
 
+import numpy as np
 import pandas as pd  # data handling
 import seaborn as sns  # visualization styling
 import matplotlib.pyplot as plt  # plotting
@@ -52,6 +53,15 @@ import statsmodels.api as sm  # GLM inference
 import shap  # SHAP explainability
 
 sns.set(style="whitegrid", context="talk")  # seaborn style
+
+# ============================
+# Pandas Display Options (Show Full Tables)
+# ============================
+
+pd.set_option("display.max_rows", None)        # show all rows
+pd.set_option("display.max_columns", None)     # show all columns
+pd.set_option("display.width", 2000)           # widen console output
+pd.set_option("display.max_colwidth", None)    # don't truncate column text
 
 # ============================
 # 2. Load Data
@@ -587,22 +597,52 @@ plt.show()  # display plot
 # ============================
 
 # ============================
-# GLM Inference – FULL MODEL
+# GLM Inference – FULL MODEL (Corrected)
 # ============================
 
-X_full_glm = sm.add_constant(pd.get_dummies(X_full, drop_first=True))  # one-hot encode full predictors
-glm_full = sm.Logit(y_full, X_full_glm).fit(disp=False)  # fit full GLM
-print("\n===== GLM FULL MODEL SUMMARY =====")  # header
-print(glm_full.summary())  # print full GLM summary
+# 1. Dummy encode all categorical variables
+X_full_glm = pd.get_dummies(X_full, drop_first=True)
+
+# 2. Ensure all columns are numeric
+X_full_glm = X_full_glm.astype(float)
+
+# 3. Add constant term
+X_full_glm = sm.add_constant(X_full_glm)
+
+# 4. Drop rows with NaN (if any)
+glm_data_full = pd.concat([y_full, X_full_glm], axis=1).dropna()
+y_full_clean = glm_data_full.iloc[:, 0]
+X_full_glm_clean = glm_data_full.iloc[:, 1:]
+
+# 5. Fit GLM Logit
+glm_full = sm.Logit(y_full_clean, X_full_glm_clean).fit(disp=False)
+
+print("\n===== GLM FULL MODEL SUMMARY =====")
+print(glm_full.summary())
 
 # ============================
-# GLM Inference – REDUCED MODEL
+# GLM Inference – REDUCED MODEL (Corrected)
 # ============================
 
-X_reduced_glm = sm.add_constant(pd.get_dummies(X_reduced, drop_first=True))  # one-hot encode reduced predictors
-glm_reduced = sm.Logit(y_reduced, X_reduced_glm).fit(disp=False)  # fit reduced GLM
-print("\n===== GLM REDUCED MODEL SUMMARY =====")  # header
-print(glm_reduced.summary())  # print reduced GLM summary
+# 1. Dummy encode all categorical variables
+X_reduced_glm = pd.get_dummies(X_reduced, drop_first=True)
+
+# 2. Ensure all columns are numeric
+X_reduced_glm = X_reduced_glm.astype(float)
+
+# 3. Add constant term
+X_reduced_glm = sm.add_constant(X_reduced_glm)
+
+# 4. Drop rows with NaN (if any)
+glm_data_reduced = pd.concat([y_reduced, X_reduced_glm], axis=1).dropna()
+y_reduced_clean = glm_data_reduced.iloc[:, 0]
+X_reduced_glm_clean = glm_data_reduced.iloc[:, 1:]
+
+# 5. Fit GLM Logit
+glm_reduced = sm.Logit(y_reduced_clean, X_reduced_glm_clean).fit(disp=False)
+
+print("\n===== GLM REDUCED MODEL SUMMARY =====")
+print(glm_reduced.summary())
 
 # ============================
 # **19. Feature Importance Plots (Tree Models)**  
@@ -634,6 +674,139 @@ plt.barh(reduced_feature_names, reduced_importances)  # horizontal bar plot
 plt.title("Feature Importance – Extra Trees (Reduced Model)")  # title
 plt.tight_layout()  # layout
 plt.show()  # display plot
+
+
+# Powerpoint Slide Plots
+
+# Feature Importance (Reduced Model Only)
+# Get reduced feature names
+reduced_feature_names = preprocessor_reduced.get_feature_names_out()
+
+# Get feature importances from Extra Trees (Reduced)
+reduced_importances = extra_model_reduced.named_steps["classifier"].feature_importances_
+
+# Build importance table
+importance_df_reduced = pd.DataFrame({
+    "Feature": reduced_feature_names,
+    "Importance": reduced_importances
+}).sort_values(by="Importance", ascending=False)
+
+print("\n===== REDUCED MODEL FEATURE IMPORTANCE =====")
+print(importance_df_reduced)
+
+# Extract feature names + importances directly from reduced model
+feature_names = preprocessor_reduced.get_feature_names_out()
+importances = extra_model_reduced.named_steps["classifier"].feature_importances_
+
+importance_df = pd.DataFrame({
+    "Feature": feature_names,
+    "Importance": importances
+}).sort_values(by="Importance", ascending=False).reset_index(drop=True)
+
+print(importance_df)
+
+# Variable‑Level Feature Importance (Reduced Model Only)
+
+# 1. Get encoded feature names
+feature_names = preprocessor_reduced.get_feature_names_out()
+
+# 2. Get feature importances from Extra Trees (Reduced)
+importances = extra_model_reduced.named_steps["classifier"].feature_importances_
+
+# 3. Build encoded-level importance table
+encoded_df = pd.DataFrame({
+    "EncodedFeature": feature_names,
+    "Importance": importances
+})
+
+# 4. Extract base variable name (everything after first "__")
+encoded_df["Variable"] = encoded_df["EncodedFeature"].apply(
+    lambda x: x.split("__")[1].split("_")[0]
+)
+
+# 5. Aggregate importance by variable
+variable_importance = (
+    encoded_df.groupby("Variable")["Importance"]
+    .sum()
+    .sort_values(ascending=False)
+    .reset_index()
+)
+
+variable_importance.columns = ["Variable", "Total Importance"]
+
+print("\n===== VARIABLE-LEVEL FEATURE IMPORTANCE (REDUCED MODEL) =====")
+print(variable_importance)
+
+
+# SHAP values for reduced model (already computed in your script)
+# shap_values_reduced = explainer_reduced.shap_values(X_train_reduced_transformed)
+
+import shap
+
+# 1. Extract classifier
+clf = extra_model_reduced.named_steps["classifier"]
+
+# 2. Transform reduced training data
+X_transformed = preprocessor_reduced.transform(X_train_f)
+
+# 3. Use fast SHAP explainer (prevents freezing)
+explainer = shap.Explainer(clf, X_transformed)
+
+# 4. Compute SHAP values
+shap_vals = explainer(X_transformed).values   # shape: (n_samples, n_features)
+
+# 5. Get transformed feature names
+feature_names = preprocessor_reduced.get_feature_names_out()
+
+# 6. Compute mean absolute SHAP values
+mean_abs_shap = np.abs(shap_vals).mean(axis=0)
+
+# 7. Build SHAP importance table
+shap_importance_df = pd.DataFrame({
+    "Feature": feature_names,
+    "Mean |SHAP|": mean_abs_shap
+}).sort_values(by="Mean |SHAP|", ascending=False).reset_index(drop=True)
+
+print("\n===== SHAP IMPORTANCE TABLE (REDUCED MODEL) =====")
+print(shap_importance_df)
+
+# Variable‑Level SHAP (Reduced Model Only)
+
+# 1. Extract classifier
+clf = extra_model_reduced.named_steps["classifier"]
+
+# 2. Transform reduced training data
+X_transformed = preprocessor_reduced.transform(X_train_f)
+
+# 3. Fast SHAP explainer (prevents freezing)
+explainer = shap.Explainer(clf, X_transformed)
+shap_vals = explainer(X_transformed).values   # shape: (n_samples, n_features)
+
+# 4. Get transformed feature names
+feature_names = preprocessor_reduced.get_feature_names_out()
+
+# 5. Compute mean absolute SHAP values per encoded column
+mean_abs_shap = np.abs(shap_vals).mean(axis=0)
+
+# 6. Build encoded-level SHAP table
+encoded_df = pd.DataFrame({
+    "EncodedFeature": feature_names,
+    "MeanAbsSHAP": mean_abs_shap
+})
+
+# 7. Extract base variable name (before the second "__")
+encoded_df["Variable"] = encoded_df["EncodedFeature"].apply(lambda x: x.split("__")[1].split("_")[0])
+
+# 8. Aggregate SHAP values by variable
+variable_shap = encoded_df.groupby("Variable")["MeanAbsSHAP"].sum().sort_values(ascending=False)
+
+# 9. Convert to DataFrame
+variable_shap_df = variable_shap.reset_index()
+variable_shap_df.columns = ["Variable", "Total SHAP Importance"]
+
+print("\n===== VARIABLE-LEVEL SHAP IMPORTANCE (REDUCED MODEL) =====")
+print(variable_shap_df)
+
 
 # ============================
 # **20. Final “Model Selection Summary” Section**  
