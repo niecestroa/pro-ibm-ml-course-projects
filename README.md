@@ -1,7 +1,5 @@
 # Data Science Job Salaries ML Pipeline (EDA, Regression, Classification)
-Professional machine learning pipelines derived from IBM/Coursera Machine Learning Courses 1–3, rebuilt into modular, reproducible, production‑aligned workflows using Python and R.
-
-Here’s a clean, professional **README timeline section** based on your progress so far. It keeps everything structured, clear, and easy for anyone reading your repo to understand where each stage stands.
+Professional machine learning pipelines derived from IBM/Coursera Machine Learning Courses 1–3, rebuilt into modular, reproducible, production‑aligned workflows using Python.
 
 ---
 
@@ -220,8 +218,38 @@ This repository is based on coursework from:
 - **[IBM Machine Learning Professional Certificate](https://www.coursera.org/professional-certificates/ibm-machine-learning)**  
 - **Coursera Machine Learning Specialization**
 
-Dataset credit:
+Here’s a clean, GitHub‑ready **Dataset Credit** section you can drop directly into your README. It includes all the Kaggle sources you listed, formatted consistently and with proper attribution.
+
+---
+
+## Dataset Credits
+
+This project uses multiple publicly available datasets from Kaggle. Full credit to the original dataset authors:
 
 - **Latest Data Science Job Salaries 2024**  
-  [Kaggle dataset by *Saurabh Badole*](https://www.kaggle.com/datasets/saurabhbadole/latest-data-science-job-salaries-2024/data)
+  *Author:* Saurabh Badole  
+  *Source:* `https://www.kaggle.com/datasets/saurabhbadole/latest-data-science-job-salaries-2024` [Latest Data Science Job Salaries 2024](https://www.bing.com/search?q="https%3A%2F%2Fwww.kaggle.com%2Fdatasets%2Fsaurabhbadole%2Flatest-data-science-job-salaries-2024")
 
+- **Data Science Salaries 2023**  
+  *Author:* Arnab Chaki  
+  *Source:* [https://www.kaggle.com/datasets/arnabchaki/data-science-salaries-2023](https://www.kaggle.com/datasets/arnabchaki/data-science-salaries-2023)
+
+- **Data Science Salaries 2024**  
+  *Author:* Yusuf Delikkaya  
+  *Source:* [https://www.kaggle.com/datasets/yusufdelikkaya/datascience-salaries-2024](https://www.kaggle.com/datasets/yusufdelikkaya/datascience-salaries-2024)
+
+- **Data Science Salaries and Fields**  
+  *Author:* Josia Given  
+  *Source:* [https://www.kaggle.com/datasets/josiagiven/data-science-salaries-and-fields](https://www.kaggle.com/datasets/josiagiven/data-science-salaries-and-fields)
+
+- **Data Science Salaries**  
+  *Author:* Sazid  
+  *Source:* [https://www.kaggle.com/datasets/sazidthe1/data-science-salaries](https://www.kaggle.com/datasets/sazidthe1/data-science-salaries)
+
+- **Data Science Salaries**  
+  *Author:* Zain  
+  *Source:* [https://www.kaggle.com/datasets/zain280/data-science-salaries](https://www.kaggle.com/datasets/zain280/data-science-salaries)
+
+- **Data Science Salary Landscape**  
+  *Author:* Lai Nguy  
+  *Source:* `https://www.kaggle.com/datasets/lainguyn123/data-science-salary-landscape` [(kaggle.com in Bing)](https://www.bing.com/search?q="https%3A%2F%2Fwww.kaggle.com%2Fdatasets%2Flainguyn123%2Fdata-science-salary-landscape")
