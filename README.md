@@ -252,4 +252,4 @@ This project uses multiple publicly available datasets from Kaggle. Full credit 
 
 - **Data Science Salary Landscape**  
   *Author:* Lai Nguy  
-  *Source:* `https://www.kaggle.com/datasets/lainguyn123/data-science-salary-landscape` [(kaggle.com in Bing)](https://www.bing.com/search?q="https%3A%2F%2Fwww.kaggle.com%2Fdatasets%2Flainguyn123%2Fdata-science-salary-landscape")
+  *Source:* [https://www.kaggle.com/datasets/lainguyn123/data-science-salary-landscape/suggestions](https://www.kaggle.com/datasets/lainguyn123/data-science-salary-landscape/suggestions)
