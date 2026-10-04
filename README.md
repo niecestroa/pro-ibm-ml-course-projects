@@ -228,7 +228,7 @@ This project uses multiple publicly available datasets from Kaggle. Full credit 
 
 - **Latest Data Science Job Salaries 2024**  
   *Author:* Saurabh Badole  
-  *Source:* `https://www.kaggle.com/datasets/saurabhbadole/latest-data-science-job-salaries-2024` [Latest Data Science Job Salaries 2024](https://www.bing.com/search?q="https%3A%2F%2Fwww.kaggle.com%2Fdatasets%2Fsaurabhbadole%2Flatest-data-science-job-salaries-2024")
+  *Source:* [Latest Data Science Job Salaries 2024](https://www.bing.com/search?q="https%3A%2F%2Fwww.kaggle.com%2Fdatasets%2Fsaurabhbadole%2Flatest-data-science-job-salaries-2024")
 
 - **Data Science Salaries 2023**  
   *Author:* Arnab Chaki  
