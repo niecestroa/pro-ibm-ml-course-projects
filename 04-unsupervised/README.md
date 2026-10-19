@@ -1,8 +1,8 @@
 # 🍷 Unsupervised Machine Learning on the UCI Wine Quality Dataset  
 
-## **Created: October 19, 2026**
-## **Updated: October 19, 2026**
-## **Progress: Ongoing**
+## Created: October 19, 2026
+## Updated: October 19, 2026
+## Progress: Ongoing
 
 This project applies a full unsupervised machine learning workflow to the combined **red + white Wine Quality dataset** from the UCI Machine Learning Repository. The goal is to discover latent wine profiles, visualize underlying structure, and identify anomalous wines using physicochemical attributes alone.
 
