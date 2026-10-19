@@ -1,14 +1,11 @@
-# 🍷 Unsupervised ML Data — Wine Quality Dataset  
+# 🍷 **Unsupervised ML Data — Wine Quality Dataset**
 
-- **Created:** October 19, 2026  
-- **Updated:** October 19, 2026  
-- **Progress:** Ongoing  
-
-This directory contains all data used for the **Unsupervised Machine Learning (Course 4)** project based on the **UCI Wine Quality Dataset**. The data is organized into **raw** and **clean** subfolders to support a fully reproducible, production‑aligned workflow.
+This directory contains all data used for the **Unsupervised Machine Learning (Course 4)** project based on the **UCI Wine Quality Dataset**.  
+The data is organized into **raw** and **clean** subfolders to support a fully reproducible, production‑aligned workflow.
 
 ---
 
-## 📁 Folder Structure
+## 📁 **Folder Structure**
 
 ```
 data/
@@ -23,15 +20,16 @@ data/
     ├── winequality_combined_clean.csv
 ```
 
-### **raw/**  
+### **raw/**
 Contains the **original, untouched datasets** downloaded directly from the UCI Machine Learning Repository:
 
 - `winequality-red.csv`  
-- `winequality-white.csv`
+- `winequality-white.csv`  
+- `winequality.names` (metadata file)
 
 These files are preserved exactly as provided by the dataset authors.
 
-### **clean/**  
+### **clean/**
 Contains **processed, analysis‑ready datasets** created during the data cleaning pipeline:
 
 - `winequality_combined.csv`  
@@ -47,7 +45,7 @@ Contains **processed, analysis‑ready datasets** created during the data cleani
 
 ---
 
-## 📘 Dataset Description
+## 📘 **Dataset Description**
 
 The Wine Quality dataset contains physicochemical measurements of red and white variants of Portuguese *Vinho Verde* wine.
 
@@ -65,19 +63,20 @@ The Wine Quality dataset contains physicochemical measurements of red and white 
 - alcohol  
 
 ### **Targets (used only for interpretation)**  
-- `quality` (integer score 0–10)  
-- `color` (added manually during cleaning)
+- `quality` — integer score (0–10)  
+- `color` — added manually during cleaning  
 
 ---
 
-## 📚 Citation  
+## 📚 **Citation**
+
 Cortez, P., Cerdeira, A., Almeida, F., Matos, T., & Reis, J. (2009). *Wine Quality* [Dataset].  
 UCI Machine Learning Repository.  
 [https://doi.org/10.24432/C56S3T](https://doi.org/10.24432/C56S3T)
 
 ---
 
-## 🔧 How This Data Is Used in the Project
+## 🔧 **How This Data Is Used in the Project**
 
 The cleaned dataset is used for:
 
@@ -104,8 +103,8 @@ The cleaned dataset is used for:
 
 ---
 
-## 🧪 Reproducibility Notes
+## 🧪 **Reproducibility Notes**
 
-- All transformations applied to raw data are documented in the `unsupervised-ml` folder.
+- All transformations applied to raw data are documented in the `unsupervised-ml` folder.  
 - Cleaned datasets are version‑controlled to ensure consistent results across experiments.  
 - Raw data is never modified — all processing happens in the `clean/` folder.
