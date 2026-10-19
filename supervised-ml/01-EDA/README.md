@@ -1,47 +1,76 @@
-# **Data Science Salaries — Exploratory Data Analysis (EDA)**  
-This folder contains the full exploratory analysis workflow for the **Data Science Salaries** datasets sourced from Kaggle. The goal of this EDA is to understand compensation trends across the data science profession and establish a clean, reproducible foundation for later modeling work.
+# **01 — Exploratory Data Analysis (EDA)**  
 
-Timelines:
-Started On:    September 8, 2026
-Completed on:   September 10, 2026
+- **Supervised Machine Learning Module**  
+- **Status:** Completed
+
+This folder contains the full exploratory data analysis (EDA) workflow for the **Master Data Science Salaries (2020–2025)** dataset.  
+The goal of this stage is to understand compensation trends across the data science profession, evaluate feature relationships, detect anomalies, and prepare insights that guide feature engineering and model development.
+
+EDA was performed in **Python** as the primary workflow.  
+An R translation was planned but not completed due to KaggleHub import issues and data‑cleaning inconsistencies. R support may be added in a future update.
 
 ---
 
-## **Author**  
+## 👤 **Author**
 **Aaron Niecestro**  
 Data Scientist & Biostatistician  
 Lead Analyst and Sole Contributor
 
 ---
 
-## **Included Kaggle Datasets (Cited)**  
+## 📅 **Project Timeline**
+- **Data Downloaded:** June 29, 2026  
+- **EDA Started:** July 19, 2026  
+- **EDA Completed:** September 28, 2026  
+- **Status:** EDA finalized; modeling completed in later phases  
+
+---
+
+## 📚 **Included Kaggle Datasets (Cited)**  
 The following datasets were downloaded using `kagglehub` and used for exploratory analysis:
 
-1. **Latest Data Science Job Salaries 2024**  
-2. **Data Science Salaries 2023**  
-3. **DataScience Salaries 2024**  
-4. **Data Science Salaries and Fields**  
-5. **Data Science Salaries** (Sazidthe1)  
-6. **Data Science Salaries** (Zain280)  
-7. **Data Science Salary Landscape**
+1. Latest Data Science Job Salaries 2024  
+2. Data Science Salaries 2023  
+3. DataScience Salaries 2024  
+4. Data Science Salaries and Fields  
+5. Data Science Salaries (Sazidthe1)  
+6. Data Science Salaries (Zain280)  
+7. Data Science Salary Landscape  
 
-These datasets provide overlapping but complementary views of the data science job market across roles, industries, and regions.
-
----
-
-## **EDA Objectives**
-
-- Explore salary distributions across roles and seniority levels  
-- Examine how remote work, company size, and employment type influence compensation  
-- Identify geographic salary patterns  
-- Build clean preprocessing pipelines in **Python** and **R**  
-- Produce visual analytics to highlight key trends  
-- Export cleaned datasets for downstream modeling  
+These datasets provide overlapping but complementary views of the global data‑science job market.
 
 ---
 
-## **Key Questions Investigated**
+## 📊 **Key EDA Objectives**
 
+### **1. Understanding Salary Distributions**
+- Raw salary vs. salary in USD  
+- Variation across job titles, experience levels, and company size  
+- Identifying skewed distributions and potential transformations  
+
+### **2. Exploring Categorical Variables**
+- Frequency counts  
+- Geographic patterns (employee residence vs. company location)  
+- Remote work ratios  
+
+### **3. Detecting Outliers**
+- Extreme salary values  
+- Rare job titles  
+- Unusual combinations of experience level and salary  
+
+### **4. Correlation & Feature Relationships**
+- Pearson/Spearman correlations  
+- Heatmaps  
+- Early signals for feature importance  
+
+### **5. Preparing for Modeling**
+- Identifying features requiring encoding  
+- Flagging variables with low variance  
+- Highlighting potential engineered features (e.g., region grouping, seniority bins)
+
+---
+
+## 🔍 **Key Questions Investigated**
 - How do salaries vary by **experience level** (Entry, Mid, Senior, Executive)?  
 - Which **job titles** consistently show higher compensation?  
 - Does **remote work** correlate with higher or lower pay?  
@@ -50,48 +79,53 @@ These datasets provide overlapping but complementary views of the data science j
 
 ---
 
-# **Project Timeline (EDA Scope)**
+## 🧪 **EDA Workflow Overview (Python)**
 
-- **Data Downloaded:** June 29, 2026  
-- **EDA Started:** July 19, 2026  
-- **EDA Completed:** **September 10, 2025**  
-- **Status:** EDA finalized; modeling planned for later phases  
-
----
-
-# **EDA Workflow Overview**
-
-### **Phase 1 — Python EDA (Primary Workflow)**  
+### **Phase 1 — Python EDA (Primary Workflow)**
 - Import and inspect datasets  
 - Clean and preprocess data  
-- Conduct exploratory data analysis  
+- Conduct exploratory analysis  
 - Generate visualizations (salary distributions, role comparisons, remote ratio effects, etc.)  
-- Export cleaned datasets for R translation  
+- Export cleaned datasets for modeling  
 
-### **Phase 2 — R EDA (Translation & Statistical Deep Dive)**  
-- Recreate Python preprocessing using tidyverse  
-- Replicate EDA and visualizations using ggplot2  
-- Compare R’s statistical summaries with Python’s  
-- Document syntax and workflow differences  
-- Export R‑processed datasets for modeling  
+### **Phase 2 — (Optional Future Work) R EDA**
+R translation was planned but not completed due to:
+- KaggleHub import issues  
+- Data‑cleaning inconsistencies  
+- Time constraints during project timeline  
 
-### **Phase 3 — Cross‑Language Comparison (Python vs R)**  
-- Compare readability and workflow complexity  
-- Evaluate visualization expressiveness  
-- Summarize statistical output differences  
-- Document strengths and limitations of each language  
+R support may be added in a future update for:
+- Statistical deep dives  
+- ggplot2 visualization comparisons  
+- Cross‑language reproducibility checks  
 
 ---
 
-# **Python vs R — EDA Comparison Table**
+## 📘 **Dataset Source**
 
-| Feature / Aspect | **Python** | **R** |
-|------------------|------------|-------|
-| **Primary Strength** | General‑purpose programming + ML ecosystem | Statistical analysis + tidy data workflows |
-| **Best For** | EDA, automation, modeling | Statistical summaries, elegant visualizations |
-| **Learning Curve** | Moderate | Moderate |
-| **Data Manipulation** | pandas | dplyr / tidyverse |
-| **Visualization** | matplotlib, seaborn, plotly | ggplot2 (highly expressive) |
-| **Workflow Style** | Script‑based, modular | Functional, pipe‑driven |
-| **Reproducibility** | High (notebooks + scripts) | High (RMarkdown + scripts) |
-| **Ideal Use Case** | Flexible data science projects | Statistical deep dives |
+All EDA is performed on the unified dataset created in:
+
+```
+supervised-ml/data/
+```
+
+Dataset details and citations are provided in that folder’s README.
+
+---
+
+## 🧪 **Reproducibility Notes**
+- All figures and tables are generated programmatically from `eda.ipynb`.  
+- No manual edits are applied to the dataset during EDA.  
+- Outputs are version‑controlled to ensure consistent results across modeling experiments.  
+- The notebook can be re‑run end‑to‑end using the cleaned dataset (`dss2025_final.csv`).  
+
+---
+
+## ✅ **EDA Status**
+Exploratory Data Analysis is **complete**.  
+Insights from this stage directly inform feature engineering and model development in:
+
+```
+supervised-ml/02-regression/
+supervised-ml/03-classification/
+```
