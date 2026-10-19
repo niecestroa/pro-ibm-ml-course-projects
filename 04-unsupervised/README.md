@@ -1,15 +1,29 @@
 # 🍷 Unsupervised Machine Learning on the UCI Wine Quality Dataset  
 
+This project applies a full unsupervised machine learning workflow to the combined **red + white Wine Quality dataset** from the UCI Machine Learning Repository. The goal is to discover latent wine profiles, visualize underlying structure, and identify anomalous wines using physicochemical attributes alone.
+
 - **Created: October 19, 2026**
 - **Updated: October 19, 2026**
 - **Progress: Ongoing**
 
-This project applies a full unsupervised machine learning workflow to the combined **red + white Wine Quality dataset** from the UCI Machine Learning Repository. The goal is to discover latent wine profiles, visualize underlying structure, and identify anomalous wines using physicochemical attributes alone.
-
 ---
 
-## 📚 Citation for Data  
-Cortez, P., Cerdeira, A., Almeida, F., Matos, T., & Reis, J. (2009). *Wine Quality* [Dataset]. UCI Machine Learning Repository. [https://doi.org/10.24432/C56S3T](https://doi.org/10.24432/C56S3T).
+## 📑 Table of Contents
+
+1. [Project Summary](#-project-summary)  
+2. [Numeric Unsupervised ML Plan](#-numeric-unsupervised-ml-plan-project-workflow)  
+   - [1. Data Loading & Integration](#1-data-loading--integration)  
+   - [2. Preprocessing](#2-preprocessing)  
+   - [3. Exploratory Data Analysis](#3-exploratory-data-analysis)  
+   - [4. Clustering Experiments](#4-clustering-experiments)  
+   - [5. Dimensionality-Reduction](#5-dimensionality-reduction)  
+   - [6. Anomaly Detection](#6-anomaly-detection)  
+   - [7. Interpretation & Reporting](#7-interpretation--reporting)  
+3. [Code Skeleton](#-code-skeleton-high-level)  
+4. [Example Outputs](#-example-outputs)  
+5. [Requirements](#-requirements)  
+6. [Future Work](#-future-work)  
+7. [Citation for Data](#-citation-for-data)
 
 ---
 
@@ -162,4 +176,11 @@ umap-learn
 - Deep clustering (DEC, VaDE)  
 - Autoencoder-based anomaly detection  
 - Cluster stability analysis  
-- Wine recommendation engine based on cluster proximity  
+- Wine recommendation engine based on cluster proximity
+
+---
+
+## 📚 Citation for Data  
+Cortez, P., Cerdeira, A., Almeida, F., Matos, T., & Reis, J. (2009). *Wine Quality* [Dataset]. UCI Machine Learning Repository. [https://doi.org/10.24432/C56S3T](https://doi.org/10.24432/C56S3T).
+
+
