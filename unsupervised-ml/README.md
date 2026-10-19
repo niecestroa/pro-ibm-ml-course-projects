@@ -176,17 +176,6 @@ Cortez, P., Cerdeira, A., Almeida, F., Matos, T., & Reis, J. (2009). *Wine Quali
 
 ---
 
-## **🔗 Hybrid Analysis Preview**
-After clustering:
-
-- Compare clusters with quality scores  
-- Evaluate cluster‑aware supervised models  
-- Examine whether anomalies correspond to extreme or misclassified samples  
-
-This creates a full end‑to‑end ML workflow blending unsupervised + supervised learning.
-
----
-
 ## **🚀 Next Steps**
 - Complete EDA + distance‑metric analysis  
 - Implement clustering evaluation suite  
