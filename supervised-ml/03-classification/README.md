@@ -29,7 +29,7 @@ Lead Analyst and Sole Contributor
 All classification modeling uses the unified dataset created in:
 
 ```
-supervised-ml/data/
+supervised-ml/00-data/
 ```
 
 Target variables are engineered from `salary_in_usd`:
