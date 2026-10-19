@@ -96,12 +96,10 @@ Included for interpretability and multi‑level structure:
 ### **3. Dimensionality Reduction**
 Used for visualization, noise reduction, and improving clustering:
 
-- **PCA** — linear; variance‑preserving  
+- **PCA** — linear; variance‑preserving
+- **Kernel PCA** (nonlinear; RBF kernel) 
 - **t‑SNE** — nonlinear; excellent for 2D/3D visualization  
 - **UMAP** — nonlinear; preserves global + local structure  
-
-Future additions:
-- **Kernel PCA** (nonlinear; RBF kernel)  
 - **NMF** (non‑negative data)  
 
 ---
