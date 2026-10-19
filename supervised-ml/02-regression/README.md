@@ -1,237 +1,201 @@
-# **Data Science Salary Modeling — Regression Analysis (Numeric‑Only Phase)**
+# **02 — Regression Modeling (Numeric‑Only Phase)**  
+**Supervised Machine Learning Module**  
+**Status:** Completed  
+**Last Updated:** September 28, 2026  
 
-This repository contains the first phase of a multi‑stage machine learning project focused on modeling and understanding salary dynamics in the data science workforce.  
-In this phase, we perform **supervised regression modeling** using **numeric‑only features**, with the response variable:
+This folder contains the first phase of supervised machine learning modeling for the **Master Data Science Salaries (2020–2025)** dataset.  
+This phase focuses exclusively on **numeric‑only regression models**, using:
 
-### **Target Variable:** `salary_in_usd`
+### **Target Variable:**  
+`salary_in_usd` → transformed to `log_salary`
 
-Categorical variables will be incorporated later in a separate **classification modeling phase**.
+Categorical variables (job title, experience level, company size, etc.) will be incorporated in the **classification module**.
 
 ---
 
-## **Core Research Questions**
+## 📌 **Core Research Questions**
 
-This project is driven by a set of foundational research questions that explore how salary varies across roles, experience, remote work, company characteristics, and time. These questions guide model selection, feature engineering, and interpretation.
+### **1. Determinants of Salary**
+- Which numeric features most strongly influence salary?  
+- Are relationships linear or nonlinear?  
+- How large are the effects?
 
-### **1. What factors most strongly influence salary levels in the data science workforce?**
-- Which numeric variables matter most?  
-- How large are their effects?  
-- Are relationships linear or nonlinear?
+### **2. Remote‑Work Salary Dynamics**
+- Does remote_ratio correlate with higher or lower salary?  
+- Do hybrid roles behave differently?  
+- Does remote work reduce salary inequality?
 
-### **2. How do job‑related characteristics shape salary outcomes?**  
-*(Categorical variables will be added later)*  
+### **3. Job‑Level & Experience‑Level Structure**  
+*(Categorical variables added later)*  
 - Seniority vs. job title  
 - Full‑time vs. contract roles  
 
-### **3. How does remote work affect salary?**
-- Does remote_ratio correlate with higher or lower salary?  
-- Does hybrid work behave differently?  
-- Does remote work reduce salary inequality?
-
-### **4. How does company size relate to salary outcomes?**
+### **4. Company Characteristics**
 - Do larger companies pay more?  
 - Are effects linear or stepwise?  
-- Does company size interact with experience level?
+- Do company attributes interact with experience level?
 
-### **5. How has salary changed over time?**
+### **5. Temporal Salary Trends**
 - Salary inflation across work_year  
 - Does experience level moderate salary growth?  
 - Does data_age capture meaningful temporal trends?
 
-### **6. Are there interaction effects between job characteristics, remote work, and time?**
+### **6. Interaction Effects**
 - Numeric × numeric interactions  
 - Nonlinear relationships captured by tree‑based models  
 
 ---
 
-## **The Five Big Research Themes**
+## 🎯 **The Five Big Research Themes**
 
-These themes summarize the overarching goals of the regression phase:
-
-1. **Determinants of salary**  
-2. **Remote‑work salary dynamics**  
-3. **Job‑level & experience‑level salary structure**  
-4. **Temporal salary trends & inflation**  
-5. **Predictive modeling for salary estimation**
+1. Determinants of salary  
+2. Remote‑work salary dynamics  
+3. Job‑level & experience‑level salary structure  
+4. Temporal salary trends & inflation  
+5. Predictive modeling for salary estimation  
 
 ---
 
-# **Supervised Machine Learning Regression Models (Numeric‑Only)**
+# **Why Log Transformation Was Required**
 
-Since this phase uses **only one numeric predictors**, all models below operate without categorical encoding.  
-Categorical variables will be introduced later for classification tasks in classification folder.
+The original target variable:
 
----
+### `salary_in_usd`
 
-## **1. Linear Models**
+was **highly right‑skewed**, causing violations of OLS assumptions:
 
-Linear Regression (OLS) serves as the baseline model for the numeric‑only phase.  
-During initial modeling, the response variable was:
+- heteroscedasticity  
+- non‑normal residuals  
+- nonlinear mean–variance relationship  
+- high‑influence outliers  
 
-### **Original Target Variable:**  
-`salary_in_usd`
-
-However, the raw salary distribution was **highly right‑skewed**, and the OLS diagnostic plots showed clear violations of key regression assumptions:
-
-- **Non‑constant variance (heteroscedasticity)**  
-- **Non‑normal residuals**  
-- **Nonlinear mean–variance relationship**  
-- **High‑influence outliers**
-
-To address these issues, the response variable was transformed using:
-
-### **Log Transformation:**  
+### ✔ Log Transformation Applied  
 `log_salary = log(salary_in_usd)`
 
-### **Why Log Transformation Was Necessary**
-Even after initial preprocessing, the OLS assumptions were **not met** using the original salary scale.  
-After applying the log transformation:
+### ✔ Improvements After Log Transform
+- Residuals more symmetric  
+- Variance stabilized  
+- QQ‑plots closer to normality  
+- Reduced funneling in residual vs. fitted plots  
+- Outliers exerted less influence  
 
-- Residuals became **more symmetric**  
-- Variance stabilized across fitted values  
-- QQ‑plots showed **closer alignment to normality**  
-- Residual vs. fitted plots showed **reduced funneling**  
-- Extreme salaries exerted less influence on the model  
+### **Final Decision:**  
+All regression models in this numeric‑only phase use:
 
-Although the assumptions were **not perfectly satisfied**, the log‑transformed model exhibited **substantially improved diagnostic behavior** compared to the untransformed model.
+### **`log_salary` as the response variable**
 
-### **Final Decision**
-All subsequent regression models in this numeric‑only phase use:
+This ensures:
 
-**`log_salary` as the response variable.**
+- more reliable inference  
+- stable coefficient estimates  
+- better AIC/BIC model selection  
+- interpretable multiplicative effects (percentage salary changes)
 
-This includes:
+---
 
-- Linear Regression (OLS)  
-- Polynomial Regression  
+# **Regression Models Implemented (Numeric‑Only)**
+
+## **1. Linear Models**
+All trained using `log_salary`:
+
+- Ordinary Least Squares (OLS)  
+- Polynomial Regression (degree 2–3)  
 - Interaction‑Only Regression  
 - Polynomial + Interaction Regression  
-- Ridge Regression  
-- Lasso Regression  
-- Elastic Net Regression  
 
-Using the log‑transformed response ensures:
-
-- More reliable inference  
-- More stable coefficient estimates  
-- Better comparability across modeling families  
-- Improved AIC/BIC model selection  
-- More interpretable multiplicative effects (percentage salary changes)
+### Why log helps linear models:
+- stabilizes variance  
+- improves normality  
+- reduces outlier influence  
+- improves diagnostic plots  
+- yields interpretable percentage effects  
 
 ---
 
 ## **2. Regularized Models**
+All trained using `log_salary`:
 
-Regularization was applied **after** the log transformation to stabilize coefficients and reduce overfitting in high‑dimensional numeric expansions.
+- Ridge Regression  
+- Lasso Regression  
+- Elastic Net Regression  
 
-All regularized models use:
-
-**`log_salary` as the response variable.**
-
-Models included:
-
-- **Ridge Regression**  
-- **Lasso Regression**  
-- **Elastic Net Regression**
-
-These models benefit from the log transformation because:
-
+### Why log helps regularization:
 - Ridge stabilizes coefficients under heteroscedasticity  
-- Lasso performs cleaner feature selection when variance is stabilized  
-- Elastic Net handles correlated numeric predictors more effectively  
-
-The log transformation improved residual structure and reduced the influence of extreme salary values, making regularization more effective and interpretable.
+- Lasso performs cleaner feature selection  
+- Elastic Net handles correlated predictors more effectively  
 
 ---
 
 ## **3. Polynomial & Interaction Models**
+All trained using `log_salary`:
 
-Polynomial and interaction models also use the **log‑transformed response**.
+- Polynomial Regression (degree 2–3)  
+- Interaction‑Only Regression  
+- Polynomial + Interaction Regression  
 
-### **Why?**
-
-Polynomial expansions (degree 2 or 3) and numeric × numeric interactions can amplify:
-
-- heteroscedasticity  
-- skewness  
-- outlier influence  
-
-Using `log_salary`:
-
+### Why log helps polynomial models:
 - reduces variance inflation  
-- improves normality of residuals  
+- improves residual structure  
 - stabilizes polynomial terms  
-- improves AIC/BIC model selection  
-- yields more interpretable nonlinear effects  
-
-Models included:
-
-- **Polynomial Regression (degree 2 or 3)**  
-- **Interaction‑Only Regression**  
-- **Polynomial + Interaction Regression**
-
-All diagnostics (residual plots, QQ plots, BP tests) showed **clear improvement** after log transformation.
+- improves AIC/BIC selection  
+- yields clearer nonlinear effects  
 
 ---
 
 ## **4. Tree‑Based Ensemble Models**
+Although tree models do not require log transformation, they were trained on `log_salary` for consistency:
 
-Tree‑based models do not require log transformation for assumptions, but for **consistency across the regression suite**, they were also trained on:
+- Decision Tree Regressor  
+- Random Forest Regressor  
+- Gradient Boosting Regressor  
+- XGBoost Regressor  
+- LightGBM Regressor  
 
-**`log_salary`**
-
-This allows:
-
-- consistent RMSE/MAE comparison  
-- unified leaderboard evaluation  
-- easier interpretation of multiplicative effects  
-- smoother transition into Phase 2 (mixed‑feature modeling)
-
-Models included:
-
-- **Decision Tree Regressor**  
-- **Random Forest Regressor**  
-- **Gradient Boosting Regressor**  
-- **XGBoost Regressor**  
-- **LightGBM Regressor**
+### Benefits of using log:
+- unified RMSE/MAE comparison  
+- consistent leaderboard  
+- smoother transition into mixed‑feature modeling  
+- multiplicative interpretation of predictions  
 
 ---
 
-## **5. Support Vector Regression**
+## **5. Support Vector Regression (SVR)**
+SVR with RBF kernel trained on `log_salary`.
 
-SVR with RBF kernel also uses:
-
-**`log_salary`**
-
-This improves:
-
-- margin stability  
-- kernel behavior  
-- prediction smoothness  
-- comparability with other nonlinear models
+### Benefits:
+- more stable margins  
+- smoother kernel behavior  
+- improved comparability with other nonlinear models  
 
 ---
 
-## **6. Model Comparison**
+# **Model Evaluation**
 
-All models — linear, polynomial, interaction, regularized, tree‑based, and SVR — are compared using:
+All models were evaluated using:
 
-- RMSE (log scale)  
-- MAE (log scale)  
-- R²  
-- Adjusted R²  
+- **RMSE (log scale)**  
+- **MAE (log scale)**  
+- **R²**  
+- **Adjusted R²**  
 
-This ensures a fair, unified evaluation across the entire numeric‑only modeling phase.
+This ensures a fair, unified comparison across linear, nonlinear, regularized, and ensemble models.
 
 ---
 
-# **Next Steps**
+# **Status**
 
-This repository represents **Phase 1: Numeric‑Only Regression Models**.  
-Future phases will include:
+This folder represents **Phase 1: Numeric‑Only Regression Models**.
 
-- **Categorical feature encoding**  
+Completed:
+- Numeric‑only regression suite  
+- Log‑transformed modeling pipeline  
+- Full model comparison leaderboard  
+
+Next phases (in separate folders):
+- **Categorical encoding**  
 - **Classification modeling**  
 - **Salary category prediction**  
 - **SHAP interpretability across mixed feature types**  
 - **Full model comparison dashboard**
+
+---
