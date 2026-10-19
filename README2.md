@@ -1,13 +1,8 @@
-Absolutely, Aaron — here is your **full unified README**, clean, professional, and ready to paste directly into your GitHub repo.  
-It includes **all sections (00–06)**, **all datasets**, and **correct citations** for both the Kaggle salary datasets (Projects 01–03) and the UCI Wine Quality dataset (Project 04).  
-Everything is formatted to match your existing style and timeline structure.
-
----
-
 # 📘 Professional IBM Machine Learning Course Projects  
-**Created:** August 25, 2026  
-**Updated:** October 19, 2026  
-**Progress:** Ongoing  
+
+- **Created:** August 25, 2026  
+- **Updated:** October 19, 2026  
+- **Progress:** Ongoing  
 
 This repository contains **professional, production‑ready machine learning pipelines** derived from the IBM/Coursera Machine Learning Professional Certificate (Courses 1–6). Each academic assignment has been rebuilt into a **modular, reproducible, engineering‑aligned workflow** using Python (and optional R).
 
