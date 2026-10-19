@@ -1,11 +1,11 @@
 # **Supervised Machine Learning — Salary Modeling Pipeline**  
 
+This directory contains the full **Supervised Machine Learning pipeline** for the *Master Data Science Salaries (2020–2025)* dataset.  
+All workflows are rebuilt from IBM/Coursera Machine Learning Courses 1–3 into **modular, reproducible, production‑aligned pipelines** using Python.
+
 - **Modules:** Data • EDA • Regression • Classification  
 - **Status:** Completed  
 - **Last Updated:** October 2, 2026  
-
-This directory contains the full **Supervised Machine Learning pipeline** for the *Master Data Science Salaries (2020–2025)* dataset.  
-All workflows are rebuilt from IBM/Coursera Machine Learning Courses 1–3 into **modular, reproducible, production‑aligned pipelines** using Python.
 
 The supervised‑ML module includes:
 
