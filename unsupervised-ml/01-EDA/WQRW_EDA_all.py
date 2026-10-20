@@ -60,13 +60,11 @@ RANDOM_STATE = 42
 # =========================================================
 
 file_path = Path(
-    r"C:\Users\aniec\Desktop\ibm-ml-project"
-    r"\unsupervised-ml\00-data\clean-data\winequality-final.csv"
+    r"C:\Users\aniec\Desktop\ibm-ml-project\unsupervised-ml\00-data\clean-data\winequality-final.csv"
 )
 
 output_dir = Path(
-    r"C:\Users\aniec\Desktop\ibm-ml-project"
-    r"\01-EDA\wine-quality"
+    r"C:\Users\aniec\Desktop\ibm-ml-project\unsupervised-ml\01-EDA"
 )
 
 output_dir.mkdir(parents=True, exist_ok=True)
