@@ -14,7 +14,36 @@ Each stage is documented with its own README and follows a consistent engineerin
 
 - **Modules:** Data • EDA • Regression • Classification  
 - **Status:** Completed  
-- **Last Updated:** October 2, 2026  
+- **Last Updated:** October 2, 2026
+
+---
+
+# Supervised Machine Learning — Salary Modeling Pipeline
+
+End-to-end supervised machine learning project using a unified Data Science Salaries (2020–2025) dataset created from seven Kaggle sources.
+
+The project reproduces and extends concepts from IBM's Machine Learning Professional Certificate by implementing production-aligned workflows for data engineering, exploratory analysis, regression, and classification modeling.
+
+Key objectives:
+- Build a unified salary dataset
+- Explore salary patterns and feature relationships
+- Predict salary values using regression
+- Classify salaries into compensation categories
+- Develop reproducible ML pipelines
+
+---
+
+## Repository Structure
+
+supervised-ml/
+│
+├── 00-data/
+├── 01-eda/
+├── 02-regression/
+├── 03-classification/
+├── data/
+├── outputs/
+└── README.md
 
 ---
 
@@ -181,23 +210,35 @@ Focus: predicting salary categories.
 
 ---
 
-# 🧩 **Engineering Standards**
+## 🧩 Skills Demonstrated
 
-- Modular scripts for each ML stage  
-- Reproducible outputs  
-- Version‑controlled notebooks  
-- Standardized folder structure  
-- Clear separation of data, models, and evaluation  
-- Production‑aligned pipeline design  
-- Consistent documentation across modules  
+### Machine Learning
+- Regression
+- Classification
+- Feature Engineering
+- Cross Validation
+- Hyperparameter Tuning
 
----
+### Data Analysis
+- Exploratory Data Analysis
+- Statistical Analysis
+- Data Cleaning
+- Outlier Detection
 
-# 🚀 **Status**
+### Python
+- pandas
+- numpy
+- scikit-learn
+- xgboost
+- lightgbm
+- matplotlib
+- seaborn
 
-- **Integrate unsupervised learning (Course 4) Status:** Ongoing <br>
-- **Add deep learning modules (Course 5) Status:** Not Started <br>
-- **Build unified ML pipeline across all 6 IBM courses Status:** Not Started <br>
+### Software Engineering
+- Modular Pipelines
+- Reproducibility
+- Documentation
+- Version Control
 
 ---
 
