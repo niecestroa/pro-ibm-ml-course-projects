@@ -1,2 +1,0 @@
-algorithm,final_model,silhouette_score,davies_bouldin_index,stability_ari,cluster_count,noise_pct
-Agglomerative,Ward k=2,0.2606611422703558,1.7163678729495981,,2,0.0
