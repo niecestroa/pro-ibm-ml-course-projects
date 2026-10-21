@@ -35,15 +35,13 @@ Key objectives:
 
 ## Repository Structure
 
-supervised-ml/
-│
-├── 00-data/
-├── 01-eda/
-├── 02-regression/
-├── 03-classification/
-├── data/
-├── outputs/
-└── README.md
+supervised-ml/ <br>
+│ <br>
+├── 00-data/ <br>
+├── 01-eda/ <br>
+├── 02-regression/ <br>
+├── 03-classification/ <br>
+└── README.md <br>
 
 ---
 
