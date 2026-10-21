@@ -45,14 +45,42 @@ These metrics provide a consistent framework for comparing cluster quality acros
 
 ---
 
-## **🎯 Purpose of This Module**
+---
+
+## 🏆 Clustering Results Summary
+
+| Algorithm | Final Model | Silhouette | Davies-Bouldin | Primary Strength |
+|------------|------------|-----------:|---------------:|-----------------|
+| K-Means | k = 4 | 0.2428 | 1.4844 | Best wine-profile segmentation |
+| GMM | 2 Components (diag) | 0.2516 | 1.7782 | Best probabilistic clustering |
+| Agglomerative | Ward k = 2 | 0.2607 | 1.7164 | Best recovery of natural structure |
+| DBSCAN | eps = 1.3, min_samples = 10 | 0.1505 | 3.3824 | Best outlier and boundary detection |
+
+### Key Findings
+
+- **Agglomerative Clustering (Ward k=2)** achieved the highest Silhouette Score and best recovered the dominant latent structure in the wine dataset.
+
+- **K-Means (k=4)** produced the most interpretable business segmentation by identifying four chemically distinct wine profiles.
+
+- **Gaussian Mixture Models** reproduced the red-versus-white wine distinction with approximately 95% agreement while providing a probabilistic framework.
+
+- **DBSCAN** identified two dense wine populations and classified 26.8% of observations as transitional or sparse-region wines.
+
+---
+
+## 🎯 Purpose of This Module
 
 This clustering section provides:
 
-- a foundation for unsupervised learning  
-- a comparison of major clustering paradigms  
-- visual intuition for latent structure  
-- insights that feed into:
-  - dimensionality reduction  
-  - anomaly detection  
-  - hybrid supervised + unsupervised workflows  
+- a foundation for unsupervised learning
+- a comparison of major clustering paradigms
+- visual intuition for latent structure
+- automated model evaluation and comparison
+- business-oriented wine segmentation insights
+
+Results from this module indicate that:
+
+- Agglomerative Clustering most effectively captured the natural structure of the dataset.
+- K-Means produced the most actionable segmentation for business analysis.
+- DBSCAN provided useful identification of sparse and transitional observations.
+
