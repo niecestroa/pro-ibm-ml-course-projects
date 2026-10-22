@@ -1,0 +1,4 @@
+Method,Interpretability,Variance Explained,Feature Loadings,Visual Separation,Nonlinear Structure
+PCA,High,Yes,Yes,Good,No
+Kernel PCA,Low,No,No,Excellent,Yes
+t-SNE,Low,No,No,Outstanding,Yes
