@@ -1,7 +1,7 @@
 # 📘 Professional IBM Machine Learning Course Projects  
 
 - **Created:** August 25, 2026  
-- **Updated:** October 19, 2026  
+- **Updated:** October 22, 2026  
 - **Progress:** Ongoing  
 
 This repository contains **professional, production‑ready machine learning pipelines** derived from the IBM/Coursera Machine Learning Professional Certificate (Courses 1–6). Each academic assignment has been rebuilt into a **modular, reproducible, engineering‑aligned workflow** using Python (and optional R).
