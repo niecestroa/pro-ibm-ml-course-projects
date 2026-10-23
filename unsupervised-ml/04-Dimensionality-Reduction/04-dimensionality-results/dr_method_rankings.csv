@@ -1,7 +1,0 @@
-Category,Best Method
-Variance Explanation,PCA
-Feature Interpretation,NMF
-Nonlinear Structure,Kernel PCA
-Local Separation,t-SNE
-Global Structure,UMAP
-Overall Visualization,UMAP
