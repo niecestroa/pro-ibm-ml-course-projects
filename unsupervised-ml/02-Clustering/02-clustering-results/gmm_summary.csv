@@ -1,2 +1,0 @@
-algorithm,final_model,silhouette_score,davies_bouldin_index,stability_ari,cluster_count,noise_pct
-GMM,2 Components (diag),0.2515890558600184,1.7781574478672333,0.9945978748800146,2,0.0
