@@ -1,185 +1,330 @@
-# **04 — Unsupervised Machine Learning**  
+# **04 — Unsupervised Machine Learning**
 **Started:** October 19, 2026  
-**Last Updated:** October 19, 2026  
-**Status:** In Progress  
+**Last Updated:** October 23, 2026  
+**Status:** Analysis Complete | Report & Presentation In Progress
 
 ---
 
 ## **📌 Project Overview**
-This module implements a full **unsupervised machine learning pipeline** on the combined **Red + White Wine Quality Dataset** (UCI).  
-The goal is to uncover **latent structure**, **natural groupings**, **nonlinear manifolds**, and **anomalous wines** using clustering and dimensionality‑reduction techniques.
 
-This section expands the IBM ML Certificate curriculum by incorporating **modern clustering algorithms**, **distance‑metric analysis**, **nonlinear dimensionality reduction**, and **production‑style engineering practices**.
+This module implements a comprehensive unsupervised machine learning pipeline using the combined **Red + White Wine Quality Dataset** from the UCI Machine Learning Repository.
+
+The objective is to discover natural structure within wine chemistry data through clustering, dimensionality reduction, hierarchical analysis, and anomaly detection. Multiple algorithms were evaluated to understand how wines organize in feature space, identify rare observations, and uncover latent chemical relationships without relying on supervised labels.
+
+This project expands beyond the IBM Machine Learning Certificate curriculum by incorporating modern clustering techniques, nonlinear manifold learning, anomaly-detection methods, and production-oriented engineering practices.
 
 ---
 
-## **🎯 Objectives**
-- Identify **clusters** of wines with similar physicochemical profiles  
-- Understand **drivers of cluster separation** using interpretable methods  
-- Visualize high‑dimensional structure using PCA, t‑SNE, and UMAP  
-- Detect **outlier wines** using anomaly‑detection algorithms  
-- Compare clustering algorithms using quantitative metrics  
-- Integrate cluster labels into supervised pipelines for hybrid modeling  
+## **🏆 Major Findings**
+
+Analysis across clustering, dimensionality reduction, and anomaly-detection techniques revealed several highly consistent patterns:
+
+### **Wine Type Dominates Dataset Structure**
+Red and white wines consistently formed distinct populations regardless of the algorithm applied.
+
+This pattern was observed across:
+
+- Hierarchical Clustering
+- K-Means
+- Gaussian Mixture Models
+- PCA
+- Kernel PCA
+- t-SNE
+- UMAP
+
+### **Quality Ratings Remain Highly Overlapping**
+Wine quality did not form clearly separated groups.
+
+Quality remained broadly distributed across:
+
+- Clusters
+- PCA components
+- Kernel PCA embeddings
+- t-SNE embeddings
+- UMAP embeddings
+- NMF latent-factor space
+
+### **Evidence of Internal Subpopulations**
+Ward linkage, Kernel PCA, t-SNE, and UMAP all suggested meaningful subgroup structure within both red and white wine populations.
+
+This indicates that wine chemistry organization extends beyond a simple red-vs-white distinction.
+
+### **UMAP Produced the Strongest Visualization**
+Among all dimensionality-reduction methods evaluated, UMAP provided the strongest balance between:
+
+- Population separation
+- Structure preservation
+- Visual interpretability
+
+### **NMF Produced the Most Interpretable Latent Factors**
+NMF identified meaningful additive chemistry components representing:
+
+- Alcohol and acidity structure
+- Sulfur, density, and preservation chemistry
+
+### **Anomaly Structure Depends on Detection Method**
+Isolation Forest and Local Outlier Factor identified substantially different anomaly populations.
+
+- Isolation Forest detected globally unusual wines
+- LOF detected locally unusual wines
+
+Only **36.09%** of anomalies were identified by both methods.
+
+---
+
+## **🎯 Project Objectives**
+
+This project aimed to:
+
+- Identify natural wine populations using unsupervised learning
+- Compare clustering algorithms using quantitative metrics
+- Investigate hierarchical relationships between wines
+- Visualize wine chemistry using linear and nonlinear embeddings
+- Discover latent chemistry structure
+- Detect unusual wine observations
+- Evaluate agreement across multiple unsupervised-learning methods
+- Generate interpretable chemistry-based insights
 
 ---
 
 ## **📁 Data Pipeline**
-This module begins with a unified data‑cleaning script that:
 
-1. Loads red + white wine datasets  
-2. Adds a `type` indicator  
-3. Combines datasets  
-4. Removes duplicates  
-5. Saves both:  
-   - `winequality-combined.csv`  
-   - `winequality-final.csv`  
+The project begins with a unified preprocessing workflow that:
 
-All cleaned data is stored in:
+1. Loads red and white wine datasets
+2. Adds a `type` indicator
+3. Combines datasets
+4. Removes duplicate observations
+5. Produces cleaned datasets
 
+Output files:
+
+```text
+winequality-combined.csv
+winequality-final.csv
 ```
+
+Stored in:
+
+```text
 00-data/clean-data/
 ```
 
 ---
 
-## **📚 Conceptual Foundations (From Notes)**
-This module is grounded in key unsupervised‑learning concepts:
+## **📚 Conceptual Foundations**
 
 ### **Unsupervised Learning**
-Used when no labels exist. Algorithms infer structure using geometry, distance, density, and variance.
+
+Unsupervised learning identifies hidden structure without known target labels.
+
+Methods rely on:
+
+- Distance
+- Density
+- Variance
+- Similarity
+- Neighborhood structure
+
+to discover patterns within the data.
 
 ### **Curse of Dimensionality**
-High‑dimensional data becomes sparse, distances lose meaning, and clustering degrades.  
-This motivates **dimensionality reduction** (PCA, t‑SNE, UMAP).
+
+As dimensionality increases:
+
+- Distances become less informative
+- Samples become sparse
+- Clustering performance can degrade
+
+This motivates the use of dimensionality reduction techniques such as:
+
+- PCA
+- Kernel PCA
+- t-SNE
+- UMAP
+- NMF
 
 ### **Distance Metrics**
-Distance definitions shape cluster formation.  
-This project evaluates:
 
-- **Euclidean** — required for K‑Means, Ward linkage  
-- **Manhattan** — better in high‑dimensional or sparse settings  
-- **Cosine** — ideal for directional similarity  
-- **Jaccard** — binary/set‑based similarity  
-- **Mahalanobis** — accounts for covariance; strong for anomaly detection  
+Distance selection directly influences clustering behavior.
 
-Distance choice is as important as algorithm choice.
+This project examined:
+
+- Euclidean Distance
+- Manhattan Distance
+- Cosine Similarity
+- Jaccard Similarity
+- Mahalanobis Distance
+
+and their impact on cluster formation.
 
 ---
 
 ## **🧪 Methods Implemented**
 
 ### **1. Clustering Algorithms**
-- **K‑Means** (Euclidean; spherical clusters)  
-- **Gaussian Mixture Models (GMM)** (probabilistic clusters)  
-- **Agglomerative Clustering** (hierarchical structure; multiple linkages)  
-- **DBSCAN** (density‑based; detects noise/outliers)  
 
-Each algorithm is evaluated using:
+- K-Means
+- Gaussian Mixture Models (GMM)
+- Agglomerative Clustering
+- DBSCAN
 
-- Silhouette Score  
-- Davies–Bouldin Index  
-- Cluster stability  
-- PCA/t‑SNE/UMAP visualization  
+Evaluation included:
 
----
+- Silhouette Score
+- Davies-Bouldin Index
+- Cluster stability
+- Visual analysis
 
-### **2. Linkage Methods (Hierarchical Clustering)**
-Included for interpretability and multi‑level structure:
+### **2. Hierarchical Linkage Methods**
 
-- **Single** — preserves elongated clusters  
-- **Complete** — compact clusters; noise‑resistant  
-- **Average** — balanced behavior  
-- **Ward** — minimizes inertia; Euclidean only  
+- Single Linkage
+- Complete Linkage
+- Average Linkage
+- Ward Linkage
 
----
+Ward linkage produced the most informative and interpretable hierarchical structure.
 
 ### **3. Dimensionality Reduction**
-Used for visualization, noise reduction, and improving clustering:
 
-- **PCA** — linear; variance‑preserving
-- **Kernel PCA** (nonlinear; RBF kernel) 
-- **t‑SNE** — nonlinear; excellent for 2D/3D visualization  
-- **UMAP** — nonlinear; preserves global + local structure  
-- **NMF** (non‑negative data)  
+#### Principal Component Analysis (PCA)
+- Best variance explanation
+- Strong component interpretation
+- Explained nearly 50% of variance using two components
 
----
+#### Kernel PCA
+- Revealed nonlinear chemistry structure
+- Improved class separation over PCA
+
+#### t-SNE
+- Produced outstanding local separation
+- Revealed strong population boundaries
+
+#### UMAP
+- Produced the strongest overall embedding
+- Preserved both local and global structure
+
+#### Non-Negative Matrix Factorization (NMF)
+- Identified latent chemistry factors
+- Provided the strongest chemistry interpretation
 
 ### **4. Anomaly Detection**
-To identify unusual wines:
 
-- **Isolation Forest**  
-- **Local Outlier Factor (LOF)**  
+#### Isolation Forest
+- Detected globally unusual wines
+- Identified 266 anomalies
+- Primarily flagged red wines
 
-These help detect:
-- Production inconsistencies  
-- Rare chemical profiles  
-- Samples that distort clustering  
-
----
-
-## **📊 Model Comparison Table**
-| Method | Silhouette | DB Index | Notes |
-|--------|------------|----------|-------|
-| K-Means | TBD | TBD | Fast baseline; spherical clusters |
-| GMM | TBD | TBD | Soft clustering; overlapping groups |
-| Agglomerative | TBD | TBD | Hierarchical structure; linkage‑dependent |
-| DBSCAN | N/A | N/A | Irregular shapes; noise detection |
+#### Local Outlier Factor (LOF)
+- Detected locally unusual wines
+- Identified 266 anomalies
+- Primarily flagged white wines
 
 ---
 
-## **🔍 Cluster Interpretation**
-To make clusters actionable:
+## **📊 Dimensionality Reduction Summary**
 
-### **SHAP‑Based Interpretation**
-1. Train a classifier to predict cluster labels  
-2. Use SHAP to identify chemical features driving cluster membership  
-
-This bridges unsupervised discovery with supervised interpretability.
+| Category | Best Method |
+|-----------|-----------|
+| Variance Explanation | PCA |
+| Feature Interpretation | NMF |
+| Nonlinear Structure | Kernel PCA |
+| Local Separation | t-SNE |
+| Global Structure | UMAP |
+| Overall Visualization | UMAP |
 
 ---
 
-## **📈 Visualizations**
-Stored in:
+## **📊 Anomaly Detection Summary**
 
-```
-reports/figures/
-```
+| Metric | Result |
+|----------|----------|
+| Isolation Forest Anomalies | 266 |
+| LOF Anomalies | 266 |
+| Shared Anomalies | 96 |
+| Agreement Between Methods | 36.09% |
 
-Planned outputs:
-- PCA scatterplots  
-- t‑SNE / UMAP embeddings  
-- Cluster overlays  
-- Dendrograms  
-- Distance‑metric comparisons  
-- Anomaly score distributions  
-- SHAP summary plots  
+Key findings:
+
+- Isolation Forest emphasized globally extreme wines
+- LOF emphasized locally unusual wines
+- Different anomaly detectors reveal different forms of rare behavior
+
+---
+
+## **📈 Visualizations Generated**
+
+Outputs include:
+
+- PCA projections
+- Kernel PCA embeddings
+- t-SNE embeddings
+- UMAP embeddings
+- NMF component analysis
+- Cluster visualizations
+- Dendrograms
+- Distance-metric comparisons
+- Anomaly score distributions
+- Anomaly visualizations in reduced-dimensional space
 
 ---
 
 ## **🔧 Engineering Features**
-- Modular pipeline (`src/`)  
-- Unified unsupervised pipeline script  
-- Reproducible environment (`requirements.txt`)  
-- Lightweight unit tests (`tests/`)  
-- Saved models + artifacts (`models/`)  
 
-This module is designed to reflect **real‑world ML engineering**, not notebook‑style coursework.
+Project architecture follows production-oriented design principles:
+
+- Modular workflows
+- Script-based pipelines
+- Reproducible processing
+- Saved intermediate outputs
+- Structured exports for reporting
+- Artifact generation for downstream analysis
 
 ---
 
 ## **📘 Dataset**
-UCI Wine Quality Dataset — physicochemical measurements for red and white Vinho Verde wines.
+
+**UCI Wine Quality Dataset**
+
+Physicochemical measurements for red and white Portuguese Vinho Verde wines.
 
 ### **Citation**
-Cortez, P., Cerdeira, A., Almeida, F., Matos, T., & Reis, J. (2009). *Wine Quality* [Dataset]. UCI Machine Learning Repository.  
-[https://doi.org/10.24432/C56S3T](https://doi.org/10.24432/C56S3T)
+
+Cortez, P., Cerdeira, A., Almeida, F., Matos, T., & Reis, J. (2009).
+
+*Wine Quality Dataset.*
+
+UCI Machine Learning Repository.
+
+DOI: https://doi.org/10.24432/C56S3T
 
 ---
 
-## **🚀 Next Steps**
-- Complete EDA + distance‑metric analysis  
-- Implement clustering evaluation suite  
-- Add SHAP cluster interpretation  
-- Add anomaly detection visualizations  
-- Build hybrid supervised + unsupervised pipeline  
-- Prepare capstone summary report  
+## **✅ Overall Conclusions**
+
+Multiple unsupervised-learning techniques were applied to understand the structure, composition, and rare behaviors present within the Wine Quality dataset.
+
+Across nearly every analysis, wine type emerged as the dominant source of variation.
+
+Major conclusions include:
+
+- Red and white wines form distinct chemistry populations
+- Quality ratings do not form clearly separated groups
+- Additional subgroup structure exists within wine populations
+- UMAP delivered the strongest overall visualization
+- NMF revealed interpretable latent chemistry factors
+- Isolation Forest and LOF discovered different forms of anomalous behavior
+- Multiple independent methods reached highly consistent conclusions
+
+Together, clustering, hierarchical analysis, dimensionality reduction, and anomaly detection provided a comprehensive view of wine chemistry structure and demonstrated the effectiveness of modern unsupervised machine-learning techniques for exploratory data analysis.
+
+---
+
+## **🚀 Remaining Work**
+
+- Final report creation
+- Presentation deck development
+- Figure consolidation
+- Executive summary preparation
+- Portfolio documentation
+- Final project publication
