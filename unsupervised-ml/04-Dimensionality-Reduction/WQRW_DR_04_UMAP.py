@@ -103,11 +103,8 @@ Final Takeaway
 from pathlib import Path
 
 import pandas as pd
-import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
-
-from sklearn.decomposition import PCA
 
 sns.set_theme(style="whitegrid", context="talk")
 
@@ -123,8 +120,9 @@ RANDOM_STATE = 42
 file_path = Path(
     r"C:\Users\aniec\Desktop\ibm-ml-project\unsupervised-ml\00-data\clean-data\winequality-final.csv"
 )
+
 output_dir = Path(
-    r"C:/Users/aniec/Desktop/ibm-ml-project/unsupervised-ml/04-Dimensionality-Reduction/04-dimensionality-results"
+    r"C:\Users\aniec\Desktop\ibm-ml-project\unsupervised-ml\04-Dimensionality-Reduction\04-dimensionality-results"
 )
 
 output_dir.mkdir(

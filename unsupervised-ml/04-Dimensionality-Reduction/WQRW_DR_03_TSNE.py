@@ -82,7 +82,7 @@ file_path = Path(
 )
 
 output_dir = Path(
-    r"C:\Users\aniec\Desktop\ibm-ml-project\unsupervised-ml\01-EDA\output_tables"
+    r"C:\Users\aniec\Desktop\ibm-ml-project\unsupervised-ml\04-Dimensionality-Reduction\04-dimensionality-results"
 )
 
 output_dir.mkdir(parents=True, exist_ok=True)

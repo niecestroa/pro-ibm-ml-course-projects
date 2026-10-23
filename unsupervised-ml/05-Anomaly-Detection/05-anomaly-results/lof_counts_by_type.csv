@@ -1,0 +1,5 @@
+type,anomaly_label,count
+red,-1,87
+red,1,1272
+white,-1,179
+white,1,3782

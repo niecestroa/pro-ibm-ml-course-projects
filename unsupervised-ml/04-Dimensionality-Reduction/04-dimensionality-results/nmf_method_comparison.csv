@@ -1,0 +1,6 @@
+Method,Interpretability,Variance Explained,Feature Interpretation,Visual Separation,Primary Strength
+PCA,High,Yes,Excellent,Good,Variance
+Kernel PCA,Low,No,Poor,Excellent,Nonlinear Structure
+t-SNE,Low,No,Poor,Outstanding,Local Separation
+UMAP,Medium,No,Poor,Outstanding,Global + Local Structure
+NMF,High,No,Excellent,Moderate,Latent Factors

@@ -1,0 +1,3 @@
+Method,Total Anomalies,Red Anomalies,White Anomalies
+Isolation Forest,266,164,102
+LOF,266,87,179

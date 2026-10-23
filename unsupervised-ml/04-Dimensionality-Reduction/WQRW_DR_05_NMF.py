@@ -149,11 +149,8 @@ dataset.
 from pathlib import Path
 
 import pandas as pd
-import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
-
-from sklearn.decomposition import PCA
 
 sns.set_theme(style="whitegrid", context="talk")
 
@@ -171,7 +168,7 @@ file_path = Path(
 )
 
 output_dir = Path(
-    r"C:\Users\aniec\Desktop\ibm-ml-project\unsupervised-ml\01-EDA\output_tables"
+    r"C:\Users\aniec\Desktop\ibm-ml-project\unsupervised-ml\04-Dimensionality-Reduction\04-dimensionality-results"
 )
 
 output_dir.mkdir(parents=True, exist_ok=True)

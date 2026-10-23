@@ -1,0 +1,4 @@
+Method,Best Use
+PCA,Interpretation
+Kernel PCA,Nonlinear Structure
+t-SNE,Visualization
