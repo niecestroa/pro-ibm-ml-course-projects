@@ -1,0 +1,4 @@
+dbscan_cluster,fixed acidity,volatile acidity,citric acid,residual sugar,chlorides,free sulfur dioxide,total sulfur dioxide,density,pH,sulphates,alcohol,quality
+-1,7.6018,0.4078,0.358,5.1692,0.0748,29.394,109.6211,0.9953,3.2226,0.5958,10.5408,5.6454
+0,8.0459,0.5267,0.2274,2.2975,0.0786,14.4556,43.0084,0.9965,3.3253,0.6142,10.3014,5.5947
+1,6.8091,0.2648,0.3249,5.7416,0.0423,34.5794,135.5619,0.9936,3.1982,0.4823,10.6207,5.9203

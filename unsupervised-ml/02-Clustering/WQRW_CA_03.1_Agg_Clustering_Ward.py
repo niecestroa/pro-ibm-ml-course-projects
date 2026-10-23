@@ -48,7 +48,7 @@ file_path = Path(
 )
 
 output_dir = Path(
-    r"C:\Users\aniec\Desktop\ibm-ml-project\unsupervised-ml\01-EDA\output_tables"
+    r"C:\Users\aniec\Desktop\ibm-ml-project\unsupervised-ml\02-Clustering\02-clustering-results"
 )
 
 output_dir.mkdir(parents=True, exist_ok=True)

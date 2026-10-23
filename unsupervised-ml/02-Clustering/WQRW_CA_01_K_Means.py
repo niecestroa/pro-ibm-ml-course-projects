@@ -8,7 +8,7 @@ Status:     Completed
 
 Description
 
-K‑Means (Euclidean; spherical clusters)
+K-Means (Euclidean; spherical clusters)
 
 Evaluated using:
 

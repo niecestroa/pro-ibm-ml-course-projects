@@ -51,6 +51,7 @@ file_path = Path(
     r"C:\Users\aniec\Desktop\ibm-ml-project\unsupervised-ml\02-Clustering\02-clustering-results"
 )
 
+
 comparison_df = pd.concat([
     pd.read_csv(file_path / "kmeans_summary.csv"),
     pd.read_csv(file_path / "gmm_summary.csv"),

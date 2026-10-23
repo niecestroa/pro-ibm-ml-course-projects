@@ -64,7 +64,7 @@ file_path = Path(
 )
 
 output_dir = Path(
-    r"C:\Users\aniec\Desktop\ibm-ml-project\unsupervised-ml\01-EDA\output_tables"
+    r"C:\Users\aniec\Desktop\ibm-ml-project\unsupervised-ml\01-EDA\eda_tables_plots"
 )
 
 output_dir.mkdir(parents=True, exist_ok=True)
@@ -1384,23 +1384,16 @@ The biggest business/data science conclusion from this EDA is:
 Strengths
 
 ✅ Numerical variables available
-
 ✅ Few/no missing values
-
 ✅ Meaningful chemistry measurements
-
 ✅ Correlated variables suitable for PCA
-
 ✅ Wine types show measurable separation
 
 Challenges
 
 ⚠ Outliers present
-
 ⚠ Strong skewness in multiple features
-
 ⚠ Multicollinearity among density, alcohol, sulfur measures, and sugar
-
 ⚠ Feature scaling required before K-Means
 
 '''
