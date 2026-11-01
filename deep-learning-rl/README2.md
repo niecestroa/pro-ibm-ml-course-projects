@@ -239,7 +239,7 @@ Investigate the impact of network depth and complexity.
 #### Model D
 
 ```text
-128 → 64 → 32
+128 → 64 → 32 → 16
 ```
 
 ### Evaluation
