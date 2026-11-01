@@ -2,18 +2,18 @@
 
 ### IBM Machine Learning Professional Certificate
 
-**Project Status:** Planning Phase  
+**Project Status:** Active Development  
 **Last Updated:** November 2026
 
 ---
 
 # 📌 Project Overview
 
-This project explores the use of deep learning techniques to predict wine quality using physicochemical wine measurements.
+This project investigates the use of deep learning techniques to predict wine quality using physicochemical wine measurements.
 
-Wine quality prediction is a regression problem where the target variable is a numerical quality score assigned to each wine observation. The objective is to determine how effectively neural networks can model the complex relationships between wine chemistry and perceived quality.
+Wine quality prediction is a supervised regression problem where the target variable is a numerical quality score assigned to each wine observation. The objective is to determine how effectively neural networks can model the complex relationships between wine chemistry and perceived quality.
 
-Throughout this project, multiple neural network architectures and training strategies will be evaluated to identify the most effective approach for structured tabular data.
+The project progresses from exploratory data analysis through neural network experimentation, architecture design, optimization, regularization, and final model selection.
 
 ---
 
@@ -39,7 +39,7 @@ The final goal is to identify the neural network configuration that produces the
 
 **Dataset:** `winequality-final.csv`
 
-The dataset contains approximately 5,320 wine observations consisting of physicochemical measurements and wine quality ratings.
+The dataset contains 5,320 wine observations consisting of physicochemical measurements and wine quality ratings.
 
 ---
 
@@ -68,7 +68,201 @@ The dataset contains approximately 5,320 wine observations consisting of physico
 Target = Quality
 ```
 
-This is treated as a continuous numerical variable and modeled using regression techniques.
+Wine quality is treated as a continuous numerical variable and modeled using regression techniques.
+
+---
+
+# 📊 Exploratory Data Analysis (EDA)
+
+The project began with a comprehensive exploratory data analysis (EDA) to evaluate data quality, understand feature distributions, identify relationships with wine quality, and assess readiness for regression modeling.
+
+---
+
+## Dataset Quality
+
+| Metric | Value |
+|----------|----------:|
+| Rows | 5,320 |
+| Columns | 13 |
+| Missing Values | 0 |
+| Duplicate Rows | 0 |
+
+### Findings
+
+✅ No missing values
+✅ No duplicate records
+✅ Dataset immediately suitable for machine learning
+✅ No data integrity concerns identified
+
+---
+
+## Quality Distribution
+
+| Quality | Count | Percent |
+|---------|-------:|--------:|
+| 3 | 30 | 0.56% |
+| 4 | 206 | 3.87% |
+| 5 | 1,752 | 32.93% |
+| 6 | 2,323 | 43.67% |
+| 7 | 856 | 16.09% |
+| 8 | 148 | 2.78% |
+| 9 | 5 | 0.09% |
+
+### Findings
+
+- Most wines received quality scores of 5 or 6.
+- More than 76% of observations fall within these two categories.
+- Extremely high-quality wines are rare.
+
+### Implication
+
+Prediction performance may decline at extreme quality levels due to limited training examples.
+
+---
+
+## Wine Type Distribution
+
+| Wine Type | Count | Percent |
+|------------|--------:|--------:|
+| White | 3,961 | 74.5% |
+| Red | 1,359 | 25.5% |
+
+### Average Quality by Wine Type
+
+| Wine Type | Mean Quality |
+|------------|------------:|
+| Red | 5.62 |
+| White | 5.86 |
+
+### Findings
+
+White wines receive slightly higher quality ratings on average.
+
+---
+
+## Most Important Relationships with Quality
+
+### Positive Correlations
+
+| Feature | Correlation |
+|----------|-----------:|
+| Alcohol | 0.469 |
+| Citric Acid | 0.098 |
+| Free Sulfur Dioxide | 0.054 |
+
+### Negative Correlations
+
+| Feature | Correlation |
+|----------|-----------:|
+| Density | -0.326 |
+| Volatile Acidity | -0.265 |
+| Chlorides | -0.202 |
+
+### Key Finding
+
+Alcohol emerged as the strongest individual predictor of wine quality.
+
+---
+
+## Quality Trends
+
+As wine quality increases:
+
+✅ Alcohol increases
+✅ Density decreases
+✅ Volatile acidity decreases
+✅ Chlorides decrease
+✅ Citric acid increases slightly
+
+### Example
+
+| Quality | Mean Alcohol |
+|----------|------------:|
+| 5 | 9.87 |
+| 6 | 10.65 |
+| 7 | 11.51 |
+| 8 | 11.91 |
+| 9 | 12.18 |
+
+Alcohol demonstrates the clearest trend across quality levels.
+
+---
+
+## Outlier Assessment
+
+Variables containing the highest numbers of outliers:
+
+- Fixed Acidity
+- Volatile Acidity
+- Chlorides
+- Sulphates
+- Residual Sugar
+
+### Finding
+
+Several chemistry measurements contain substantial outliers which may influence model training.
+
+---
+
+## Skewness Assessment
+
+Most skewed predictors:
+
+| Feature | Skewness |
+|----------|---------:|
+| Chlorides | 5.34 |
+| Sulphates | 1.81 |
+| Residual Sugar | 1.71 |
+| Fixed Acidity | 1.65 |
+| Volatile Acidity | 1.50 |
+
+Quality skewness:
+
+```text
+0.147
+```
+
+The target variable is approximately symmetric.
+
+---
+
+## Multicollinearity Assessment
+
+Highest VIF scores:
+
+| Predictor | VIF |
+|----------|------:|
+| Density | 14.92 |
+| Residual Sugar | 6.43 |
+| Fixed Acidity | 4.88 |
+| Alcohol | 4.58 |
+
+### Finding
+
+Density exhibits substantial multicollinearity and should be monitored in future analyses.
+
+---
+
+## EDA Conclusion
+
+### Strengths
+
+✅ Clean dataset
+✅ No missing values
+✅ Strong sample size
+✅ Strong predictor-target relationships
+✅ Multiple informative chemistry measurements
+
+### Challenges
+
+⚠ Quality imbalance
+⚠ Predictor outliers
+⚠ Skewed distributions
+⚠ Density multicollinearity
+
+### Overall Assessment
+
+The dataset appears highly suitable for regression modeling and deep learning experimentation.
 
 ---
 
@@ -91,8 +285,6 @@ This project applies concepts from the IBM Deep Learning curriculum, including:
 
 # 🔬 Research Questions
 
-This project seeks to answer the following questions:
-
 1. Can neural networks accurately predict wine quality?
 2. How much improvement does a Multi-Layer Perceptron provide over a simple Perceptron?
 3. Which feature scaling method performs best?
@@ -104,17 +296,17 @@ This project seeks to answer the following questions:
 
 ---
 
-# 📈 Planned Analyses
+# 📈 Analyses
 
 ---
 
-## Analysis 1: Baseline Neural Network Performance
+## ✅ Analysis 1: Baseline Neural Network Performance
 
 ### Objective
 
-Establish a baseline performance benchmark using a simple neural network.
+Establish a baseline performance benchmark using simple neural network architectures.
 
-### Models
+### Models Evaluated
 
 #### Perceptron
 
@@ -122,278 +314,162 @@ Establish a baseline performance benchmark using a simple neural network.
 Input → Output
 ```
 
-#### Basic MLP
+#### Basic Multi-Layer Perceptron (MLP)
 
 ```text
 Input
-  ↓
-Dense Layer
-  ↓
+ ↓
+Dense(16)
+ ↓
 Output
 ```
 
-### Evaluation
+### Results
 
-- MAE
-- RMSE
-- Adjusted R²
+| Model | MAE | RMSE | Adjusted R² |
+|---------|---------:|---------:|---------:|
+| Perceptron | 0.5894 | 0.7686 | 0.2295 |
+| MLP | 0.5660 | 0.7365 | 0.2924 |
 
-### Research Question
+### Findings
 
-Does an MLP outperform a simple Perceptron for wine quality prediction?
+- MLP outperformed the Perceptron across all metrics.
+- RMSE improved by approximately 4.2%.
+- Adjusted R² improved by approximately 27%.
+- Learning curves showed stable convergence.
+- No clear evidence of overfitting was observed.
 
----
+### Conclusion
 
-## Analysis 2: Feature Scaling Comparison
+The hidden layer allowed the MLP to learn nonlinear relationships that the Perceptron could not capture.
 
-### Objective
-
-Evaluate how feature scaling influences neural network training and predictive performance.
-
-### Scaling Methods
-
-#### No Scaling
-
-```text
-Raw Features
-```
-
-#### StandardScaler
-
-```text
-Mean = 0
-Standard Deviation = 1
-```
-
-#### MinMaxScaler
-
-```text
-Range: 0 → 1
-```
-
-### Evaluation
-
-- MAE
-- RMSE
-- Adjusted R²
-- Training Stability
-- Convergence Speed
-
-### Research Question
-
-Which feature scaling method produces the best neural network performance for wine quality prediction?
+The MLP is retained as the baseline architecture for future analyses.
 
 ---
 
-## Analysis 3: Activation Function Comparison
+## 🔄 Analysis 2: Feature Scaling Comparison
 
-### Objective
+Status: Planned
 
-Evaluate how activation functions influence learning and predictive performance.
+Evaluate:
 
-### Activation Functions
+- No Scaling
+- StandardScaler
+- MinMaxScaler
+
+Research Question:
+
+Which scaling strategy produces the strongest neural network performance?
+
+---
+
+## 🔄 Analysis 3: Activation Function Comparison
+
+Status: Planned
 
 - ReLU
 - Sigmoid
 - Tanh
 
-### Evaluation
+---
 
-- RMSE
-- MAE
-- Adjusted R²
-- Training Behavior
+## 🔄 Analysis 4: Architecture Comparison
 
-### Research Question
+Status: Planned
 
-Which activation function performs best for structured wine-quality data?
+- 16
+- 32 → 16
+- 64 → 32 → 16
+- 128 → 64 → 32
 
 ---
 
-## Analysis 4: Architecture Comparison
+## 🔄 Analysis 5: Learning Behavior Analysis
 
-### Objective
+Status: Planned
 
-Investigate the impact of network depth and complexity.
-
-### Architectures
-
-#### Model A
-
-```text
-16
-```
-
-#### Model B
-
-```text
-32 → 16
-```
-
-#### Model C
-
-```text
-64 → 32 → 16
-```
-
-#### Model D
-
-```text
-128 → 64 → 32
-```
-
-### Evaluation
-
-- RMSE
-- MAE
-- Adjusted R²
-- Training Time
-
-### Research Question
-
-Does increasing network complexity improve predictive performance?
+Investigate convergence patterns, overfitting, and underfitting.
 
 ---
 
-## Analysis 5: Learning Behavior Analysis
+## 🔄 Analysis 6: Optimizer Benchmarking
 
-### Objective
+Status: Planned
 
-Investigate how neural networks learn over time.
-
-### Analyses
-
-- Training Loss
-- Validation Loss
-- Learning Curves
-- Epoch Studies
-
-### Evaluation
-
-- Convergence Patterns
-- Underfitting Detection
-- Overfitting Detection
-
-### Research Question
-
-How does model learning evolve during training?
-
----
-
-## Analysis 6: Optimizer Benchmarking
-
-### Objective
-
-Compare common deep learning optimization algorithms.
-
-### Optimizers
-
-- Stochastic Gradient Descent (SGD)
+- SGD
 - RMSProp
 - Adam
 
-### Evaluation
-
-- Convergence Speed
-- Final Performance
-- Training Stability
-
-### Research Question
-
-Which optimizer is most effective for wine quality prediction?
-
 ---
 
-## Analysis 7: Regularization and Generalization
+## 🔄 Analysis 7: Regularization and Generalization
 
-### Objective
+Status: Planned
 
-Reduce overfitting and improve generalization performance.
-
-### Regularization Methods
-
-- L1 Regularization
-- L2 Regularization
+- L1
+- L2
 - Dropout
 - Early Stopping
 
-### Evaluation
-
-- Validation Performance
-- Generalization Gap
-- Model Robustness
-
-### Research Question
-
-Which regularization strategy produces the most reliable model?
-
 ---
 
-## Analysis 8: Final Model Selection
+## 🔄 Analysis 8: Final Model Selection
 
-### Objective
+Status: Planned
 
-Identify the strongest-performing neural network configuration.
+Identify the optimal combination of:
 
-### Components Evaluated
-
-- Scaling Method
+- Scaling
 - Architecture
-- Activation Function
+- Activation
 - Optimizer
-- Regularization Strategy
-
-### Deliverable
-
-Recommended regression model for wine quality prediction.
+- Regularization
 
 ---
 
 # 📊 Evaluation Metrics
 
-## Root Mean Squared Error (RMSE)
+## Primary Metric
 
-Measures prediction error while penalizing larger mistakes more heavily than MAE.
+### RMSE
 
-Lower values indicate better performance.
+Root Mean Squared Error
 
-**Primary Performance Metric**
+Primary model-selection metric because it penalizes larger prediction errors more heavily.
 
 ---
 
-## Mean Absolute Error (MAE)
+### MAE
+
+Mean Absolute Error
 
 Measures the average magnitude of prediction errors.
 
-Lower values indicate better performance.
+---
+
+### Adjusted R²
+
+Measures explained variance while accounting for model complexity.
 
 ---
 
-## Adjusted R²
-
-Measures the percentage of variance explained by the model while accounting for model complexity.
-
-Unlike R², Adjusted R² penalizes unnecessary model parameters and provides a more reliable comparison between neural network configurations.
-
-Higher values indicate better performance.
-
 # 📋 Expected Deliverables
 
-- Baseline neural network model
-- Feature scaling comparison
-- Activation function comparison
-- Architecture comparison study
-- Learning curve analysis
-- Optimizer benchmarking results
-- Regularization experiments
-- Final optimized model
-- Performance summary report
+- Exploratory Data Analysis Report
+- Baseline Neural Network Benchmark
+- Feature Scaling Study
+- Activation Function Study
+- Architecture Comparison Study
+- Optimizer Benchmarking Study
+- Regularization Study
+- Final Optimized Neural Network
+- Model Performance Summary Report
 
 ---
 
 # 🔍 Final Research Question
 
-> **What combination of feature scaling, neural network architecture, activation function, optimizer, and regularization strategy provides the most accurate wine quality predictions for structured tabular wine data?**
+> What combination of feature scaling, neural network architecture, activation function, optimizer, and regularization strategy provides the most accurate wine quality predictions for structured tabular wine data?
 
 ---
 
@@ -403,16 +479,17 @@ Higher values indicate better performance.
 
 ✅ Exploratory Data Analysis (EDA)
 
-## Planned
+✅ Analysis 1: Baseline Neural Network Performance
 
-⬜ Baseline Neural Network  
-⬜ Feature Scaling Comparison  
-⬜ Activation Function Comparison  
-⬜ Architecture Study  
-⬜ Learning Curve Analysis  
-⬜ Optimizer Benchmarking  
-⬜ Regularization Study  
-⬜ Final Model Selection
+## In Progress
+
+⬜ Analysis 2: Feature Scaling Comparison
+⬜ Analysis 3: Activation Function Comparison
+⬜ Analysis 4: Architecture Comparison
+⬜ Analysis 5: Learning Behavior Analysis
+⬜ Analysis 6: Optimizer Benchmarking
+⬜ Analysis 7: Regularization and Generalization
+⬜ Analysis 8: Final Model Selection
 
 ---
 
