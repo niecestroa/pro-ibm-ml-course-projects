@@ -344,6 +344,20 @@ with open(
     )
 
 # ------------------------------------------
+# Export Training History
+# ------------------------------------------
+
+history_df = pd.DataFrame({
+    "loss": history_ns.history["loss"],
+    "val_loss": history_ns.history["val_loss"]
+})
+
+history_df.to_csv(
+    output_dir / "no_scaling_history.csv",
+    index=False
+)
+
+# ------------------------------------------
 # Summary
 # ------------------------------------------
 

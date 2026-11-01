@@ -307,6 +307,20 @@ with open(
     )
 
 # ------------------------------------------
+# Export Training History
+# ------------------------------------------
+
+history_df = pd.DataFrame({
+    "loss": history_mm.history["loss"],
+    "val_loss": history_mm.history["val_loss"]
+})
+
+history_df.to_csv(
+    output_dir / "minmaxscaler_history.csv",
+    index=False
+)
+
+# ------------------------------------------
 # Summary
 # ------------------------------------------
 

@@ -54,6 +54,22 @@ mms = pd.read_csv(
 )
 
 # ==========================================
+# Load Training Histories
+# ==========================================
+
+ns_history = pd.read_csv(
+    results_dir / "no_scaling_history.csv"
+)
+
+ss_history = pd.read_csv(
+    results_dir / "standardscaler_history.csv"
+)
+
+mms_history = pd.read_csv(
+    results_dir / "minmaxscaler_history.csv"
+)
+
+# ==========================================
 # Combine Results
 # ==========================================
 
@@ -212,6 +228,172 @@ plt.savefig(
 plt.show()
 
 # ==========================================
+# Training Loss Comparison
+# ==========================================
+
+plt.figure(figsize=(12,6))
+
+plt.plot(
+    ns_history["loss"],
+    color=colors["No Scaling"],
+    linewidth=2,
+    label="No Scaling"
+)
+
+plt.plot(
+    ss_history["loss"],
+    color=colors["StandardScaler"],
+    linewidth=2,
+    label="StandardScaler"
+)
+
+plt.plot(
+    mms_history["loss"],
+    color=colors["MinMaxScaler"],
+    linewidth=2,
+    label="MinMaxScaler"
+)
+
+plt.title("Training Loss Comparison")
+plt.xlabel("Epoch")
+plt.ylabel("Loss")
+
+plt.legend()
+plt.grid(True)
+
+plt.savefig(
+    comparison_dir /
+    "training_loss_comparison.png",
+    bbox_inches="tight"
+)
+
+plt.show()
+
+# ==========================================
+# Validation Loss Comparison
+# ==========================================
+
+plt.figure(figsize=(12,6))
+
+plt.plot(
+    ns_history["val_loss"],
+    color=colors["No Scaling"],
+    linewidth=2,
+    label="No Scaling"
+)
+
+plt.plot(
+    ss_history["val_loss"],
+    color=colors["StandardScaler"],
+    linewidth=2,
+    label="StandardScaler"
+)
+
+plt.plot(
+    mms_history["val_loss"],
+    color=colors["MinMaxScaler"],
+    linewidth=2,
+    label="MinMaxScaler"
+)
+
+plt.title("Validation Loss Comparison")
+plt.xlabel("Epoch")
+plt.ylabel("Validation Loss")
+
+plt.legend()
+plt.grid(True)
+
+plt.savefig(
+    comparison_dir /
+    "validation_loss_comparison.png",
+    bbox_inches="tight"
+)
+
+plt.show()
+
+# ==========================================
+# Feature Scaling Learning Curve Comparison
+# ==========================================
+
+fig, axes = plt.subplots(
+    1,
+    2,
+    figsize=(16,6)
+)
+
+# Training Loss
+
+axes[0].plot(
+    ns_history["loss"],
+    color=colors["No Scaling"],
+    linewidth=2,
+    label="No Scaling"
+)
+
+axes[0].plot(
+    ss_history["loss"],
+    color=colors["StandardScaler"],
+    linewidth=2,
+    label="StandardScaler"
+)
+
+axes[0].plot(
+    mms_history["loss"],
+    color=colors["MinMaxScaler"],
+    linewidth=2,
+    label="MinMaxScaler"
+)
+
+axes[0].set_title("Training Loss")
+axes[0].set_xlabel("Epoch")
+axes[0].set_ylabel("Loss")
+axes[0].legend()
+axes[0].grid(True)
+
+# Validation Loss
+
+axes[1].plot(
+    ns_history["val_loss"],
+    color=colors["No Scaling"],
+    linewidth=2,
+    label="No Scaling"
+)
+
+axes[1].plot(
+    ss_history["val_loss"],
+    color=colors["StandardScaler"],
+    linewidth=2,
+    label="StandardScaler"
+)
+
+axes[1].plot(
+    mms_history["val_loss"],
+    color=colors["MinMaxScaler"],
+    linewidth=2,
+    label="MinMaxScaler"
+)
+
+axes[1].set_title("Validation Loss")
+axes[1].set_xlabel("Epoch")
+axes[1].set_ylabel("Loss")
+axes[1].legend()
+axes[1].grid(True)
+
+plt.suptitle(
+    "Feature Scaling Learning Curve Comparison"
+)
+
+plt.tight_layout()
+
+plt.savefig(
+    comparison_dir /
+    "feature_scaling_learning_curve_comparison.png",
+    bbox_inches="tight"
+)
+
+plt.show()
+
+# ==========================================
 # Export Summary
 # ==========================================
 
@@ -221,7 +403,10 @@ with open(
     encoding="utf-8"
 ) as f:
 
-    f.write("Feature Scaling Comparison\n\n")
+    f.write("Feature Scaling Comparison\n")
+    f.write("=" * 50)
+
+    f.write("\n\nResults\n\n")
 
     f.write(
         comparison.round(4).to_string(index=False)
@@ -229,6 +414,26 @@ with open(
 
     f.write(
         f"\n\nBest Scaling Method:\n{best_method}"
+    )
+
+    f.write(
+        "\n\nGenerated Files:\n"
+    )
+
+    f.write(
+        "- feature_scaling_comparison.csv\n"
+    )
+
+    f.write(
+        "- training_loss_comparison.png\n"
+    )
+
+    f.write(
+        "- validation_loss_comparison.png\n"
+    )
+
+    f.write(
+        "- feature_scaling_learning_curve_comparison.png\n"
     )
 
 print("\nAnalysis 2 Comparison Complete")
