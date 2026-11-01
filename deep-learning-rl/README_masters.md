@@ -51,6 +51,7 @@ The dataset contains approximately 5,320 wine observations and includes physicoc
 
 ### Binary Target
 - Wine Type (Red vs White)
+- Wine Quality (Low vs Medium vs High)
 
 ### Unsupervised Learning
 - Feature relationships and latent structure
@@ -152,7 +153,7 @@ Classify wines as red or white using deep learning techniques.
 
 ---
 
-## 🍷 Project 3: Representation Learning and Generative Modeling
+## 🍷 Project 4: Representation Learning and Generative Modeling
 
 ### Objective
 
