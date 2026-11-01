@@ -1,0 +1,9 @@
+Feature Scaling Comparison
+
+Scaling_Method    MAE   RMSE  Adjusted_R2  Final_Training_Loss  Final_Validation_Loss
+StandardScaler 0.5541 0.7108       0.3409               0.4628                 0.4996
+  MinMaxScaler 0.5626 0.7245       0.3153               0.5310                 0.5060
+    No Scaling 0.5715 0.7344       0.2965               0.5487                 0.5069
+
+Best Scaling Method:
+StandardScaler
