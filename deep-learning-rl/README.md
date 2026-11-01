@@ -1,27 +1,48 @@
-# 05 — Deep Learning & Reinforcement Learning
+# 05-01 – Wine Quality Regression with Deep Learning
 
-**Status:** Planning Phase  
-**Last Updated:** October 31, 2026
+### IBM Machine Learning Professional Certificate
 
----
-
-## 📌 Module Overview
-
-This project explores deep learning concepts from the IBM Machine Learning Professional Certificate using the Wine Quality dataset.
-
-The focus of this project is to investigate how neural networks, optimization techniques, regularization methods, representation learning, and generative deep learning perform on structured tabular data. Models developed in this project will be compared against traditional machine learning models implemented in previous projects.
-
-The goal is to determine whether deep learning provides meaningful performance improvements over traditional machine learning approaches for wine quality prediction and classification tasks.
+**Project Status:** Planning Phase  
+**Last Updated:** November 2026
 
 ---
 
-## 📊 Dataset
+# 📌 Project Overview
+
+This project explores the use of deep learning techniques to predict wine quality using physicochemical wine measurements.
+
+Wine quality prediction is a regression problem where the target variable is a numerical quality score assigned to each wine observation. The objective is to determine how effectively neural networks can model the complex relationships between wine chemistry and perceived quality.
+
+Throughout this project, multiple neural network architectures and training strategies will be evaluated to identify the most effective approach for structured tabular data.
+
+---
+
+# 🎯 Project Objective
+
+Develop, optimize, and evaluate neural network models capable of predicting wine quality scores.
+
+The project investigates:
+
+- Neural network fundamentals
+- Network architecture design
+- Training behavior
+- Optimization algorithms
+- Regularization methods
+- Model generalization
+
+The final goal is to identify the neural network configuration that produces the most accurate wine quality predictions.
+
+---
+
+# 📊 Dataset
 
 **Dataset:** `winequality-final.csv`
 
 The dataset contains approximately 5,320 wine observations consisting of physicochemical measurements and wine quality ratings.
 
-### Features
+---
+
+## Features
 
 - Fixed Acidity
 - Volatile Acidity
@@ -36,385 +57,313 @@ The dataset contains approximately 5,320 wine observations consisting of physico
 - Alcohol
 - Wine Type
 
-### Prediction Tasks
+---
 
-#### Regression
+## Target Variable
 
-Predict wine quality as a numerical score.
+### Wine Quality Score
 
-#### Classification
+```text
+Target = Quality
+```
 
-- Predict wine type (Red vs White)
-- Predict wine quality categories
+This is treated as a continuous numerical variable and modeled using regression techniques.
 
 ---
 
-## ✅ Completed Work
+# 📚 Deep Learning Topics
 
-### Exploratory Data Analysis (EDA)
-
-Completed analyses include:
-
-- Data cleaning and validation
-- Missing value analysis
-- Feature distribution analysis
-- Correlation analysis
-- Outlier detection
-- Wine quality distribution analysis
-- Wine type distribution analysis
-- Feature relationship exploration
-
-EDA findings will guide all deep learning experiments performed in this project.
-
----
-
-# 🎯 Project Objectives
-
-## Primary Objectives
-
-- Develop neural network models for regression and classification tasks
-- Evaluate deep learning techniques covered throughout the course
-- Compare multiple optimization algorithms
-- Investigate regularization techniques
-- Explore representation learning using autoencoders
-- Generate synthetic observations using variational autoencoders
-- Compare deep learning approaches with traditional machine learning models
-- Assess the suitability of deep learning for structured tabular data
-
-## Research Questions
-
-- How effective are neural networks on structured wine data?
-- What neural network architecture produces the best results?
-- Which optimizer converges most efficiently?
-- How can overfitting be minimized?
-- Can autoencoders learn meaningful latent representations?
-- Can variational autoencoders generate realistic wine samples?
-- Does deep learning outperform traditional machine learning methods?
-
----
-
-# 📚 Planned Project Sections
-
----
-
-## Section 1: Neural Network Foundations
-
-### Course Topics
+This project applies concepts from the IBM Deep Learning curriculum, including:
 
 - Neural Networks
 - Perceptrons
 - Multi-Layer Perceptrons (MLPs)
 - Activation Functions
 - Forward Propagation
-
-### Dataset Applications
-
-- Wine Quality Regression
-- Wine Type Classification
-- Quality Classification
-
-### Analyses
-
-- Baseline neural network performance
-- Architecture comparison
-- Activation function comparison
-- Classification performance evaluation
-- Regression performance evaluation
-
----
-
-## Section 2: Backpropagation and Keras
-
-### Course Topics
-
 - Backpropagation
 - Loss Functions
 - Gradient Descent
-- Keras Sequential Models
-- Neural Network Training
-
-### Dataset Applications
-
-- Keras implementation of MLP architectures
-- Training workflow evaluation
-- Learning behavior analysis
-
-### Analyses
-
-- Training loss evaluation
-- Validation loss evaluation
-- Learning curve analysis
-- Epoch analysis
-- Model complexity comparison
+- Optimizers
+- Regularization Techniques
 
 ---
 
-## Section 3: Optimizer Benchmarking
+# 🔬 Research Questions
 
-### Course Topics
+This project seeks to answer the following questions:
+
+1. Can neural networks accurately predict wine quality?
+2. How much improvement does a Multi-Layer Perceptron provide over a simple Perceptron?
+3. Which activation function performs best?
+4. Which optimizer converges most efficiently?
+5. How can overfitting be minimized?
+6. What neural network configuration achieves the best predictive performance?
+
+---
+
+# 📈 Planned Analyses
+
+---
+
+## Analysis 1: Baseline Neural Network Performance
+
+### Objective
+
+Establish a baseline performance benchmark using a simple neural network.
+
+### Models
+
+#### Perceptron
+
+```text
+Input → Output
+```
+
+#### Basic MLP
+
+```text
+Input
+  ↓
+Dense Layer
+  ↓
+Output
+```
+
+### Evaluation
+
+- MAE
+- RMSE
+- R²
+
+### Research Question
+
+Does an MLP outperform a simple Perceptron for wine quality prediction?
+
+---
+
+## Analysis 2: Activation Function Comparison
+
+### Objective
+
+Evaluate how activation functions influence learning and predictive performance.
+
+### Activation Functions
+
+- ReLU
+- Sigmoid
+- Tanh
+
+### Evaluation
+
+- RMSE
+- MAE
+- R²
+- Training behavior
+
+### Research Question
+
+Which activation function performs best for structured wine-quality data?
+
+---
+
+## Analysis 3: Architecture Comparison
+
+### Objective
+
+Investigate the impact of network depth and complexity.
+
+### Architectures
+
+#### Model A
+
+```text
+16
+```
+
+#### Model B
+
+```text
+32 → 16
+```
+
+#### Model C
+
+```text
+64 → 32 → 16
+```
+
+#### Model D
+
+```text
+128 → 64 → 32
+```
+
+### Evaluation
+
+- RMSE
+- MAE
+- R²
+- Training Time
+
+### Research Question
+
+Does increasing network complexity improve predictive performance?
+
+---
+
+## Analysis 4: Learning Behavior Analysis
+
+### Objective
+
+Investigate how neural networks learn over time.
+
+### Analyses
+
+- Training Loss
+- Validation Loss
+- Learning Curves
+- Epoch Studies
+
+### Evaluation
+
+- Convergence Patterns
+- Underfitting Detection
+- Overfitting Detection
+
+### Research Question
+
+How does model learning evolve during training?
+
+---
+
+## Analysis 5: Optimizer Benchmarking
+
+### Objective
+
+Compare common deep learning optimization algorithms.
+
+### Optimizers
 
 - Stochastic Gradient Descent (SGD)
-- Momentum
 - RMSProp
 - Adam
 
-### Analyses
+### Evaluation
 
-- Optimizer convergence speed
-- Classification performance comparison
-- Regression performance comparison
-- Training stability analysis
-- Training time comparison
-- Final model performance comparison
+- Convergence Speed
+- Final Performance
+- Training Stability
+
+### Research Question
+
+Which optimizer is most effective for wine quality prediction?
 
 ---
 
-## Section 4: Regularization and Generalization
+## Analysis 6: Regularization and Generalization
 
-### Course Topics
+### Objective
+
+Reduce overfitting and improve generalization performance.
+
+### Regularization Methods
 
 - L1 Regularization
 - L2 Regularization
 - Dropout
 - Early Stopping
 
-### Analyses
+### Evaluation
 
-- Overfitting assessment
-- Generalization gap analysis
-- Validation performance comparison
-- Dropout rate comparison
-- Regularization effectiveness evaluation
-- Model robustness analysis
+- Validation Performance
+- Generalization Gap
+- Model Robustness
 
----
+### Research Question
 
-## Section 5: Autoencoders and Representation Learning
-
-### Course Topics
-
-- Encoder-Decoder Architectures
-- Latent Space Learning
-- Feature Compression
-- Nonlinear Dimensionality Reduction
-
-### Dataset Applications
-
-- Feature compression
-- Representation learning
-- Dimensionality reduction
-
-### Analyses
-
-- Reconstruction error evaluation
-- Latent-space visualization
-- Autoencoder dimensionality reduction
-- Autoencoder vs PCA comparison
-- Feature compression effectiveness
-- Feature relationship analysis
+Which regularization strategy produces the most reliable model?
 
 ---
 
-## Section 6: Autoencoder-Assisted Prediction
+## Analysis 7: Final Model Selection
 
-### Pipeline A
+### Objective
 
-```text
-Original Features
-        ↓
-       MLP
-```
+Identify the strongest-performing neural network configuration.
 
-### Pipeline B
+### Components Evaluated
 
-```text
-Autoencoder
-        ↓
-Latent Features
-        ↓
-       MLP
-```
+- Architecture
+- Activation Function
+- Optimizer
+- Regularization Strategy
 
-### Analyses
+### Deliverable
 
-- Regression performance comparison
-- Classification performance comparison
-- Training efficiency comparison
-- Dimensionality reduction effectiveness
-- Predictive power of latent features
+Recommended regression model for wine quality prediction.
 
 ---
 
-## Section 7: Variational Autoencoders (VAEs)
+# 📊 Evaluation Metrics
 
-### Course Topics
+## Mean Absolute Error (MAE)
 
-- Variational Autoencoders
-- Latent Distributions
-- Generative Modeling
-- Synthetic Data Generation
+Measures average prediction error.
 
-### Dataset Applications
-
-- Synthetic wine generation
-- Latent-space exploration
-
-### Analyses
-
-- Synthetic observation generation
-- Real vs synthetic data comparison
-- Distribution comparison
-- Correlation preservation analysis
-- Latent-space visualization
-- Statistical similarity evaluation
+Lower values indicate better performance.
 
 ---
 
-## Section 8: Deep Learning vs Traditional Machine Learning
+## Root Mean Squared Error (RMSE)
 
-### Traditional Machine Learning Models
+Penalizes larger prediction errors.
 
-- Linear Regression
-- Logistic Regression
-- Decision Trees
-- Random Forests
-- Gradient Boosting Models
-- Support Vector Machines
-
-### Deep Learning Models
-
-- Baseline MLP
-- Optimized MLP
-- Regularized MLP
-- Autoencoder-Assisted Models
-- Variational Autoencoder Models
-
-### Evaluation Metrics
-
-#### Classification
-
-- Accuracy
-- Precision
-- Recall
-- F1-Score
-- ROC-AUC
-
-#### Regression
-
-- RMSE
-- MAE
-- R²
-
-### Analyses
-
-- Performance comparison
-- Complexity comparison
-- Training cost comparison
-- Interpretability comparison
-- Practical deployment considerations
-
-### Final Research Question
-
-**Does deep learning provide meaningful advantages over traditional machine learning for structured tabular wine data?**
+Lower values indicate better performance.
 
 ---
 
-## 📈 Planned Analyses
+## R² Score
 
-### Neural Network Analysis
+Measures the percentage of variance explained by the model.
 
-- Architecture optimization
+Higher values indicate better performance.
+
+---
+
+# 📋 Expected Deliverables
+
+- Baseline neural network model
+- Architecture comparison study
 - Activation function comparison
 - Learning curve analysis
-- Hyperparameter tuning
-
-### Optimization Analysis
-
-- SGD benchmarking
-- Momentum benchmarking
-- RMSProp benchmarking
-- Adam benchmarking
-
-### Regularization Analysis
-
-- Dropout studies
-- L1 regularization evaluation
-- L2 regularization evaluation
-- Early stopping experiments
-
-### Representation Learning
-
-- Autoencoder dimensionality reduction
-- Autoencoder vs PCA comparison
-- Latent-space visualization
-- Reconstruction error analysis
-
-### Generative Deep Learning
-
-- Synthetic wine generation
-- Distribution similarity analysis
-- Correlation preservation analysis
-- Latent-space exploration
-
-### Comparative Analysis
-
-- Deep learning vs traditional machine learning
-- Performance vs complexity tradeoffs
-- Computational cost analysis
-- Practical recommendations
-
----
-
-## 📊 Comparison with Previous Project Sections
-
-Deep learning models developed in this project will be compared against techniques implemented throughout previous IBM Machine Learning Certificate projects, including:
-
-- Linear Regression
-- Logistic Regression
-- Decision Trees
-- Random Forests
-- Gradient Boosting Models
-- Support Vector Machines
-- Clustering Algorithms
-- Dimensionality Reduction Methods
-- Anomaly Detection Techniques
-
-The objective is to determine whether increased deep learning model complexity produces meaningful improvements on structured tabular datasets.
-
----
-
-## 📦 Expected Deliverables
-
-- Neural network implementation notebooks
-- Architecture optimization studies
-- Optimizer benchmarking analysis
+- Optimizer benchmarking results
 - Regularization experiments
-- Autoencoder models
-- Latent-space visualizations
-- Variational autoencoder experiments
-- Synthetic data generation analysis
-- Comprehensive benchmarking report
-- Final project report and conclusions
+- Final optimized model
+- Performance summary report
 
 ---
 
-## 📅 Current Status
+# 🔍 Final Research Question
 
-### Completed
+> **What neural network architecture and training strategy provide the most accurate wine quality predictions for structured tabular wine data?**
+
+---
+
+# 📅 Project Status
+
+## Completed
 
 ✅ Exploratory Data Analysis (EDA)
 
-### Planned
+## Planned
 
-⬜ Neural Network Foundations
-⬜ Backpropagation & Keras
-⬜ Optimizer Benchmarking
-⬜ Regularization Studies
-⬜ Autoencoders
-⬜ Autoencoder-Assisted Prediction
-⬜ Variational Autoencoders
-⬜ Deep Learning Benchmarking
-⬜ Final Report
+⬜ Baseline Neural Network  
+⬜ Activation Function Comparison  
+⬜ Architecture Study  
+⬜ Learning Curve Analysis  
+⬜ Optimizer Benchmarking  
+⬜ Regularization Study  
+⬜ Final Model Selection  
 
 ---
 
