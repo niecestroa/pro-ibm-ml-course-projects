@@ -153,7 +153,7 @@ Classify wines as red or white using deep learning techniques.
 
 ---
 
-## 🍷 Project 4: Representation Learning and Generative Modeling
+## 🍷 Project 3: Representation Learning and Generative Modeling
 
 ### Objective
 
