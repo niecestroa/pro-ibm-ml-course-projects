@@ -7,13 +7,11 @@
 
 ## 📌 Module Overview
 
-This project explores how deep learning techniques perform on structured tabular data using the Wine Quality dataset that has been utilized throughout the IBM Machine Learning Professional Certificate project series.
+This project explores the deep learning and reinforcement learning concepts covered in the IBM Machine Learning Professional Certificate using the Wine Quality dataset.
 
-Unlike image-focused or sequence-based deep learning projects, this analysis investigates whether neural networks provide meaningful advantages over traditional machine learning approaches for wine quality prediction and wine classification tasks.
+The primary objective is to investigate how modern deep learning architectures, optimization methods, representation learning techniques, generative models, and reinforcement learning concepts apply to a real-world structured dataset while comparing their performance and practicality against traditional machine learning approaches developed in previous projects.
 
-The project emphasizes neural network design, optimization strategies, regularization techniques, representation learning, dimensionality reduction, and generative deep learning methods that are appropriate for tabular datasets.
-
-A primary objective is determining when deep learning provides real performance gains and when traditional machine learning remains the better solution.
+Because the Wine Quality dataset is structured tabular data, some deep learning techniques are expected to be more suitable than others. Therefore, this project will include both implementation-focused experiments and conceptual evaluations of techniques that are less applicable to the dataset.
 
 ---
 
@@ -21,9 +19,9 @@ A primary objective is determining when deep learning provides real performance 
 
 **Dataset:** `winequality-final.csv`
 
-The dataset contains approximately 5,320 wine observations with physicochemical measurements and quality-related attributes for red and white wines.
+The dataset contains approximately 5,320 wine observations consisting of physicochemical measurements and quality ratings for red and white wines.
 
-Features include:
+### Features
 
 - Fixed Acidity
 - Volatile Acidity
@@ -36,8 +34,18 @@ Features include:
 - pH
 - Sulphates
 - Alcohol
+- Wine Type
 
-This dataset has been used throughout previous projects, allowing direct comparison between traditional machine learning and deep learning approaches.
+### Prediction Tasks
+
+#### Regression
+
+Predict wine quality scores using neural networks.
+
+#### Classification
+
+- Predict wine type (Red vs White)
+- Predict wine quality categories
 
 ---
 
@@ -45,20 +53,18 @@ This dataset has been used throughout previous projects, allowing direct compari
 
 ### Exploratory Data Analysis (EDA)
 
-The exploratory data analysis phase has been completed.
-
 Completed analyses include:
 
-- Data quality assessment
+- Data validation
 - Missing value analysis
-- Feature distribution exploration
+- Distribution analysis
 - Correlation analysis
-- Outlier investigation
-- Wine type distribution analysis
+- Outlier detection
+- Feature relationship exploration
 - Wine quality distribution analysis
-- Initial feature relationship exploration
+- Wine type distribution analysis
 
-The results from the EDA phase provide the foundation for the neural network and deep learning experiments that follow.
+EDA findings will be used throughout all deep learning experiments.
 
 ---
 
@@ -66,24 +72,25 @@ The results from the EDA phase provide the foundation for the neural network and
 
 ## Primary Objectives
 
-- Develop neural network models for wine quality prediction and classification
-- Compare deep learning models against previously developed machine learning models
-- Evaluate the impact of network architecture design
-- Compare neural network optimization algorithms
+- Develop neural network models for regression and classification
+- Explore deep learning techniques covered throughout the course
+- Compare multiple optimization algorithms
 - Investigate regularization techniques
-- Explore representation learning through autoencoders
-- Generate synthetic wine observations using generative deep learning techniques
-- Assess whether deep learning provides meaningful advantages on structured tabular data
+- Study feature learning and latent representations
+- Evaluate generative deep learning approaches
+- Examine reinforcement learning concepts
+- Benchmark deep learning methods against traditional machine learning models
 
 ## Research Questions
 
-- Can neural networks outperform traditional machine learning models?
-- What neural network architecture performs best on tabular wine data?
-- Which optimizer provides the best convergence and performance?
-- How can overfitting be minimized through regularization?
-- Can autoencoders learn meaningful feature representations?
-- Can generative models produce realistic synthetic wine samples?
-- Is deep learning worth the additional complexity for this dataset?
+- How effective are neural networks on structured tabular data?
+- Which architecture produces the best performance?
+- Which optimizer converges most effectively?
+- How can overfitting be minimized?
+- Can autoencoders discover useful feature representations?
+- Can generative models create realistic synthetic wine observations?
+- How do deep learning models compare to traditional machine learning approaches?
+- Which course concepts are most applicable to this dataset?
 
 ---
 
@@ -91,239 +98,284 @@ The results from the EDA phase provide the foundation for the neural network and
 
 ---
 
-## Section 1: Neural Network Baseline Models
+## Section 1: Neural Network Foundations
 
-### Topics
+### Course Topics
 
-- Feedforward neural networks
-- Multilayer perceptrons (MLPs)
-- Classification networks
-- Regression networks
+- Neural Networks
+- Perceptrons
+- Multi-Layer Perceptrons (MLPs)
+- Activation Functions
+- Forward Propagation
 
-### Analyses
+### Dataset Applications
 
-- Wine quality regression
-- Wine type classification
-- Neural network baseline performance
-- Comparison against previous machine learning models
-- Training and validation performance evaluation
-
----
-
-## Section 2: Neural Network Architecture Optimization
-
-### Topics
-
-- Hidden layer design
-- Network depth
-- Neuron selection
-- Activation functions
-
-### Experiments
-
-#### Hidden Layer Configurations
-
-- Single hidden layer
-- Two hidden layers
-- Three hidden layers
-- Four hidden layers
-
-#### Neuron Configurations
-
-- 8 Neurons
-- 16 Neurons
-- 32 Neurons
-- 64 Neurons
-- 128 Neurons
-
-#### Activation Functions
-
-- ReLU
-- Sigmoid
-- Tanh
+- Wine Quality Regression
+- Wine Type Classification
+- Quality Classification
 
 ### Analyses
 
-- Performance comparison
-- Convergence behavior
-- Overfitting analysis
-- Model complexity assessment
-- Parameter count comparison
+- Baseline neural network performance
+- Neural network architecture comparisons
+- Activation function comparisons
+- Comparison against traditional machine learning models
 
 ---
 
-## Section 3: Backpropagation and Training Analysis
+## Section 2: Backpropagation and Keras
 
-### Topics
+### Course Topics
 
-- Forward propagation
 - Backpropagation
-- Loss functions
-- Learning dynamics
+- Loss Functions
+- Gradient Descent
+- Keras Sequential Models
+- Neural Network Training
+
+### Dataset Applications
+
+- Keras implementation of MLP architectures
+- Training workflow evaluation
+- Learning behavior analysis
 
 ### Analyses
 
-- Training loss analysis
-- Validation loss analysis
-- Learning curve evaluation
-- Convergence behavior
-- Underfitting and overfitting investigation
+- Loss convergence
+- Validation performance
+- Epoch analysis
+- Training dynamics
 
 ---
 
-## Section 4: Optimizer Benchmarking
+## Section 3: Optimizers and Regularization
 
-### Topics
+### Course Topics
 
-- Mini-Batch Gradient Descent
-- SGD
-- SGD with Momentum
+#### Optimizers
+
+- Stochastic Gradient Descent (SGD)
+- Momentum
 - RMSProp
 - Adam
 
-### Experiments
+#### Regularization
 
-Train identical neural network architectures using:
+- L1 Regularization
+- L2 Regularization
+- Dropout
+- Early Stopping
 
-- SGD
-- Momentum SGD
-- RMSProp
-- Adam
+### Dataset Applications
+
+- Optimizer benchmarking
+- Overfitting prevention
+- Generalization analysis
 
 ### Analyses
 
 - Convergence speed
-- Classification performance
-- Regression performance
-- Stability during training
-- Training efficiency
-- Final model performance
+- Training stability
+- Validation performance
+- Generalization gap
+- Model robustness
 
 ---
 
-## Section 5: Regularization and Generalization
+## Section 4: Convolutional Neural Networks (CNNs)
 
-### Topics
+### Course Topics
 
-- Dropout
-- L1 Regularization
-- L2 Regularization
-- Early Stopping
+- Convolution Operations
+- Kernels and Filters
+- Pooling Layers
+- Feature Maps
+- CNN Architectures
 
-### Experiments
+### Dataset Applications
 
-#### Dropout Rates
-
-- 10%
-- 20%
-- 30%
-- 50%
-
-#### Regularization
-
-- L1 Penalties
-- L2 Penalties
-
-#### Early Stopping
-
-- Enabled
-- Disabled
+- Experimental CNN implementation on tabular data
+- CNN vs MLP comparison
 
 ### Analyses
 
-- Generalization gap
-- Validation performance
-- Overfitting prevention
-- Model robustness
-- Training efficiency
+- Performance comparison
+- Computational complexity comparison
+- Suitability assessment
+
+### Goal
+
+Evaluate whether image-oriented neural network architectures offer meaningful benefits for structured tabular data.
 
 ---
 
-## Section 6: Autoencoders and Representation Learning
+## Section 5: Transfer Learning
 
-### Topics
+### Course Topics
 
-- Encoder-decoder architectures
+- Transfer Learning
+- Fine-Tuning
+- Pretrained Models
+- ResNet
+- Inception Networks
+
+### Dataset Applications
+
+- Conceptual evaluation of transfer learning
+- Investigation of transfer learning approaches for tabular data
+
+### Analyses
+
+- Benefits and limitations
+- Applicability assessment
+- Comparison to training from scratch
+
+### Goal
+
+Determine whether transfer learning techniques provide practical value for the Wine Quality dataset.
+
+---
+
+## Section 6: Recurrent Neural Networks
+
+### Course Topics
+
+- Recurrent Neural Networks (RNNs)
+- Long Short-Term Memory Networks (LSTMs)
+- Gated Recurrent Units (GRUs)
+- Sequential Learning
+
+### Dataset Applications
+
+- Exploratory implementation
+- Assessment of suitability for non-sequential data
+
+### Analyses
+
+- Performance evaluation
+- Complexity analysis
+- Limitations assessment
+
+### Goal
+
+Investigate whether sequence-learning architectures can be adapted for structured tabular datasets.
+
+---
+
+## Section 7: Autoencoders
+
+### Course Topics
+
+- Encoder-Decoder Architectures
+- Latent Space Learning
+- Representation Learning
+- Dimensionality Reduction
+
+### Dataset Applications
+
 - Feature compression
-- Latent-space learning
+- Representation learning
 - Nonlinear dimensionality reduction
 
 ### Analyses
 
-- Reconstruction loss
-- Latent feature visualization
-- Feature compression effectiveness
-- Autoencoder dimensionality reduction
+- Reconstruction error
+- Latent-space visualization
 - Autoencoder vs PCA comparison
-
-### Goals
-
-Determine whether autoencoders learn more informative feature representations than traditional dimensionality reduction techniques.
-
----
-
-## Section 7: Autoencoder-Assisted Prediction
-
-### Pipeline A
-
-```text
-Original Features
-        ↓
-      MLP
-```
-
-### Pipeline B
-
-```text
-Autoencoder
-      ↓
-Latent Features
-      ↓
-      MLP
-```
-
-### Analyses
-
-- Classification performance comparison
-- Regression performance comparison
-- Training time comparison
-- Feature compression benefits
-- Predictive value of latent features
+- Feature compression effectiveness
 
 ---
 
 ## Section 8: Generative Deep Learning
 
-### Topics
+### Variational Autoencoders (VAEs)
 
-- Variational Autoencoders (VAEs)
-- Synthetic data generation
+#### Topics
+
+- Latent Distributions
+- Variational Inference
+- Synthetic Data Generation
+
+#### Analyses
+
+- Synthetic wine generation
 - Latent-space exploration
-
-### Analyses
-
-#### Synthetic Data Generation
-
-- Generate synthetic wine observations
-- Explore latent-space representations
-- Interpolate between observations
-
-#### Distribution Comparison
-
-- Feature distribution comparison
-- Correlation structure comparison
+- Distribution comparison
 - Statistical similarity assessment
-- Real vs synthetic observation analysis
 
-### Goals
+### Generative Adversarial Networks (GANs)
 
-Evaluate whether generative deep learning models can produce realistic wine observations.
+#### Topics
+
+- Generator Networks
+- Discriminator Networks
+- Adversarial Training
+
+#### Analyses
+
+- Synthetic wine generation
+- Real vs generated sample comparison
+- Data quality evaluation
+
+### Goal
+
+Evaluate the effectiveness of generative models on structured tabular datasets.
 
 ---
 
-## Section 9: Comprehensive Deep Learning Benchmark
+## Section 9: Reinforcement Learning
 
-### Traditional Machine Learning Models
+### Course Topics
+
+- Agents
+- States
+- Actions
+- Rewards
+- Policies
+- Deep Reinforcement Learning
+
+### Dataset Applications
+
+- Conceptual analysis
+- Comparison with supervised learning approaches
+
+### Analyses
+
+- Reinforcement learning workflow
+- Potential industry applications
+- Dataset suitability assessment
+
+### Goal
+
+Understand why reinforcement learning requires specialized environments and evaluate its applicability to structured business problems.
+
+---
+
+## Section 10: Comprehensive Deep Learning Benchmark
+
+### Implemented Models
+
+#### Neural Networks
+
+- Baseline MLP
+- Optimized MLP
+- Regularized MLP
+
+#### Representation Learning
+
+- Autoencoders
+
+#### Generative Models
+
+- Variational Autoencoders
+- GANs
+
+#### Experimental Models
+
+- CNNs
+- RNNs
+
+### Traditional Machine Learning Comparisons
 
 - Linear Regression
 - Logistic Regression
@@ -331,14 +383,8 @@ Evaluate whether generative deep learning models can produce realistic wine obse
 - Random Forests
 - Gradient Boosting
 - Support Vector Machines
-
-### Deep Learning Models
-
-- Baseline Neural Networks
-- Optimized Neural Networks
-- Regularized Neural Networks
-- Autoencoder-Based Models
-- Variational Autoencoder Models
+- Clustering Methods
+- Anomaly Detection Models
 
 ### Evaluation Metrics
 
@@ -356,75 +402,56 @@ Evaluate whether generative deep learning models can produce realistic wine obse
 - MAE
 - R²
 
-### Final Analyses
+### Final Research Question
 
-- Performance comparison
-- Model complexity comparison
-- Training efficiency comparison
-- Interpretability discussion
-- Practical deployment considerations
+**When does deep learning provide meaningful advantages over traditional machine learning for structured tabular datasets?**
 
 ---
 
 ## 📈 Planned Analyses
-
-### Predictive Modeling
-
-- Wine quality regression
-- Wine type classification
-- Deep neural network benchmarking
-- Hyperparameter optimization
 
 ### Neural Network Analysis
 
 - Architecture optimization
 - Activation function comparison
 - Learning curve analysis
-- Optimizer benchmarking
-- Regularization studies
+- Training dynamics
+- Hyperparameter tuning
+
+### Optimization Analysis
+
+- SGD benchmarking
+- Momentum benchmarking
+- RMSProp benchmarking
+- Adam benchmarking
+
+### Regularization Analysis
+
+- Dropout studies
+- L1 regularization
+- L2 regularization
+- Early stopping evaluation
 
 ### Representation Learning
 
 - Autoencoder dimensionality reduction
-- Latent feature visualization
-- Autoencoder vs PCA comparison
-- Reconstruction error assessment
+- Latent-space visualization
+- Reconstruction error analysis
+- Autoencoder vs PCA
 
 ### Generative Deep Learning
 
-- Synthetic wine generation
-- Latent-space exploration
-- Distribution similarity analysis
-- Feature correlation preservation
+- VAE synthetic data generation
+- GAN synthetic data generation
+- Synthetic data quality assessment
+- Distribution preservation analysis
 
-### Final Evaluation
+### Comparative Analysis
 
-- Deep learning vs traditional machine learning
+- Traditional ML vs Deep Learning
 - Accuracy vs complexity tradeoffs
-- Training cost analysis
-- Recommendations for tabular datasets
-
----
-
-## 🚫 Topics Reviewed but Not Implemented
-
-The following topics are covered in the course but are not expected to be major implementation areas because they are not well aligned with the Wine Quality dataset.
-
-### Convolutional Neural Networks (CNNs)
-
-Primarily designed for image and spatial data.
-
-### Transfer Learning
-
-Typically relies on large pretrained image models such as ResNet, Inception, and MobileNet.
-
-### Recurrent Neural Networks (RNNs)
-
-Require sequential or time-series data.
-
-### Reinforcement Learning
-
-Requires states, actions, rewards, and an interactive environment which are not present in this dataset.
+- Training efficiency comparison
+- Practical deployment considerations
 
 ---
 
@@ -432,47 +459,59 @@ Requires states, actions, rewards, and an interactive environment which are not 
 
 Deep learning models developed in this project will be compared against techniques implemented throughout previous IBM Machine Learning Certificate projects, including:
 
-- Linear and Logistic Regression
+- Linear Regression
+- Logistic Regression
 - Decision Trees
 - Random Forests
-- Gradient Boosting Models
+- Gradient Boosting
 - Support Vector Machines
 - Clustering Algorithms
 - Dimensionality Reduction Methods
 - Anomaly Detection Techniques
 
-The goal is to determine when deep learning provides measurable performance improvements over traditional machine learning approaches for structured tabular datasets.
+The objective is to evaluate whether increased model complexity results in meaningful performance improvements on structured tabular datasets.
 
 ---
 
 ## 📦 Expected Deliverables
 
 - Neural network implementation notebooks
-- Architecture comparison studies
-- Optimizer benchmarking experiments
-- Regularization studies
+- Architecture optimization studies
+- Optimizer benchmarking analysis
+- Regularization experiments
+- CNN evaluation
+- RNN evaluation
 - Autoencoder models
 - Latent-space visualizations
-- Variational autoencoder experiments
-- Synthetic data generation analysis
-- Final benchmarking report
-- Deep learning recommendations for tabular data
+- VAE experiments
+- GAN experiments
+- Reinforcement learning research review
+- Comprehensive benchmarking report
+- Final project report and conclusions
 
 ---
 
 ## 📅 Current Status
 
-**Planning Phase**
+### Completed
 
-✅ Exploratory Data Analysis completed
-⬜ Neural Network Development
-⬜ Architecture Optimization
+✅ Exploratory Data Analysis (EDA)
+
+### Planned
+
+⬜ Neural Network Foundations
+⬜ Backpropagation & Keras
 ⬜ Optimizer Benchmarking
 ⬜ Regularization Studies
-⬜ Autoencoder Development
-⬜ Generative Deep Learning
-⬜ Comprehensive Benchmarking
-⬜ Final Report
+⬜ CNN Evaluation
+⬜ Transfer Learning Review
+⬜ RNN/LSTM Investigation
+⬜ Autoencoders
+⬜ VAEs
+⬜ GANs
+⬜ Reinforcement Learning Review
+⬜ Final Benchmarking
+⬜ Project Report
 
 ---
 
