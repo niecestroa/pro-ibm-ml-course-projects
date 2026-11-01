@@ -1,4 +1,4 @@
-# 05-01 – Wine Quality Regression with Deep Learning
+# Wine Quality Regression with Deep Learning
 
 ### IBM Machine Learning Professional Certificate
 
