@@ -25,6 +25,7 @@ The project investigates:
 
 - Neural network fundamentals
 - Network architecture design
+- Feature scaling techniques
 - Training behavior
 - Optimization algorithms
 - Regularization methods
@@ -94,10 +95,12 @@ This project seeks to answer the following questions:
 
 1. Can neural networks accurately predict wine quality?
 2. How much improvement does a Multi-Layer Perceptron provide over a simple Perceptron?
-3. Which activation function performs best?
-4. Which optimizer converges most efficiently?
-5. How can overfitting be minimized?
-6. What neural network configuration achieves the best predictive performance?
+3. Which feature scaling method performs best?
+4. Which activation function performs best?
+5. Does increasing network complexity improve performance?
+6. Which optimizer converges most efficiently?
+7. How can overfitting be minimized?
+8. What neural network configuration achieves the best predictive performance?
 
 ---
 
@@ -133,7 +136,7 @@ Output
 
 - MAE
 - RMSE
-- R²
+- Adjusted R²
 
 ### Research Question
 
@@ -141,7 +144,48 @@ Does an MLP outperform a simple Perceptron for wine quality prediction?
 
 ---
 
-## Analysis 2: Activation Function Comparison
+## Analysis 2: Feature Scaling Comparison
+
+### Objective
+
+Evaluate how feature scaling influences neural network training and predictive performance.
+
+### Scaling Methods
+
+#### No Scaling
+
+```text
+Raw Features
+```
+
+#### StandardScaler
+
+```text
+Mean = 0
+Standard Deviation = 1
+```
+
+#### MinMaxScaler
+
+```text
+Range: 0 → 1
+```
+
+### Evaluation
+
+- MAE
+- RMSE
+- Adjusted R²
+- Training Stability
+- Convergence Speed
+
+### Research Question
+
+Which feature scaling method produces the best neural network performance for wine quality prediction?
+
+---
+
+## Analysis 3: Activation Function Comparison
 
 ### Objective
 
@@ -157,8 +201,8 @@ Evaluate how activation functions influence learning and predictive performance.
 
 - RMSE
 - MAE
-- R²
-- Training behavior
+- Adjusted R²
+- Training Behavior
 
 ### Research Question
 
@@ -166,7 +210,7 @@ Which activation function performs best for structured wine-quality data?
 
 ---
 
-## Analysis 3: Architecture Comparison
+## Analysis 4: Architecture Comparison
 
 ### Objective
 
@@ -202,7 +246,7 @@ Investigate the impact of network depth and complexity.
 
 - RMSE
 - MAE
-- R²
+- Adjusted R²
 - Training Time
 
 ### Research Question
@@ -211,7 +255,7 @@ Does increasing network complexity improve predictive performance?
 
 ---
 
-## Analysis 4: Learning Behavior Analysis
+## Analysis 5: Learning Behavior Analysis
 
 ### Objective
 
@@ -236,7 +280,7 @@ How does model learning evolve during training?
 
 ---
 
-## Analysis 5: Optimizer Benchmarking
+## Analysis 6: Optimizer Benchmarking
 
 ### Objective
 
@@ -260,7 +304,7 @@ Which optimizer is most effective for wine quality prediction?
 
 ---
 
-## Analysis 6: Regularization and Generalization
+## Analysis 7: Regularization and Generalization
 
 ### Objective
 
@@ -285,7 +329,7 @@ Which regularization strategy produces the most reliable model?
 
 ---
 
-## Analysis 7: Final Model Selection
+## Analysis 8: Final Model Selection
 
 ### Objective
 
@@ -293,6 +337,7 @@ Identify the strongest-performing neural network configuration.
 
 ### Components Evaluated
 
+- Scaling Method
 - Architecture
 - Activation Function
 - Optimizer
@@ -306,35 +351,38 @@ Recommended regression model for wine quality prediction.
 
 # 📊 Evaluation Metrics
 
-## Mean Absolute Error (MAE)
-
-Measures average prediction error.
-
-Lower values indicate better performance.
-
----
-
 ## Root Mean Squared Error (RMSE)
 
-Penalizes larger prediction errors.
+Measures prediction error while penalizing larger mistakes more heavily than MAE.
+
+Lower values indicate better performance.
+
+**Primary Performance Metric**
+
+---
+
+## Mean Absolute Error (MAE)
+
+Measures the average magnitude of prediction errors.
 
 Lower values indicate better performance.
 
 ---
 
-## R² Score
+## Adjusted R²
 
-Measures the percentage of variance explained by the model.
+Measures the percentage of variance explained by the model while accounting for model complexity.
+
+Unlike R², Adjusted R² penalizes unnecessary model parameters and provides a more reliable comparison between neural network configurations.
 
 Higher values indicate better performance.
-
----
 
 # 📋 Expected Deliverables
 
 - Baseline neural network model
-- Architecture comparison study
+- Feature scaling comparison
 - Activation function comparison
+- Architecture comparison study
 - Learning curve analysis
 - Optimizer benchmarking results
 - Regularization experiments
@@ -345,7 +393,7 @@ Higher values indicate better performance.
 
 # 🔍 Final Research Question
 
-> **What neural network architecture and training strategy provide the most accurate wine quality predictions for structured tabular wine data?**
+> **What combination of feature scaling, neural network architecture, activation function, optimizer, and regularization strategy provides the most accurate wine quality predictions for structured tabular wine data?**
 
 ---
 
@@ -358,12 +406,13 @@ Higher values indicate better performance.
 ## Planned
 
 ⬜ Baseline Neural Network  
+⬜ Feature Scaling Comparison  
 ⬜ Activation Function Comparison  
 ⬜ Architecture Study  
 ⬜ Learning Curve Analysis  
 ⬜ Optimizer Benchmarking  
 ⬜ Regularization Study  
-⬜ Final Model Selection  
+⬜ Final Model Selection
 
 ---
 
