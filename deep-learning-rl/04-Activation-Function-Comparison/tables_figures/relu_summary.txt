@@ -1,6 +1,0 @@
-Analysis 3: Activation Function Comparison
-Method: ReLU
-
-MAE: 0.5578
-RMSE: 0.7190
-Adjusted R²: 0.3256
