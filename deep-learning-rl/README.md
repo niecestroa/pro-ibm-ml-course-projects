@@ -89,9 +89,9 @@ The project began with a comprehensive exploratory data analysis (EDA) to evalua
 
 ### Findings
 
-✅ No missing values
-✅ No duplicate records
-✅ Dataset immediately suitable for machine learning
+✅ No missing values <br>
+✅ No duplicate records <br>
+✅ Dataset immediately suitable for machine learning <br>
 ✅ No data integrity concerns identified
 
 ---
@@ -168,10 +168,10 @@ Alcohol emerged as the strongest individual predictor of wine quality.
 
 As wine quality increases:
 
-✅ Alcohol increases
-✅ Density decreases
-✅ Volatile acidity decreases
-✅ Chlorides decrease
+✅ Alcohol increases <br>
+✅ Density decreases <br>
+✅ Volatile acidity decreases <br>
+✅ Chlorides decrease <br>
 ✅ Citric acid increases slightly
 
 ### Example
@@ -247,17 +247,17 @@ Density exhibits substantial multicollinearity and should be monitored in future
 
 ### Strengths
 
-✅ Clean dataset
-✅ No missing values
-✅ Strong sample size
-✅ Strong predictor-target relationships
+✅ Clean dataset <br>
+✅ No missing values <br>
+✅ Strong sample size <br>
+✅ Strong predictor-target relationships <br>
 ✅ Multiple informative chemistry measurements
 
 ### Challenges
 
-⚠ Quality imbalance
-⚠ Predictor outliers
-⚠ Skewed distributions
+⚠ Quality imbalance <br>
+⚠ Predictor outliers <br>
+⚠ Skewed distributions <br>
 ⚠ Density multicollinearity
 
 ### Overall Assessment
@@ -347,40 +347,191 @@ The MLP is retained as the baseline architecture for future analyses.
 
 ---
 
-## 🔄 Analysis 2: Feature Scaling Comparison
+## ✅ Analysis 2: Feature Scaling Comparison
 
-Status: Planned
+### Objective
 
-Evaluate:
+Determine which feature scaling strategy produces the strongest neural network performance.
+
+### Methods Evaluated
 
 - No Scaling
 - StandardScaler
 - MinMaxScaler
 
-Research Question:
+### Results
 
-Which scaling strategy produces the strongest neural network performance?
+| Scaling Method | MAE | RMSE | Adjusted R² |
+|---------------|------:|------:|------:|
+| No Scaling | 0.5656 | 0.7334 | 0.2983 |
+| StandardScaler | 0.5546 | 0.7170 | 0.3294 |
+| MinMaxScaler | 0.5519 | 0.7094 | 0.3435 |
+
+### Findings
+
+- Feature scaling improved overall model performance.
+- MinMaxScaler produced the strongest predictive results.
+- StandardScaler outperformed the unscaled model.
+- Training remained stable across all scaling approaches.
+
+### Conclusion
+
+MinMaxScaler was selected as the preferred scaling strategy for all subsequent analyses.
+
+### Final Ranking
+
+1. MinMaxScaler
+2. StandardScaler
+3. No Scaling
 
 ---
 
-## 🔄 Analysis 3: Activation Function Comparison
+## ✅ Analysis 3: Activation Function Comparison
 
-Status: Planned
+### Objective
+
+Evaluate the impact of activation function selection on neural network performance.
+
+### Methods Evaluated
 
 - ReLU
 - Sigmoid
 - Tanh
 
+### Results
+
+| Activation Function | MAE | RMSE | Adjusted R² |
+|--------------------|------:|------:|------:|
+| ReLU | 0.5520 | 0.7120 | 0.3388 |
+| Tanh | 0.5627 | 0.7297 | 0.3054 |
+| Sigmoid | 0.5645 | 0.7334 | 0.2984 |
+
+### Findings
+
+- ReLU produced the lowest prediction error.
+- Tanh outperformed Sigmoid.
+- ReLU achieved the highest Adjusted R².
+- All activation functions demonstrated stable training behavior.
+
+### Conclusion
+
+ReLU was selected as the preferred activation function.
+
+### Final Ranking
+
+1. ReLU
+2. Tanh
+3. Sigmoid
+
 ---
 
-## 🔄 Analysis 4: Architecture Comparison
+## ✅ Analysis 4: Architecture Comparison
 
-Status: Planned
+### Objective
 
-- 16
-- 32 → 16
-- 64 → 32 → 16
-- 128 → 64 → 32
+Evaluate the effect of increasing network complexity on predictive performance.
+
+### Architectures Evaluated
+
+#### Model A
+
+```text
+16
+```
+
+#### Model B
+
+```text
+32 → 16
+```
+
+#### Model C
+
+```text
+64 → 32 → 16
+```
+
+#### Model D
+
+```text
+128 → 64 → 32 → 16
+```
+
+### Results
+
+| Model | Architecture | MAE | RMSE | Adjusted R² |
+|---------|-----------|------:|------:|------:|
+| Model A | 16 | 0.5594 | 0.7226 | 0.3190 |
+| Model B | 32 → 16 | 0.5502 | 0.7075 | 0.3471 |
+| Model C | 64 → 32 → 16 | 0.5462 | 0.7023 | 0.3567 |
+| Model D | 128 → 64 → 32 → 16 | 0.5424 | 0.7043 | 0.3530 |
+
+### Findings
+
+- Increasing architecture depth improved performance from Model A through Model C.
+- Model C achieved the lowest RMSE and highest Adjusted R².
+- Model D achieved the lowest MAE but did not outperform Model C overall.
+- Evidence of diminishing returns emerged beyond Model C.
+- All architectures exhibited stable learning behavior.
+
+### Conclusion
+
+Model C provided the best balance between complexity and predictive performance and was selected for future analyses.
+
+### Final Ranking
+
+1. Model C (64 → 32 → 16)
+2. Model D (128 → 64 → 32 → 16)
+3. Model B (32 → 16)
+4. Model A (16)
+
+---
+
+# 🏆 Current Best Configuration
+
+Following Analyses 1–4, the strongest neural network configuration is:
+
+```text
+Scaling Method:
+MinMaxScaler
+
+Activation Function:
+ReLU
+
+Architecture:
+64 → 32 → 16
+
+Optimizer:
+Adam
+
+Epochs:
+100
+
+Validation Split:
+20%
+```
+
+### Current Best Performance
+
+| Metric | Value |
+|---------|------:|
+| MAE | 0.5462 |
+| RMSE | 0.7023 |
+| Adjusted R² | 0.3567 |
+
+### Questions Answered So Far
+
+✅ Which feature scaling method performs best?
+
+Answer: MinMaxScaler
+
+✅ Which activation function performs best?
+
+Answer: ReLU
+
+✅ Does increasing network complexity improve performance?
+
+Answer: Yes, up to Model C, after which diminishing returns emerge.
 
 ---
 
@@ -473,24 +624,19 @@ Measures explained variance while accounting for model complexity.
 
 ---
 
-# 📅 Project Status
-
 ## Completed
 
-✅ Exploratory Data Analysis (EDA)
-
-✅ Analysis 1: Baseline Neural Network Performance
+✅ Exploratory Data Analysis (EDA) <br>
+✅ Analysis 1: Baseline Neural Network Performance <br>
+✅ Analysis 2: Feature Scaling Comparison <br>
+✅ Analysis 3: Activation Function Comparison <br>
+✅ Analysis 4: Architecture Comparison
 
 ## In Progress
 
-⬜ Analysis 2: Feature Scaling Comparison
-⬜ Analysis 3: Activation Function Comparison
-⬜ Analysis 4: Architecture Comparison
-⬜ Analysis 5: Learning Behavior Analysis
-⬜ Analysis 6: Optimizer Benchmarking
-⬜ Analysis 7: Regularization and Generalization
+⬜ Analysis 5: Learning Behavior Analysis <br>
+⬜ Analysis 6: Optimizer Benchmarking <br>
+⬜ Analysis 7: Regularization and Generalization <br>
 ⬜ Analysis 8: Final Model Selection
-
----
 
 # End of README
