@@ -1,9 +1,0 @@
-Analysis 1: Baseline Neural Network Performance
-
-Model Comparison
-     Model    MAE   RMSE  Adjusted_R2
-Perceptron 0.6223 0.7975       0.1705
-       MLP 0.5726 0.7465       0.2732
-
-Best Baseline Model:
-MLP
