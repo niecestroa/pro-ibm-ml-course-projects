@@ -29,6 +29,19 @@ Output:
 
 import pandas as pd
 
+import os
+import random
+import numpy as np
+import tensorflow as tf
+
+SEED = 42
+
+os.environ["PYTHONHASHSEED"] = str(SEED)
+
+random.seed(SEED)
+np.random.seed(SEED)
+tf.random.set_seed(SEED)
+
 # Linear Regression Log Transformation (OLS)
 from DSS_01a_linear_reg_log_trans import (
     best_ols_rmse,
