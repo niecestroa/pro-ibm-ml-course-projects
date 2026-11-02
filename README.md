@@ -100,8 +100,8 @@ All projects follow a consistent structure emphasizing:
 
 ## **04 — Unsupervised Machine Learning**  
 - **Started:** October 19, 2026  
-- **Last Edited:** October 19, 2026  
-- **Progress:** **In Progress**  
+- **Last Edited:** October 30, 2026  
+- **Progress:** **Completed**  
 - **Dataset Used:** UCI Wine Quality Dataset  
 - **Notes:**  
   - Primary project: **Wine Quality Unsupervised ML Pipeline**  
@@ -115,9 +115,9 @@ All projects follow a consistent structure emphasizing:
 ---
 
 ## **05 — Deep Learning and Reinforcement Learning**  
-- **Started:** October __, 2026  
-- **Last Edited:** October __, 2026  
-- **Progress:** **Not Started**  
+- **Started:** October 31, 2026  
+- **Last Edited:** November 4, 2026  
+- **Progress:** **Completed**  
 - **Datasets:** TBD  
 - **Notes:**  
   - Neural networks (dense, CNN, RNN)  
@@ -129,8 +129,8 @@ All projects follow a consistent structure emphasizing:
 ---
 
 ## **06 — Machine Learning Capstone**  
-- **Started:** October __, 2026  
-- **Last Edited:** October __, 2026  
+- **Started:** November __, 2026  
+- **Last Edited:** December __, 2026  
 - **Progress:** **Not Started**  
 - **Datasets:** TBD  
 - **Notes:**  
@@ -158,7 +158,8 @@ Each project is fully refactored into a **professional pipeline** emphasizing mo
 
 # **Datasets & Citations**
 
-## **Projects 01–03: Data Science Job Salaries (Kaggle)**  
+## **Data Science Job Salaries (Kaggle)**  
+### Used for Exploratory Data Analysis, Supervised Machine Learning: Regression and Supervised Machine Learning: Classification Projects
 This repo uses multiple publicly available Kaggle datasets:
 
 - **Latest Data Science Job Salaries 2024** — Saurabh Badole  
@@ -184,7 +185,8 @@ This repo uses multiple publicly available Kaggle datasets:
 
 ---
 
-## **Project 04: Wine Quality Dataset (UCI)**  
+## Wine Quality Dataset (UCI)** 
+### Used for Unsupervised Machine Learning and Neural Network Optimization Projects
 Cortez, P., Cerdeira, A., Almeida, F., Matos, T., & Reis, J. (2009). *Wine Quality* [Dataset].  
 UCI Machine Learning Repository.  
 [https://doi.org/10.24432/C56S3T](https://doi.org/10.24432/C56S3T)
@@ -287,8 +289,6 @@ Evaluation:
 
 # **Future Work**
 
-- complete unsupervised ML  
-- add deep learning modules  
 - build unified pipeline across all 6 courses  
 - add explainability (SHAP, LIME)  
 - deploy selected models  
