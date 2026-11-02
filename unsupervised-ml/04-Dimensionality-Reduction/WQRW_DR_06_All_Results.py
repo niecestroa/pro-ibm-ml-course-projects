@@ -59,6 +59,22 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+# ------------------------------------------
+# Reproducibility
+# ------------------------------------------
+
+import os
+import random
+import tensorflow as tf
+
+SEED = 42
+
+os.environ["PYTHONHASHSEED"] = str(SEED)
+
+random.seed(SEED)
+np.random.seed(SEED)
+tf.random.set_seed(SEED)
+
 # =========================================================
 # Plot Settings
 # =========================================================
