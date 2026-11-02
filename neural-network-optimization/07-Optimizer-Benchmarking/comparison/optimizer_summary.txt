@@ -1,0 +1,44 @@
+Optimizer Benchmarking Study
+==================================================
+
+Results
+
+Optimizer    MAE   RMSE  Adjusted_R2  Training_Time_Seconds  Final_Training_Loss  Final_Validation_Loss
+  RMSProp 0.5383 0.6933       0.3731                37.5359               0.4684                 0.4682
+     Adam 0.5385 0.6967       0.3670                39.1316               0.4452                 0.4640
+      SGD 0.5611 0.7292       0.3065                34.6235               0.5377                 0.4990
+
+Winning Optimizer: RMSProp
+
+Winning Performance
+
+MAE: 0.5383
+RMSE: 0.6933
+Adjusted R²: 0.3731
+Training Time: 37.54 seconds
+Final Training Loss: 0.4684
+Final Validation Loss: 0.4682
+
+Selected Configuration Moving Forward
+
+- Scaling Method: StandardScaler
+- Activation Function: Sigmoid
+- Architecture: 64 -> 32 -> 16
+- Epochs: 125
+- Optimizer: RMSProp
+
+Final Ranking (RMSE)
+
+1. RMSProp
+2. Adam
+3. SGD
+
+Generated Files
+- optimizer_comparison.csv
+- mae_comparison.png
+- rmse_comparison.png
+- adjusted_r2_comparison.png
+- training_time_comparison.png
+- optimizer_metrics_comparison.png
+- optimizer_learning_curve_comparison.png
+- winner_learning_curve.png
