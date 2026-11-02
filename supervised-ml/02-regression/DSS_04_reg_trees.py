@@ -62,6 +62,19 @@ except ImportError:
 
 sns.set(style="whitegrid", context="talk")               # seaborn style
 
+import os
+import random
+import numpy as np
+import tensorflow as tf
+
+SEED = 42
+
+os.environ["PYTHONHASHSEED"] = str(SEED)
+
+random.seed(SEED)
+np.random.seed(SEED)
+tf.random.set_seed(SEED)
+
 # =========================================================
 # Load Data (USA-only)
 # =========================================================
@@ -71,7 +84,6 @@ file_path = r"C:\Users\aniec\Desktop\ibm-ml-project\00-data\kaggle-data\dss2025_
 df = pd.read_csv(file_path)                              # load dataset
 df = df.query("company_location == 'United States'").copy()
                                                 # filter USA rows
-
 # =========================================================
 # Define Response and Predictors
 # =========================================================
