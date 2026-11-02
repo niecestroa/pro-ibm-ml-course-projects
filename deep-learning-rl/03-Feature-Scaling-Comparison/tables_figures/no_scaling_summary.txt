@@ -1,0 +1,9 @@
+Analysis 2: Feature Scaling Comparison
+Method: No Scaling
+
+MAE: 0.5712
+RMSE: 0.7374
+Adjusted R²: 0.2907
+
+Training Loss: 0.5578
+Validation Loss: 0.5056
