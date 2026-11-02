@@ -1,0 +1,8 @@
+Component,Winner
+Model Type,MLP
+Scaling Method,StandardScaler
+Architecture,64-32-16
+Activation Function,Sigmoid
+Optimizer,RMSProp
+Epochs,125
+Regularization,None (Baseline)
