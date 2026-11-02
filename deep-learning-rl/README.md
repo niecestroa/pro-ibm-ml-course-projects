@@ -72,6 +72,40 @@ Wine quality is treated as a continuous numerical variable and modeled using reg
 
 ---
 
+# 🛠 Technologies Used
+
+- Python
+- Pandas
+- NumPy
+- Matplotlib
+- Scikit-Learn
+- TensorFlow / Keras
+- Spyder IDE
+- Git
+- GitHub
+  
+---
+
+# 📂 Repository Structure
+
+```text
+00-data/
+01-EDA/
+02-Baseline-Neural-Network/
+03-Feature-Scaling-Comparison/
+04-Activation-Function-Comparison/
+05-Architecture-Comparison/
+06-Epoch-Study/
+07-Optimizer-Benchmarking/
+08-Regularization-and-Generalization/
+09-Final-Model-Selection/
+
+reports/
+slides/
+```
+
+---
+
 # 📊 Exploratory Data Analysis (EDA)
 
 The project began with a comprehensive exploratory data analysis (EDA) to evaluate data quality, understand feature distributions, identify relationships with wine quality, and assess readiness for regression modeling.
@@ -581,31 +615,24 @@ L2 (0.001) Regularization
 | Adjusted R² | 0.3546 |
 | Training Time (Seconds) | 22.6407 |
 | Generalization Gap | -0.0203 |
+
+### Conclusion
+
+The strongest-performing neural network configuration combined MinMaxScaler preprocessing, a 64 → 32 → 16 architecture, ReLU activation functions, RMSProp optimization, 75 training epochs, and L2 regularization.  
+
+This configuration achieved the strongest overall balance of predictive accuracy, training stability, and model generalization.
+
 ---
 
-# 🏆 Final Recommended Model
+# 📈 Performance Improvement
 
-Following completion of all experimental analyses, the strongest-performing neural network configuration was:
+| Metric | Baseline MLP | Final Model | Improvement |
+|----------|----------:|----------:|----------:|
+| MAE | 0.5660 | 0.5453 | 3.66% |
+| RMSE | 0.7365 | 0.7035 | 4.48% |
+| Adjusted R² | 0.2924 | 0.3546 | 21.27% |
 
-```text
-Scaling Method:
-MinMaxScaler
-
-Architecture:
-64 → 32 → 16
-
-Activation Function:
-ReLU
-
-Optimizer:
-RMSProp
-
-Epochs:
-75
-
-Regularization:
-L2 (0.001)
-```
+---
 
 # 📊 Evaluation Metrics
 
@@ -635,16 +662,16 @@ Measures explained variance while accounting for model complexity.
 
 # 📋 Project Deliverables
 
-✅ Exploratory Data Analysis Report
-✅ Baseline Neural Network Benchmark
-✅ Feature Scaling Comparison
-✅ Activation Function Comparison
-✅ Architecture Comparison
-✅ Epoch Optimization Study
-✅ Optimizer Benchmarking Study
-✅ Regularization and Generalization Study
-✅ Final Model Recommendation Report
-✅ Final Model Performance Summary
+- Exploratory Data Analysis Report
+- Baseline Neural Network Benchmark
+- Feature Scaling Comparison
+- Activation Function Comparison
+- Architecture Comparison
+- Epoch Optimization Study
+- Optimizer Benchmarking Study
+- Regularization and Generalization Study
+- Final Model Recommendation Report
+- Model Performance Summary Report
 
 ---
 
@@ -689,5 +716,15 @@ MinMaxScaler
 | Generalization Gap | -0.0203 |
 
 This configuration achieved the strongest overall balance of predictive accuracy, convergence stability, and generalization performance across all deep learning experiments conducted within the DLWQ project.
+
+---
+
+# 🚀 Next Steps
+
+- Final written project report
+- Executive presentation slides
+- GitHub repository publication
+- Portfolio project showcase
+  
 
 # End of README
