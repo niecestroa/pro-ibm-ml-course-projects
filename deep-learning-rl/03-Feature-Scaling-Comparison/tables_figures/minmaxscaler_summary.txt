@@ -1,9 +1,0 @@
-Analysis 2: Feature Scaling Comparison
-Method: MinMaxScaler
-
-MAE: 0.5530
-RMSE: 0.7111
-Adjusted R²: 0.3405
-
-Training Loss: 0.5075
-Validation Loss: 0.4955
