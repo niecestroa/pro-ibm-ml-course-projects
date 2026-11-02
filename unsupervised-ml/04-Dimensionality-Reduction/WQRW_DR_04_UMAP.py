@@ -113,6 +113,22 @@ pd.set_option("display.width", 140)
 
 RANDOM_STATE = 42
 
+# ------------------------------------------
+# Reproducibility
+# ------------------------------------------
+
+import os
+import random
+import tensorflow as tf
+
+SEED = 42
+
+os.environ["PYTHONHASHSEED"] = str(SEED)
+
+random.seed(SEED)
+np.random.seed(SEED)
+tf.random.set_seed(SEED)
+
 # =========================================================
 # 1. Load Data
 # =========================================================
