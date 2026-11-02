@@ -58,6 +58,19 @@ from statsmodels.stats.outliers_influence import variance_inflation_factor
 
 sns.set(style="whitegrid", context="talk")                 # sets seaborn visual style
 
+import os
+import random
+import numpy as np
+import tensorflow as tf
+
+SEED = 42
+
+os.environ["PYTHONHASHSEED"] = str(SEED)
+
+random.seed(SEED)
+np.random.seed(SEED)
+tf.random.set_seed(SEED)
+
 # =========================================================
 # 2. Load Data
 # =========================================================
