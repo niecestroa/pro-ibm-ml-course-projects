@@ -54,6 +54,19 @@ import shap  # SHAP explainability
 
 sns.set(style="whitegrid", context="talk")  # seaborn style
 
+import os
+import random
+import numpy as np
+import tensorflow as tf
+
+SEED = 42
+
+os.environ["PYTHONHASHSEED"] = str(SEED)
+
+random.seed(SEED)
+np.random.seed(SEED)
+tf.random.set_seed(SEED)
+
 # ============================
 # Pandas Display Options (Show Full Tables)
 # ============================
