@@ -1,0 +1,6 @@
+Analysis 3: Activation Function Comparison
+Method: Tanh
+
+MAE: 0.5628
+RMSE: 0.7314
+Adjusted R²: 0.3022
