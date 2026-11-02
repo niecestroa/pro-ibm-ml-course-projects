@@ -99,6 +99,19 @@ from sklearn.metrics import (
     mean_absolute_error                                  # MAE
 )
 
+import os
+import random
+import numpy as np
+import tensorflow as tf
+
+SEED = 42
+
+os.environ["PYTHONHASHSEED"] = str(SEED)
+
+random.seed(SEED)
+np.random.seed(SEED)
+tf.random.set_seed(SEED)
+
 """
 PART 1 — Polynomial Regression (Degree 2, Numeric‑Only)
 
