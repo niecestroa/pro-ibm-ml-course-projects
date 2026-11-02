@@ -1,0 +1,7 @@
+Component,Winner
+Scaling Method,MinMaxScaler
+Architecture,64-32-16
+Activation Function,ReLU
+Optimizer,RMSProp
+Epochs,75
+Regularization,L2 (0.001)

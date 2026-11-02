@@ -1,0 +1,19 @@
+       Method    MAE   RMSE  Adjusted_R2  Training_Time_Seconds  Final_Training_Loss  Final_Validation_Loss  Generalization_Gap
+           L2 0.5453 0.7035       0.3546                22.6407               0.5396                 0.5194             -0.0203
+     Baseline 0.5486 0.7047       0.3522                24.2286               0.4895                 0.4955              0.0060
+EarlyStopping 0.5535 0.7113       0.3400                13.0016               0.5091                 0.5867              0.0776
+      Dropout 0.5492 0.7165       0.3304                23.6010               0.5074                 0.4820             -0.0254
+           L1 0.5631 0.7308       0.3034                21.7910               0.6201                 0.5811             -0.0391
+
+Winning Method: L2
+
+Generated Files:
+- regularization_comparison.csv
+- mae_comparison.png
+- rmse_comparison.png
+- adjusted_r2_comparison.png
+- training_time_comparison.png
+- generalization_gap_comparison.png
+- regularization_metrics_comparison.png
+- regularization_learning_curve_comparison.png
+- winner_learning_curve.png

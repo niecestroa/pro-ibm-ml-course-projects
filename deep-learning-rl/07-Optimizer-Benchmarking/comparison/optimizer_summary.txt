@@ -1,0 +1,27 @@
+Optimizer Benchmarking Study
+==================================================
+
+Results
+
+Optimizer    MAE   RMSE  Adjusted_R2  Training_Time_Seconds  Final_Training_Loss  Final_Validation_Loss
+  RMSProp 0.5472 0.7052       0.3513                32.5778               0.4870                 0.4758
+     Adam 0.5547 0.7103       0.3420                26.0291               0.4767                 0.5229
+      SGD 0.5935 0.7564       0.2538                31.6717               0.5119                 0.5773
+
+Winning Optimizer: RMSProp
+
+Generated Files
+- optimizer_comparison.csv
+- mae_comparison.png
+- rmse_comparison.png
+- adjusted_r2_comparison.png
+- training_time_comparison.png
+- optimizer_metrics_comparison.png
+- optimizer_learning_curve_comparison.png
+- winner_learning_curve.png
+
+Final Ranking (RMSE)
+
+1. RMSProp
+2. Adam
+3. SGD
