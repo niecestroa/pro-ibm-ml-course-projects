@@ -1,0 +1,37 @@
+Epoch Optimization Study
+==================================================
+
+Results
+
+ Epochs    MAE   RMSE  Adjusted_R2  Training_Time_Seconds  Final_Training_Loss  Final_Validation_Loss
+     25 0.5582 0.7215       0.3209                 7.9006               0.5051                 0.4958
+     50 0.5577 0.7161       0.3311                15.2801               0.4949                 0.5234
+     75 0.5461 0.7022       0.3569                36.4727               0.4663                 0.4717
+    100 0.5465 0.7045       0.3527                53.8557               0.4484                 0.4920
+    125 0.5445 0.7054       0.3510                35.9660               0.4497                 0.4837
+    150 0.5458 0.7092       0.3439                41.2821               0.4332                 0.4784
+    175 0.5819 0.7437       0.2786                52.5862               0.4315                 0.5545
+    200 0.5562 0.7198       0.3241                73.2540               0.4277                 0.5245
+
+Winning Epoch Count: 75
+
+Generated Files
+- epoch_study_comparison.csv
+- mae_comparison.png
+- rmse_comparison.png
+- adjusted_r2_comparison.png
+- training_time_comparison.png
+- epoch_metrics_comparison.png
+- epoch_learning_curve_comparison.png
+- winner_learning_curve.png
+
+Final Ranking (RMSE)
+
+1. 75 Epochs
+2. 100 Epochs
+3. 125 Epochs
+4. 150 Epochs
+5. 50 Epochs
+6. 200 Epochs
+7. 25 Epochs
+8. 175 Epochs

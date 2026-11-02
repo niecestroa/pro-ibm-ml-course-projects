@@ -1,0 +1,13 @@
+Architecture Comparison
+==================================================
+
+Results
+
+Architecture             Structure    MAE   RMSE  Adjusted_R2  Training_Time_Seconds  Final_Training_Loss  Final_Validation_Loss
+     Model C        64 -> 32 -> 16 0.5462 0.7023       0.3567                58.8740               0.4605                 0.4857
+     Model D 128 -> 64 -> 32 -> 16 0.5424 0.7043       0.3530                60.0945               0.4663                 0.4815
+     Model B              32 -> 16 0.5502 0.7075       0.3471                56.1192               0.5030                 0.4864
+     Model A                    16 0.5594 0.7226       0.3190                80.4128               0.5254                 0.4929
+
+Best Architecture:
+Model C
