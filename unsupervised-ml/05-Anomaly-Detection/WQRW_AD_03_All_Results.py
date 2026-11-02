@@ -71,6 +71,22 @@ pd.set_option(
 
 RANDOM_STATE = 42
 
+# ------------------------------------------
+# Reproducibility
+# ------------------------------------------
+
+import os
+import random
+import tensorflow as tf
+
+SEED = 42
+
+os.environ["PYTHONHASHSEED"] = str(SEED)
+
+random.seed(SEED)
+np.random.seed(SEED)
+tf.random.set_seed(SEED)
+
 # =========================================================
 # 1. Paths
 # =========================================================
