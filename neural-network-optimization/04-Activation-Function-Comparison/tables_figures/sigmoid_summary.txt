@@ -1,0 +1,6 @@
+Analysis 3: Activation Function Comparison
+Method: Sigmoid
+
+MAE: 0.5652
+RMSE: 0.7328
+Adjusted R²: 0.2995

@@ -1,0 +1,26 @@
+Activation Function Comparison
+==================================================
+
+Results
+
+Activation    MAE   RMSE  Adjusted_R2  Training_Time_Seconds  Final_Training_Loss  Final_Validation_Loss
+   sigmoid 0.5392 0.6975       0.3654                27.8499               0.4841                 0.4766
+      tanh 0.5492 0.7109       0.3408                29.4313               0.4732                 0.4792
+      relu 0.5508 0.7152       0.3329                43.8913               0.4714                 0.4783
+
+Best Activation Function:
+sigmoid
+
+MAE: 0.5392
+RMSE: 0.6975
+Adjusted R²: 0.3654
+
+Generated Files:
+- activation_function_comparison.csv
+- mae_comparison.png
+- rmse_comparison.png
+- adjusted_r2_comparison.png
+- activation_function_metrics_comparison.png
+- training_loss_comparison.png
+- validation_loss_comparison.png
+- activation_learning_curve_comparison.png
