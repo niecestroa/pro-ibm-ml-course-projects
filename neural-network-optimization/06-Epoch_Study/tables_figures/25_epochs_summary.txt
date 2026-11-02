@@ -1,0 +1,7 @@
+Analysis 5: Epoch Optimization
+Method: 25 Epochs
+
+MAE: 0.5650
+RMSE: 0.7309
+Adjusted R²: 0.3033
+Training Time: 7.50 seconds
