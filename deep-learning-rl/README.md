@@ -2,8 +2,8 @@
 
 ### IBM Machine Learning Professional Certificate
 
-**Project Status:** Active Development  
-**Last Updated:** November 2026
+**Project Status: Complete**  
+**Last Updated:** November 2, 2026
 
 ---
 
@@ -487,96 +487,125 @@ Model C provided the best balance between complexity and predictive performance 
 
 ---
 
-# 🏆 Current Best Configuration
+## ✅ Analysis 5: Epoch Optimization
 
-Following Analyses 1–4, the strongest neural network configuration is:
+### Objective
 
-```text
-Scaling Method:
-MinMaxScaler
+Determine the optimal number of training epochs.
 
-Activation Function:
-ReLU
+### Epochs Evaluated
 
-Architecture:
-64 → 32 → 16
+25, 50, 75, 100, 125, 150, 175, and 200
 
-Optimizer:
-Adam
+### Winner
 
-Epochs:
-100
+75 Epochs
 
-Validation Split:
-20%
-```
+### Conclusion
 
-### Current Best Performance
-
-| Metric | Value |
-|---------|------:|
-| MAE | 0.5462 |
-| RMSE | 0.7023 |
-| Adjusted R² | 0.3567 |
-
-### Questions Answered So Far
-
-✅ Which feature scaling method performs best?
-
-Answer: MinMaxScaler
-
-✅ Which activation function performs best?
-
-Answer: ReLU
-
-✅ Does increasing network complexity improve performance?
-
-Answer: Yes, up to Model C, after which diminishing returns emerge.
+75 epochs produced the strongest overall balance between predictive performance and model generalization.
 
 ---
 
-## 🔄 Analysis 5: Learning Behavior Analysis
+## ✅ Analysis 6: Optimizer Benchmarking
 
-Status: Planned
-
-Investigate convergence patterns, overfitting, and underfitting.
-
----
-
-## 🔄 Analysis 6: Optimizer Benchmarking
-
-Status: Planned
+### Optimizers Evaluated
 
 - SGD
 - RMSProp
 - Adam
 
+### Winner
+
+RMSProp
+
+### Conclusion
+
+RMSProp achieved the strongest overall predictive performance and convergence behavior.
+
 ---
 
-## 🔄 Analysis 7: Regularization and Generalization
+## ✅ Analysis 7: Regularization and Generalization
 
-Status: Planned
+### Methods Evaluated
 
+- Baseline
 - L1
 - L2
 - Dropout
 - Early Stopping
 
+### Results
+
+| Method | MAE | RMSE | Adjusted R² |
+|----------|------:|------:|------:|
+| L2 | 0.5453 | 0.7035 | 0.3546 |
+| Baseline | 0.5486 | 0.7047 | 0.3522 |
+| EarlyStopping | 0.5535 | 0.7113 | 0.3400 |
+| Dropout | 0.5492 | 0.7165 | 0.3304 |
+| L1 | 0.5631 | 0.7308 | 0.3034 |
+
+### Winner
+
+L2 (0.001)
+
+### Conclusion
+
+L2 regularization produced the strongest combination of predictive performance and generalization capability.
+
 ---
 
-## 🔄 Analysis 8: Final Model Selection
+## ✅ Analysis 8: Final Model Selection
 
-Status: Planned
+### Objective
 
-Identify the optimal combination of:
+Identify the strongest-performing neural network configuration discovered throughout the project.
 
-- Scaling
-- Architecture
-- Activation
-- Optimizer
-- Regularization
+### Final Recommended Configuration
 
+```text
+MinMaxScaler
+64 → 32 → 16 Architecture
+ReLU Activation
+RMSProp Optimizer
+75 Epochs
+L2 (0.001) Regularization
+```
+
+### Final Performance
+
+| Metric | Value |
+|----------|------:|
+| MAE | 0.5453 |
+| RMSE | 0.7035 |
+| Adjusted R² | 0.3546 |
+| Training Time (Seconds) | 22.6407 |
+| Generalization Gap | -0.0203 |
 ---
+
+# 🏆 Final Recommended Model
+
+Following completion of all experimental analyses, the strongest-performing neural network configuration was:
+
+```text
+Scaling Method:
+MinMaxScaler
+
+Architecture:
+64 → 32 → 16
+
+Activation Function:
+ReLU
+
+Optimizer:
+RMSProp
+
+Epochs:
+75
+
+Regularization:
+L2 (0.001)
+```
 
 # 📊 Evaluation Metrics
 
@@ -604,17 +633,18 @@ Measures explained variance while accounting for model complexity.
 
 ---
 
-# 📋 Expected Deliverables
+# 📋 Project Deliverables
 
-- Exploratory Data Analysis Report
-- Baseline Neural Network Benchmark
-- Feature Scaling Study
-- Activation Function Study
-- Architecture Comparison Study
-- Optimizer Benchmarking Study
-- Regularization Study
-- Final Optimized Neural Network
-- Model Performance Summary Report
+✅ Exploratory Data Analysis Report
+✅ Baseline Neural Network Benchmark
+✅ Feature Scaling Comparison
+✅ Activation Function Comparison
+✅ Architecture Comparison
+✅ Epoch Optimization Study
+✅ Optimizer Benchmarking Study
+✅ Regularization and Generalization Study
+✅ Final Model Recommendation Report
+✅ Final Model Performance Summary
 
 ---
 
@@ -630,13 +660,34 @@ Measures explained variance while accounting for model complexity.
 ✅ Analysis 1: Baseline Neural Network Performance <br>
 ✅ Analysis 2: Feature Scaling Comparison <br>
 ✅ Analysis 3: Activation Function Comparison <br>
-✅ Analysis 4: Architecture Comparison
+✅ Analysis 4: Architecture Comparison <br>
+✅ Analysis 5: Epoch Optimization <br>
+✅ Analysis 6: Optimizer Benchmarking <br>
+✅ Analysis 7: Regularization and Generalization <br>
+✅ Analysis 8: Final Model Selection
 
-## In Progress
+# 📌 Final Project Outcome
 
-⬜ Analysis 5: Learning Behavior Analysis <br>
-⬜ Analysis 6: Optimizer Benchmarking <br>
-⬜ Analysis 7: Regularization and Generalization <br>
-⬜ Analysis 8: Final Model Selection
+After completing eight experimental analyses, the recommended deep learning model for wine quality prediction is:
+
+```text
+MinMaxScaler
+→ 64 → 32 → 16 Neural Network
+→ ReLU Activation
+→ RMSProp Optimizer
+→ 75 Epochs
+→ L2 (0.001) Regularization
+```
+
+## Final Performance
+
+| Metric | Value |
+|----------|------:|
+| MAE | 0.5453 |
+| RMSE | 0.7035 |
+| Adjusted R² | 0.3546 |
+| Generalization Gap | -0.0203 |
+
+This configuration achieved the strongest overall balance of predictive accuracy, convergence stability, and generalization performance across all deep learning experiments conducted within the DLWQ project.
 
 # End of README
