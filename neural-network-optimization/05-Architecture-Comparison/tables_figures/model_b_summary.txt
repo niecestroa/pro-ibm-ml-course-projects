@@ -1,0 +1,7 @@
+Analysis 4: Architecture Comparison
+Method: Model B (32 -> 16)
+
+MAE: 0.5502
+RMSE: 0.7075
+Adjusted R²: 0.3471
+Training Time: 56.12 seconds
