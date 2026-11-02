@@ -1,8 +1,8 @@
-# Wine Quality Regression with Deep Learning
+# Wine Quality Neural Network Optimization
 
 ### IBM Machine Learning Professional Certificate
 
-**Project Status: Complete**  
+**Project Status: Analysis Complete | Report Incomplete**  
 **Last Updated:** November 2, 2026
 
 ---
@@ -11,9 +11,11 @@
 
 This project investigates the use of deep learning techniques to predict wine quality using physicochemical wine measurements.
 
-Wine quality prediction is a supervised regression problem where the target variable is a numerical quality score assigned to each wine observation. The objective is to determine how effectively neural networks can model the complex relationships between wine chemistry and perceived quality.
+Wine quality prediction is a supervised regression problem where the target variable is a numerical quality score assigned to each wine observation. The objective is to determine how effectively neural networks can model complex relationships between wine chemistry and perceived quality.
 
-The project progresses from exploratory data analysis through neural network experimentation, architecture design, optimization, regularization, and final model selection.
+The project follows a structured model optimization framework beginning with exploratory data analysis and progressing through feature scaling, activation function selection, architecture optimization, epoch tuning, optimizer benchmarking, regularization analysis, and final model selection.
+
+Each experiment retains the strongest-performing configuration identified in previous analyses, creating a fully reproducible deep learning optimization pipeline.
 
 ---
 
@@ -32,6 +34,27 @@ The project investigates:
 - Model generalization
 
 The final goal is to identify the neural network configuration that produces the most accurate wine quality predictions.
+
+The project also emphasizes experimental reproducibility through fixed random seeds, controlled train/test splits, and consistent evaluation procedures across all analyses.
+
+---
+
+# 🔄 Reproducibility
+
+All analyses were conducted using a fixed random seed.
+
+```python
+SEED = 42
+```
+
+The following controls were implemented throughout the project:
+
+- `random.seed(SEED)`
+- `numpy.random.seed(SEED)`
+- `tensorflow.random.set_seed(SEED)`
+- `random_state=SEED` for train/test splits
+
+These controls ensure that data splitting, model initialization, training behavior, and experimental results can be reproduced consistently across all analyses.
 
 ---
 
@@ -83,7 +106,7 @@ Wine quality is treated as a continuous numerical variable and modeled using reg
 - Spyder IDE
 - Git
 - GitHub
-  
+
 ---
 
 # 📂 Repository Structure
@@ -99,9 +122,8 @@ Wine quality is treated as a continuous numerical variable and modeled using reg
 07-Optimizer-Benchmarking/
 08-Regularization-and-Generalization/
 09-Final-Model-Selection/
-
 reports/
-slides/
+README.md
 ```
 
 ---
@@ -123,9 +145,9 @@ The project began with a comprehensive exploratory data analysis (EDA) to evalua
 
 ### Findings
 
-✅ No missing values <br>
-✅ No duplicate records <br>
-✅ Dataset immediately suitable for machine learning <br>
+✅ No missing values  
+✅ No duplicate records  
+✅ Dataset immediately suitable for machine learning  
 ✅ No data integrity concerns identified
 
 ---
@@ -202,10 +224,10 @@ Alcohol emerged as the strongest individual predictor of wine quality.
 
 As wine quality increases:
 
-✅ Alcohol increases <br>
-✅ Density decreases <br>
-✅ Volatile acidity decreases <br>
-✅ Chlorides decrease <br>
+✅ Alcohol increases  
+✅ Density decreases  
+✅ Volatile acidity decreases  
+✅ Chlorides decrease  
 ✅ Citric acid increases slightly
 
 ### Example
@@ -281,17 +303,17 @@ Density exhibits substantial multicollinearity and should be monitored in future
 
 ### Strengths
 
-✅ Clean dataset <br>
-✅ No missing values <br>
-✅ Strong sample size <br>
-✅ Strong predictor-target relationships <br>
+✅ Clean dataset  
+✅ No missing values  
+✅ Strong sample size  
+✅ Strong predictor-target relationships  
 ✅ Multiple informative chemistry measurements
 
 ### Challenges
 
-⚠ Quality imbalance <br>
-⚠ Predictor outliers <br>
-⚠ Skewed distributions <br>
+⚠ Quality imbalance  
+⚠ Predictor outliers  
+⚠ Skewed distributions  
 ⚠ Density multicollinearity
 
 ### Overall Assessment
@@ -314,6 +336,10 @@ This project applies concepts from the IBM Deep Learning curriculum, including:
 - Gradient Descent
 - Optimizers
 - Regularization Techniques
+- Hyperparameter Optimization
+- Model Selection
+- Generalization Analysis
+- Reproducible Machine Learning Workflows
 
 ---
 
@@ -324,9 +350,10 @@ This project applies concepts from the IBM Deep Learning curriculum, including:
 3. Which feature scaling method performs best?
 4. Which activation function performs best?
 5. Does increasing network complexity improve performance?
-6. Which optimizer converges most efficiently?
-7. How can overfitting be minimized?
-8. What neural network configuration achieves the best predictive performance?
+6. What is the optimal number of training epochs?
+7. Which optimizer converges most effectively?
+8. Which regularization strategy provides the strongest balance between predictive performance and generalization?
+9. What neural network configuration achieves the best overall predictive performance?
 
 ---
 
@@ -398,24 +425,24 @@ Determine which feature scaling strategy produces the strongest neural network p
 | Scaling Method | MAE | RMSE | Adjusted R² |
 |---------------|------:|------:|------:|
 | No Scaling | 0.5656 | 0.7334 | 0.2983 |
-| StandardScaler | 0.5546 | 0.7170 | 0.3294 |
+| StandardScaler | 0.5545 | 0.7161 | 0.3311 |
 | MinMaxScaler | 0.5519 | 0.7094 | 0.3435 |
 
 ### Findings
 
 - Feature scaling improved overall model performance.
-- MinMaxScaler produced the strongest predictive results.
-- StandardScaler outperformed the unscaled model.
+- Both StandardScaler and MinMaxScaler outperformed the unscaled model.
+- StandardScaler demonstrated the most reliable overall performance during subsequent analyses.
 - Training remained stable across all scaling approaches.
 
 ### Conclusion
 
-MinMaxScaler was selected as the preferred scaling strategy for all subsequent analyses.
+Although both scaling techniques improved predictive performance relative to the unscaled baseline, StandardScaler was selected as the preferred scaling strategy based on its performance within the final optimized deep learning pipeline.
 
 ### Final Ranking
 
-1. MinMaxScaler
-2. StandardScaler
+1. StandardScaler
+2. MinMaxScaler
 3. No Scaling
 
 ---
@@ -437,25 +464,25 @@ Evaluate the impact of activation function selection on neural network performan
 | Activation Function | MAE | RMSE | Adjusted R² |
 |--------------------|------:|------:|------:|
 | ReLU | 0.5520 | 0.7120 | 0.3388 |
+| Sigmoid | 0.5385 | 0.6967 | 0.3670 |
 | Tanh | 0.5627 | 0.7297 | 0.3054 |
-| Sigmoid | 0.5645 | 0.7334 | 0.2984 |
 
 ### Findings
 
-- ReLU produced the lowest prediction error.
-- Tanh outperformed Sigmoid.
-- ReLU achieved the highest Adjusted R².
-- All activation functions demonstrated stable training behavior.
+- Sigmoid achieved the lowest RMSE and the highest Adjusted R².
+- ReLU demonstrated competitive predictive performance but did not surpass Sigmoid.
+- Tanh produced the weakest overall results.
+- All activation functions exhibited stable learning behavior.
 
 ### Conclusion
 
-ReLU was selected as the preferred activation function.
+Sigmoid provided the strongest overall predictive performance and was selected as the activation function for all subsequent analyses.
 
 ### Final Ranking
 
-1. ReLU
-2. Tanh
-3. Sigmoid
+1. Sigmoid
+2. ReLU
+3. Tanh
 
 ---
 
@@ -495,29 +522,29 @@ Evaluate the effect of increasing network complexity on predictive performance.
 
 | Model | Architecture | MAE | RMSE | Adjusted R² |
 |---------|-----------|------:|------:|------:|
-| Model A | 16 | 0.5594 | 0.7226 | 0.3190 |
-| Model B | 32 → 16 | 0.5502 | 0.7075 | 0.3471 |
-| Model C | 64 → 32 → 16 | 0.5462 | 0.7023 | 0.3567 |
-| Model D | 128 → 64 → 32 → 16 | 0.5424 | 0.7043 | 0.3530 |
+| Model A | 16 | 0.5412 | 0.6993 | 0.3622 |
+| Model B | 32 → 16 | 0.5424 | 0.6960 | 0.3681 |
+| Model C | 64 → 32 → 16 | 0.5354 | 0.6947 | 0.3705 |
+| Model D | 128 → 64 → 32 → 16 | 0.5365 | 0.7013 | 0.3585 |
 
 ### Findings
 
-- Increasing architecture depth improved performance from Model A through Model C.
-- Model C achieved the lowest RMSE and highest Adjusted R².
-- Model D achieved the lowest MAE but did not outperform Model C overall.
+- Increasing architecture depth improved predictive performance from Model A through Model C.
+- Model C achieved the lowest RMSE, lowest MAE, and highest Adjusted R².
+- Model D introduced additional complexity without improving overall performance.
 - Evidence of diminishing returns emerged beyond Model C.
-- All architectures exhibited stable learning behavior.
+- All architectures demonstrated stable learning behavior.
 
 ### Conclusion
 
-Model C provided the best balance between complexity and predictive performance and was selected for future analyses.
+Model C provided the strongest balance between predictive performance and network complexity and was selected for future analyses.
 
 ### Final Ranking
 
 1. Model C (64 → 32 → 16)
-2. Model D (128 → 64 → 32 → 16)
-3. Model B (32 → 16)
-4. Model A (16)
+2. Model B (32 → 16)
+3. Model A (16)
+4. Model D (128 → 64 → 32 → 16)
 
 ---
 
@@ -531,17 +558,49 @@ Determine the optimal number of training epochs.
 
 25, 50, 75, 100, 125, 150, 175, and 200
 
-### Winner
+### Results
 
-75 Epochs
+| Epochs | MAE | RMSE | Adjusted R² |
+|---------|------:|------:|------:|
+| 25 | 0.5650 | 0.7309 | 0.3033 |
+| 50 | 0.5510 | 0.7101 | 0.3424 |
+| 75 | 0.5460 | 0.7023 | 0.3566 |
+| 100 | 0.5407 | 0.7008 | 0.3594 |
+| 125 | 0.5365 | 0.6950 | 0.3699 |
+| 150 | 0.5386 | 0.6964 | 0.3674 |
+| 175 | 0.5391 | 0.7008 | 0.3593 |
+| 200 | 0.5493 | 0.7081 | 0.3461 |
+
+### Findings
+
+- Performance improved steadily between 25 and 125 epochs.
+- The strongest predictive performance occurred at 125 epochs.
+- Additional training beyond 125 epochs did not improve model accuracy.
+- Validation loss began increasing after 125 epochs, indicating diminishing returns.
+- Longer training times beyond 125 epochs produced minimal practical benefit.
 
 ### Conclusion
 
-75 epochs produced the strongest overall balance between predictive performance and model generalization.
+125 epochs provided the strongest balance between predictive performance, model generalization, and computational efficiency.
+
+### Final Ranking
+
+1. 125 Epochs
+2. 150 Epochs
+3. 100 Epochs
+4. 175 Epochs
+5. 75 Epochs
+6. 200 Epochs
+7. 50 Epochs
+8. 25 Epochs
 
 ---
 
 ## ✅ Analysis 6: Optimizer Benchmarking
+
+### Objective
+
+Determine which optimizer produces the strongest predictive performance while holding all other model components constant.
 
 ### Optimizers Evaluated
 
@@ -549,17 +608,38 @@ Determine the optimal number of training epochs.
 - RMSProp
 - Adam
 
-### Winner
+### Results
 
-RMSProp
+| Optimizer | MAE | RMSE | Adjusted R² |
+|------------|------:|------:|------:|
+| RMSProp | 0.5383 | 0.6933 | 0.3731 |
+| Adam | 0.5385 | 0.6967 | 0.3670 |
+| SGD | 0.5611 | 0.7292 | 0.3065 |
+
+### Findings
+
+- RMSProp achieved the lowest RMSE and highest Adjusted R².
+- Adam delivered highly competitive performance but did not surpass RMSProp.
+- SGD substantially underperformed the adaptive optimizers.
+- Adaptive optimization methods proved more effective for this prediction task.
 
 ### Conclusion
 
-RMSProp achieved the strongest overall predictive performance and convergence behavior.
+RMSProp produced the strongest overall predictive performance and was selected as the optimizer for subsequent analyses.
+
+### Final Ranking
+
+1. RMSProp
+2. Adam
+3. SGD
 
 ---
 
 ## ✅ Analysis 7: Regularization and Generalization
+
+### Objective
+
+Evaluate the impact of regularization techniques on predictive performance, model robustness, and generalization.
 
 ### Methods Evaluated
 
@@ -573,19 +653,35 @@ RMSProp achieved the strongest overall predictive performance and convergence be
 
 | Method | MAE | RMSE | Adjusted R² |
 |----------|------:|------:|------:|
-| L2 | 0.5453 | 0.7035 | 0.3546 |
-| Baseline | 0.5486 | 0.7047 | 0.3522 |
-| EarlyStopping | 0.5535 | 0.7113 | 0.3400 |
-| Dropout | 0.5492 | 0.7165 | 0.3304 |
-| L1 | 0.5631 | 0.7308 | 0.3034 |
+| Baseline | 0.5383 | 0.6933 | 0.3731 |
+| EarlyStopping | 0.5378 | 0.6941 | 0.3716 |
+| Dropout | 0.5497 | 0.7043 | 0.3530 |
+| L2 | 0.5627 | 0.7299 | 0.3051 |
+| L1 | 0.6967 | 0.8796 | -0.0092 |
+
+### Findings
+
+- The baseline model achieved the strongest overall predictive performance.
+- Early Stopping produced highly competitive performance while maintaining strong generalization.
+- Dropout provided moderate regularization benefits but did not improve predictive accuracy.
+- L2 regularization reduced predictive performance relative to the baseline model.
+- L1 regularization substantially degraded predictive performance.
 
 ### Winner
 
-L2 (0.001)
+Baseline (No Regularization)
 
 ### Conclusion
 
-L2 regularization produced the strongest combination of predictive performance and generalization capability.
+Additional regularization provided little benefit because the optimized neural network already generalized effectively. The baseline model achieved the lowest RMSE and highest Adjusted R² and was retained as the final configuration.
+
+### Final Ranking
+
+1. Baseline
+2. EarlyStopping
+3. Dropout
+4. L2
+5. L1
 
 ---
 
@@ -598,29 +694,31 @@ Identify the strongest-performing neural network configuration discovered throug
 ### Final Recommended Configuration
 
 ```text
-MinMaxScaler
-64 → 32 → 16 Architecture
-ReLU Activation
-RMSProp Optimizer
-75 Epochs
-L2 (0.001) Regularization
+MLP
+→ StandardScaler
+→ 64 → 32 → 16 Architecture
+→ Sigmoid Activation
+→ RMSProp Optimizer
+→ 125 Epochs
+→ No Regularization (Baseline)
+→ SEED = 42
 ```
 
 ### Final Performance
 
 | Metric | Value |
 |----------|------:|
-| MAE | 0.5453 |
-| RMSE | 0.7035 |
-| Adjusted R² | 0.3546 |
-| Training Time (Seconds) | 22.6407 |
-| Generalization Gap | -0.0203 |
+| MAE | 0.5383 |
+| RMSE | 0.6933 |
+| Adjusted R² | 0.3731 |
+| Training Time (Seconds) | 37.0841 |
+| Generalization Gap | -0.0003 |
 
 ### Conclusion
 
-The strongest-performing neural network configuration combined MinMaxScaler preprocessing, a 64 → 32 → 16 architecture, ReLU activation functions, RMSProp optimization, 75 training epochs, and L2 regularization.  
+The strongest-performing neural network configuration combined StandardScaler preprocessing, a 64 → 32 → 16 architecture, Sigmoid activation functions, RMSProp optimization, 125 training epochs, and no regularization.
 
-This configuration achieved the strongest overall balance of predictive accuracy, training stability, and model generalization.
+This configuration achieved the strongest overall balance of predictive accuracy, training stability, reproducibility, and model generalization across all analyses conducted within the DLWQ project.
 
 ---
 
@@ -628,9 +726,9 @@ This configuration achieved the strongest overall balance of predictive accuracy
 
 | Metric | Baseline MLP | Final Model | Improvement |
 |----------|----------:|----------:|----------:|
-| MAE | 0.5660 | 0.5453 | 3.66% |
-| RMSE | 0.7365 | 0.7035 | 4.48% |
-| Adjusted R² | 0.2924 | 0.3546 | 21.27% |
+| MAE | 0.5660 | 0.5383 | 4.89% |
+| RMSE | 0.7365 | 0.6933 | 5.87% |
+| Adjusted R² | 0.2924 | 0.3731 | 27.60% |
 
 ---
 
@@ -677,54 +775,58 @@ Measures explained variance while accounting for model complexity.
 
 # 🔍 Final Research Question
 
-> What combination of feature scaling, neural network architecture, activation function, optimizer, and regularization strategy provides the most accurate wine quality predictions for structured tabular wine data?
+> What combination of feature scaling, neural network architecture, activation function, optimizer, training duration, and regularization strategy provides the most accurate wine quality predictions for structured tabular wine data?
 
 ---
 
 ## Completed
 
-✅ Exploratory Data Analysis (EDA) <br>
-✅ Analysis 1: Baseline Neural Network Performance <br>
-✅ Analysis 2: Feature Scaling Comparison <br>
-✅ Analysis 3: Activation Function Comparison <br>
-✅ Analysis 4: Architecture Comparison <br>
-✅ Analysis 5: Epoch Optimization <br>
-✅ Analysis 6: Optimizer Benchmarking <br>
-✅ Analysis 7: Regularization and Generalization <br>
+✅ Exploratory Data Analysis (EDA)  
+✅ Analysis 1: Baseline Neural Network Performance  
+✅ Analysis 2: Feature Scaling Comparison  
+✅ Analysis 3: Activation Function Comparison  
+✅ Analysis 4: Architecture Comparison  
+✅ Analysis 5: Epoch Optimization  
+✅ Analysis 6: Optimizer Benchmarking  
+✅ Analysis 7: Regularization and Generalization  
 ✅ Analysis 8: Final Model Selection
+
+---
 
 # 📌 Final Project Outcome
 
 After completing eight experimental analyses, the recommended deep learning model for wine quality prediction is:
 
 ```text
-MinMaxScaler
+MLP
+→ StandardScaler
 → 64 → 32 → 16 Neural Network
-→ ReLU Activation
+→ Sigmoid Activation
 → RMSProp Optimizer
-→ 75 Epochs
-→ L2 (0.001) Regularization
+→ 125 Epochs
+→ No Regularization (Baseline)
+→ SEED = 42
 ```
 
 ## Final Performance
 
 | Metric | Value |
 |----------|------:|
-| MAE | 0.5453 |
-| RMSE | 0.7035 |
-| Adjusted R² | 0.3546 |
-| Generalization Gap | -0.0203 |
+| MAE | 0.5383 |
+| RMSE | 0.6933 |
+| Adjusted R² | 0.3731 |
+| Generalization Gap | -0.0003 |
 
-This configuration achieved the strongest overall balance of predictive accuracy, convergence stability, and generalization performance across all deep learning experiments conducted within the DLWQ project.
+This configuration achieved the strongest overall balance of predictive accuracy, training stability, reproducibility, and model generalization across all analyses conducted within the DLWQ project.
 
 ---
 
 # 🚀 Next Steps
 
-- Final written project report
 - Executive presentation slides
 - GitHub repository publication
 - Portfolio project showcase
-  
+
+---
 
 # End of README
