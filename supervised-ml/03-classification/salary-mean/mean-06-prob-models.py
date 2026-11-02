@@ -58,6 +58,19 @@ from sklearn.naive_bayes import GaussianNB, MultinomialNB, BernoulliNB
 
 sns.set(style="whitegrid", context="talk")
 
+import os
+import random
+import numpy as np
+import tensorflow as tf
+
+SEED = 42
+
+os.environ["PYTHONHASHSEED"] = str(SEED)
+
+random.seed(SEED)
+np.random.seed(SEED)
+tf.random.set_seed(SEED)
+
 # =========================================================
 # 1. Load Data
 # =========================================================
