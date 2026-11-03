@@ -66,6 +66,24 @@ The dataset contains 5,320 wine observations consisting of physicochemical measu
 
 ---
 
+## **📘 Dataset**
+
+**UCI Wine Quality Dataset**
+
+Physicochemical measurements for red and white Portuguese Vinho Verde wines.
+
+### **Citation**
+
+Cortez, P., Cerdeira, A., Almeida, F., Matos, T., & Reis, J. (2009).
+
+*Wine Quality Dataset.*
+
+UCI Machine Learning Repository.
+
+DOI: https://doi.org/10.24432/C56S3T
+
+---
+
 ## Features
 
 - Fixed Acidity
