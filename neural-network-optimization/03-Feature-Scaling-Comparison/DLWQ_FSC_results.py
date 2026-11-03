@@ -53,6 +53,12 @@ mms = pd.read_csv(
     results_dir / "minmaxscaler_results.csv"
 )
 
+for df in [ns, ss, mms]:
+    df["Scaling_Method"] = (
+        df["Scaling_Method"]
+        .str.replace("_", " ")
+    )
+
 # ==========================================
 # Load Training Histories
 # ==========================================
