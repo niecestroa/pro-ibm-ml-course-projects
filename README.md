@@ -1,5 +1,7 @@
 # 📘 Professional IBM Machine Learning Course Projects  
 
+> Professional machine learning portfolio built while completing the IBM Machine Learning Professional Certificate. Each project has been expanded beyond the coursework requirements into a production-oriented machine learning workflow emphasizing reproducibility, engineering best practices, and model evaluation.
+
 - **Created:** August 25, 2026  
 - **Updated:** Today
 - **Progress:** Ongoing  
@@ -15,14 +17,42 @@ The repo includes:
 - Deep Learning & Reinforcement Learning  
 - Capstone Project  
 
-All projects follow a consistent structure emphasizing:
 
-- modular scripts  
-- reproducible workflows  
-- robust evaluation  
-- feature engineering  
-- model comparison  
-- production‑aligned ML practices  
+---
+
+# Professional Engineering Standards
+
+All projects follow software engineering and machine learning best practices:
+
+- Modular project structure
+- Reproducible experimentation
+- Version control with Git/GitHub
+- Feature engineering pipelines
+- Cross-validation workflows
+- Hyperparameter optimization
+- Model benchmarking
+- Statistical performance evaluation
+- Data leakage prevention
+- Automated preprocessing pipelines
+- Comprehensive documentation
+
+---
+
+# Portfolio Purpose
+
+This repository serves as a comprehensive record of my machine learning development journey while demonstrating practical skills in data preparation, exploratory analysis, supervised learning, unsupervised learning, deep learning, and model deployment.
+
+The repository continues to evolve as additional projects, deployment solutions, explainability techniques, and MLOps integrations are incorporated.
+
+---
+
+# Overview
+
+This repository documents my progression through the IBM Machine Learning Professional Certificate while extending each course assignment into a professional machine learning project.
+
+Rather than submitting notebook-only solutions, every project is reconstructed as a reproducible machine learning pipeline featuring data validation, feature engineering, model comparison, hyperparameter tuning, and performance evaluation.
+
+The goal is to demonstrate practical machine learning engineering skills that align with real-world industry workflows.
 
 ---
 
@@ -51,7 +81,7 @@ All projects follow a consistent structure emphasizing:
 ## **00 — Cleaning Data**  
 - **Started:** September 9, 2026  
 - **Last Edited:** September 28, 2026  
-- **Progress:** **Completed**  
+- **Progress:** **Complete**  
 - **Notes:**  
   - All Kaggle salary datasets merged, normalized, deduplicated, and exported.  
   - Foundation for Projects 01–03.
@@ -62,7 +92,7 @@ All projects follow a consistent structure emphasizing:
 *(Regression & Classification)*  
 - **Started:** September 9, 2026  
 - **Last Edited:** September 14, 2026  
-- **Progress:** **Completed**  
+- **Progress:** **Complete**  
 - **Datasets Used:** Kaggle Data Science Job Salaries (multiple sources)  
 - **Notes:**  
   - Numeric + categorical summaries  
@@ -74,10 +104,10 @@ All projects follow a consistent structure emphasizing:
 
 ---
 
-## **03 — Supervised Machine Learning: Regression**  
+## **02 — Supervised Machine Learning: Regression**  
 - **Started:** September 17, 2026  
 - **Last Edited:** September 23, 2026  
-- **Progress:** **Completed**  
+- **Progress:** **Complete**  
 - **Datasets Used:** Kaggle Data Science Job Salaries  
 - **Notes:**  
   - Models: Linear Regression, Ridge, Lasso, Decision Tree, Random Forest, Gradient Boosting  
@@ -89,7 +119,7 @@ All projects follow a consistent structure emphasizing:
 ## **03 — Supervised Machine Learning: Classification**  
 - **Started:** September 28, 2026  
 - **Last Edited:** October 3, 2026  
-- **Progress:** **Completed**  
+- **Progress:** **Complete**  
 - **Datasets Used:** Kaggle Data Science Job Salaries  
 - **Notes:**  
   - Targets: `salary_mean_cat`, `salary_median_cat`  
@@ -101,7 +131,7 @@ All projects follow a consistent structure emphasizing:
 ## **04 — Unsupervised Machine Learning**  
 - **Started:** October 19, 2026  
 - **Last Edited:** October 30, 2026  
-- **Progress:** **Completed**  
+- **Progress:** **Complete**  
 - **Dataset Used:** UCI Wine Quality Dataset  
 - **Notes:**  
   - Primary project: **Wine Quality Unsupervised ML Pipeline**  
@@ -117,7 +147,7 @@ All projects follow a consistent structure emphasizing:
 ## **05 — Deep Learning and Reinforcement Learning**  
 - **Started:** October 31, 2026  
 - **Last Edited:** November 4, 2026  
-- **Progress:** **Completed**  
+- **Progress:** **Complete**  
 - **Datasets:** TBD  
 - **Notes:**  
   - Neural networks (dense, CNN, RNN)  
@@ -129,9 +159,9 @@ All projects follow a consistent structure emphasizing:
 ---
 
 ## **06 — Machine Learning Capstone**  
-- **Started:** November __, 2026  
-- **Last Edited:** December __, 2026  
-- **Progress:** **Not Started**  
+- **Started:** November 4, 2026  
+- **Last Edited:** November 10, 2026  
+- **Progress:** **Complete**  
 - **Datasets:** TBD  
 - **Notes:**  
   - Unified ML pipeline combining Courses 1–5  
@@ -264,15 +294,57 @@ Evaluation:
 
 ---
 
-# **Cross‑Language Implementation**
+# Technologies Used
 
-| Component | Python | R |
-|----------|--------|---|
-| EDA | pandas, seaborn | tidyverse, ggplot2 |
-| Regression | scikit‑learn | caret |
-| Classification | scikit‑learn | caret |
-| Pipelines | sklearn Pipeline | modular scripts |
-| Evaluation | sklearn metrics | caret metrics |
+## Languages
+- Python
+- R (optional)
+
+## Core Libraries
+- pandas
+- NumPy
+- matplotlib
+- seaborn
+- scikit-learn
+- TensorFlow / Keras
+- XGBoost
+- imbalanced-learn
+
+## Unsupervised Learning
+- PCA
+- t-SNE
+- UMAP
+- K-Means
+- Gaussian Mixture Models
+- DBSCAN
+- Agglomerative Clustering
+
+## Deep Learning
+- TensorFlow
+- Keras
+
+## Deployment & MLOps (Planned)
+- Streamlit
+- FastAPI
+- GitHub Actions
+- Docker
+
+---
+
+# Key Learning Outcomes
+
+Throughout this repository I have implemented:
+
+- End-to-end supervised learning pipelines
+- Classification and regression workflows
+- Ensemble learning methods
+- Clustering and dimensionality reduction
+- Neural network architectures
+- Reinforcement learning foundations
+- Automated hyperparameter tuning
+- Feature engineering strategies
+- Model evaluation and comparison frameworks
+- Reproducible machine learning workflows
 
 ---
 
