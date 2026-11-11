@@ -3,8 +3,8 @@
 > Professional machine learning portfolio built while completing the IBM Machine Learning Professional Certificate. Each project has been expanded beyond the coursework requirements into a production-oriented machine learning workflow emphasizing reproducibility, engineering best practices, and model evaluation.
 
 - **Created:** August 25, 2026  
-- **Updated:** Today
-- **Progress:** Ongoing  
+- **Updated:** November 10, 2026
+- **Progress:** Complete
 
 This repository contains **professional, production‑ready machine learning pipelines** derived from the IBM/Coursera Machine Learning Professional Certificate (Courses 1–6). Each academic assignment has been rebuilt into a **modular, reproducible, engineering‑aligned workflow** using Python (and optional R).
 
