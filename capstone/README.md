@@ -1,6 +1,6 @@
 # **06 — Machine Learning Capstone**
 
-- **Status:** Complete
+- **Progress:** Complete
 - **Last Updated:** November 10, 2026
 
 ---
@@ -27,11 +27,13 @@ The project focuses on building and evaluating personalized online course recomm
 
 ## **📊 Dataset Summary**
 
+
 - 233,306 course ratings
 - 33,901 users
-- Course metadata including genres and content features
-- User profile and interaction data
-- Course similarity and embedding datasets
+- 126 courses
+- Course genre and content features
+- User enrollment histories
+- Learned user and course embeddings
 
 ---
 
@@ -97,13 +99,20 @@ Completed analyses include:
 - RMSE: 0.4219
 - Best-performing recommendation model
 
+### Embedding-Based Regression
+
+- Best Model: Lasso Regression
+- RMSE: 0.8170
+
 ---
 
 ## **🏆 Final Conclusion**
 
-Neural Collaborative Filtering achieved the strongest overall performance and produced the most accurate rating predictions among all evaluated approaches.
+Multiple recommendation approaches were developed and evaluated, including content-based filtering, clustering, collaborative filtering, matrix factorization, and neural network models.
 
-Content-based filtering and clustering methods effectively generated personalized recommendations, while neural network embeddings provided the most accurate representation of user-course relationships.
+Neural Collaborative Filtering achieved the strongest overall performance, producing the lowest RMSE (0.4219) and outperforming content-based, clustering, regression, NMF, and traditional collaborative-filtering approaches.
+
+These results demonstrate the effectiveness of learned user and course embeddings for personalized recommendation systems.
 
 ---
 
@@ -138,7 +147,3 @@ Content-based filtering and clustering methods effectively generated personalize
 
 GitHub:
 https://github.com/niecestroa/pro-ibm-ml-course-projects/tree/main/capstone
-
----
-
-# **(End of README)**
