@@ -1,4 +1,6 @@
-# 📘 Professional IBM Machine Learning Course Projects  
+# 📘 Professional IBM Machine Learning Course Projects 
+
+🎓 IBM Machine Learning Professional Certificate Portfolio
 
 > Professional machine learning portfolio built while completing the IBM Machine Learning Professional Certificate. Each project has been expanded beyond the coursework requirements into a production-oriented machine learning workflow emphasizing reproducibility, engineering best practices, and model evaluation.
 
@@ -42,17 +44,25 @@ All projects follow software engineering and machine learning best practices:
 
 This repository serves as a comprehensive record of my machine learning development journey while demonstrating practical skills in data preparation, exploratory analysis, supervised learning, unsupervised learning, deep learning, and model deployment.
 
-The repository continues to evolve as additional projects, deployment solutions, explainability techniques, and MLOps integrations are incorporated.
+The IBM Machine Learning Professional Certificate has been completed. Future enhancements will focus on deployment, explainability, MLOps, and productionization of selected projects.
+
+## Professional Certificate Summary
+
+Completed the IBM Machine Learning Professional Certificate, covering exploratory data analysis, supervised learning, unsupervised learning, deep learning, recommendation systems, and machine learning engineering best practices through six progressively advanced projects.
 
 ---
 
 # Overview
 
-This repository documents my progression through the IBM Machine Learning Professional Certificate while extending each course assignment into a professional machine learning project.
+This repository contains six end-to-end machine learning projects completed as part of the IBM Machine Learning Professional Certificate. Each project was expanded beyond the coursework requirements into a reproducible, engineering-focused machine learning workflow.
 
-Rather than submitting notebook-only solutions, every project is reconstructed as a reproducible machine learning pipeline featuring data validation, feature engineering, model comparison, hyperparameter tuning, and performance evaluation.
+## Repository Highlights
 
-The goal is to demonstrate practical machine learning engineering skills that align with real-world industry workflows.
+- 6 completed machine learning projects
+- Multiple real-world datasets
+- Supervised, unsupervised, and deep learning workflows
+- Recommendation systems and neural collaborative filtering
+- Production-oriented project structure
 
 ---
 
@@ -61,7 +71,7 @@ The goal is to demonstrate practical machine learning engineering skills that al
 1. [Project Timeline](#project-timeline)  
    - [00 — Cleaning Data](#00--cleaning-data)  
    - [01 — Exploratory Data Analysis (EDA)](#01--exploratory-data-analysis-eda)  
-   - [02 — Supervised ML: Regression](#03---supervised-machine-learning-regression)  
+   - [02 — Supervised ML: Regression](#02---supervised-machine-learning-regression)  
    - [03 — Supervised ML: Classification](#03---supervised-machine-learning-classification)  
    - [04 — Unsupervised Machine Learning](#04--unsupervised-machine-learning)  
    - [05 — Deep Learning & Reinforcement Learning](#05--deep-learning-and-reinforcement-learning)  
@@ -148,7 +158,7 @@ The goal is to demonstrate practical machine learning engineering skills that al
 - **Started:** October 31, 2026  
 - **Last Edited:** November 4, 2026  
 - **Progress:** **Complete**  
-- **Datasets:** TBD  
+- **Datasets:** UCI Wine Quality Dataset 
 - **Notes:**  
   - Neural networks (dense, CNN, RNN)  
   - TensorFlow/Keras pipelines  
@@ -159,15 +169,23 @@ The goal is to demonstrate practical machine learning engineering skills that al
 ---
 
 ## **06 — Machine Learning Capstone**  
-- **Started:** November 4, 2026  
-- **Last Edited:** November 10, 2026  
-- **Progress:** **Complete**  
-- **Datasets:** TBD  
-- **Notes:**  
-  - Unified ML pipeline combining Courses 1–5  
-  - End‑to‑end engineering: ingestion → preprocessing → modeling → evaluation → deployment  
-  - Optional MLOps integration (CI/CD, model registry, monitoring)  
-  - Final professional project demonstrating full ML lifecycle  
+- **Started:** November 4, 2026
+- **Completed:** November 10, 2026
+- **Progress:** **Complete**
+- **Datasets:**
+  - ratings.csv
+  - course_genres.csv
+  - course_embeddings.csv (generated)
+  - user_embeddings.csv (generated)
+- **Notes:**
+   - Integrated concepts and techniques from Courses 1–5 into a comprehensive capstone project.
+   - Performed exploratory data analysis on 233,306 ratings from 33,901 learners across 126 courses.
+   - Developed content-based, clustering-based, and collaborative filtering recommendation systems.
+   - Implemented KNN, NMF, Neural Collaborative Filtering, Regression, and Classification models.
+   - Applied PCA, K-Means clustering, embedding learning, hyperparameter tuning, and model evaluation.
+   - Compared recommendation models using RMSE and identified Neural Collaborative Filtering as the top-performing approach.
+   - Demonstrated the complete machine learning lifecycle from data exploration through recommendation generation and model evaluation.
+
 
 ---
 
@@ -286,11 +304,18 @@ Evaluation:
 
 ---
 
-## **6. Capstone Project**  
-- unified ML pipeline  
-- explainability (SHAP, LIME)  
-- deployment (Flask/FastAPI/Streamlit)  
-- optional MLOps  
+## 6. Capstone Project
+
+- exploratory data analysis
+- content-based recommendation systems
+- clustering-based recommendation systems
+- collaborative filtering (KNN)
+- matrix factorization (NMF)
+- neural collaborative filtering
+- embedding-based regression
+- embedding-based classification
+- recommendation model benchmarking
+- end-to-end recommendation pipeline development
 
 ---
 
@@ -323,11 +348,13 @@ Evaluation:
 - TensorFlow
 - Keras
 
-## Deployment & MLOps (Planned)
-- Streamlit
-- FastAPI
-- GitHub Actions
-- Docker
+## Recommendation Systems
+- Content-Based Filtering
+- Collaborative Filtering
+- K-Nearest Neighbors (KNN)
+- Non-Negative Matrix Factorization (NMF)
+- Neural Collaborative Filtering
+- Embedding Learning
 
 ---
 
@@ -345,6 +372,10 @@ Throughout this repository I have implemented:
 - Feature engineering strategies
 - Model evaluation and comparison frameworks
 - Reproducible machine learning workflows
+- Recommendation system design and evaluation
+- Neural collaborative filtering
+- Embedding-based feature learning
+- Matrix factorization techniques
 
 ---
 
@@ -361,10 +392,11 @@ Throughout this repository I have implemented:
 
 # **Future Work**
 
-- build unified pipeline across all 6 courses  
-- add explainability (SHAP, LIME)  
-- deploy selected models  
-- integrate MLOps  
+- deploy recommendation systems using Streamlit
+- add explainability techniques (SHAP, LIME)
+- implement model monitoring and MLOps workflows
+- experiment with transformer-based recommendation systems
+- integrate cloud deployment solutions
 
 ---
 
