@@ -13,7 +13,7 @@ The supervised‑ML module includes:
 Each stage is documented with its own README and follows a consistent engineering structure.
 
 - **Modules:** Data • EDA • Regression • Classification  
-- **Status:** Completed  
+- **Progress:** Complete  
 - **Last Updated:** October 2, 2026
 
 ---
