@@ -2,8 +2,8 @@
 
 ### IBM Machine Learning Professional Certificate
 
-**Project Status: Completed**  
-**Last Updated:** November 3, 2026
+**Status: Complete**  
+**Last Updated:** November 4, 2026
 
 ---
 
