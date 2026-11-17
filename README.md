@@ -64,6 +64,39 @@ This repository contains six end-to-end machine learning projects completed as p
 - Recommendation systems and neural collaborative filtering
 - Production-oriented project structure
 
+## Installation
+
+```bash
+git clone https://github.com/niecestroa/pro-ibm-ml-course-projects.git
+
+cd pro-ibm-ml-course-projects
+
+pip install -r requirements.txt
+```
+
+## Skills Demonstrated
+
+- Data Cleaning
+- Exploratory Data Analysis (EDA)
+- Feature Engineering
+- Regression Modeling
+- Classification Modeling
+- Clustering & Dimensionality Reduction
+- Deep Learning
+- Recommendation Systems
+- Hyperparameter Tuning
+- Cross Validation
+- Model Evaluation
+- Machine Learning Pipelines
+- Python
+- Scikit-Learn
+- TensorFlow
+- XGBoost
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
+
 ---
 
 # 📑 Table of Contents
